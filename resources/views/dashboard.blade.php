@@ -302,7 +302,7 @@ document.querySelector('a[href="#choose"]').addEventListener('click', function (
 
 
 <div class="container mx-auto px-4 3xl:px-8 py-8 mt-20">
-    <div class="grid grid-cols-4 gap-6">
+    <div class="grid grid-cols-3 gap-6">
         @foreach ($konsers as $knsr)
             <div class="m-4 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
                 <!-- Menampilkan gambar -->
