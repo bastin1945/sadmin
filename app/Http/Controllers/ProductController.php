@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order;
+use App\Models\tiket;
 use App\Models\konser;
 use Illuminate\Http\Request;
 
@@ -26,9 +28,21 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    
+
     public function store(Request $request)
     {
-        //
+        order::create([
+            
+            'user_id' => auth()->id(),
+            'tiket_id' => $request->tiket_id,
+            'jumlah_tiket' => $request->jumlah_tiket,
+            'harga_total' => $request->harga_total,
+            'promo' => $request->promo ?? '',
+            
+        ]);
+
+        
     }
 
     /**
@@ -49,6 +63,8 @@ class ProductController extends Controller
     public function buy($id)
     {
         $konser = Konser::with('tiket')->findOrFail($id);
+        
+
         //  dd($konser->toArray());
         return view('product.buy', compact('konser'));
     }

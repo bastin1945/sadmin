@@ -39,6 +39,7 @@ Route::get('/detail', function () {
 Route::get('/product', [ProductController::class, 'index'])->name('product.index');
 Route::get('/productbuy/{id}', [ProductController::class, 'buy'])->name('productbuy');
 Route::resource('/product',ProductController::class);
+
 Route::get('/lainya',[LainyaController::class,'index'])->name('lainya.index');
 
 
