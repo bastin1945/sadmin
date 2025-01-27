@@ -38,7 +38,6 @@
                     </div>
                 </div>
             </div>
-        </form>
     </div>
 
     <!-- Bagian Kanan -->
@@ -99,6 +98,8 @@
         </div>
         <button type="submit" class="mt-4 w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-indigo-700">Bayar Sekarang</button>
     </div>
+        </form>
+
 </div>
 
 <script>
