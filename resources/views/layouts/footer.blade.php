@@ -1,9 +1,4 @@
-<!--
-  Heads up! 👋
 
-  Plugins:
-    - @tailwindcss/forms
--->
     <style>
        .bg-gradient {
     background: linear-gradient(to right, indigo, black);

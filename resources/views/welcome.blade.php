@@ -241,25 +241,35 @@ nav {
   border: 1px solid var(--white);
   border-radius: 100%;
 }
-
+/* Styling untuk container utama */
 .choose__container {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr; /* Membagi menjadi dua kolom, satu untuk gambar dan satu untuk konten */
+  gap: 3rem; /* Memberikan jarak antar kolom */
   align-items: center;
 }
 
-.choose__container .choose__bg {
-  position: absolute;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-3rem);
-  max-width: 300px;
-  opacity: 0.4;
-  z-index: -1;
+/* Gambar bagian choose */
+.choose__image {
+  display: flex;
+  justify-content: flex-start; /* Menempatkan gambar ke kiri */
+  margin-right: 2rem; /* Memberikan jarak antara gambar dan konten teks */
 }
 
+.choose__image img {
+  max-width: 500px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling untuk konten bagian choose */
+.choose__content {
+  margin-left: 2rem; /* Memberikan jarak antara teks dan gambar */
+}
+
+/* Styling untuk grid dalam bagian choose */
 .choose__grid {
   margin-top: 2rem;
   display: grid;
@@ -267,6 +277,7 @@ nav {
   gap: 2rem 1rem;
 }
 
+/* Styling untuk kartu */
 .choose__card span {
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -286,13 +297,6 @@ nav {
 
 .choose__card p {
   color: var(--text-light);
-}
-
-.choose__image img {
-  max-width: 500px;
-  margin: auto;
-  border-radius: 10px;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .offer__container {
@@ -439,59 +443,91 @@ nav {
 .modern__container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  gap: 10rem;
 }
 
-.modern__image {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  height: 100%;
-  min-height: 470px;
-  margin: auto;
+.ticket-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 5%;
+  gap: 3rem;
 }
 
-.modern__image img {
-  display: block;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk efek membesar */
+.ticket-content {
+  flex: 1;
+  max-width: 50%;
+  margin-left:120px;
 }
 
-.modern__image img:hover {
-  transform: scale(1.2); /* Membesarkan gambar */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan untuk efek dramatis */
-  z-index: 1; /* Pastikan gambar terdepan saat di-hover */
+.ticket-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 30px;
 }
+
+.ticket-highlight {
+  color: #3b82f6; /* Warna biru untuk kata "Terbaik!" */
+}
+
+.ticket-features {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ticket-feature-left {
+  width: 60%; /* Kolom kiri dengan 3 fitur */
+}
+
+.ticket-feature-right {
+  width: 35%; /* Kolom kanan dengan 2 fitur */
+}
+
+.ticket-feature {
+  margin-bottom: 20px;
+}
+
+.ticket-checkmark {
+  color: blue;
+  margin-right: 10px;
+}
+
+
+
+.ticket-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ticket-img {
+  width: 150%; /* Lebih besar dari area normal */
+  max-width: 1000px; /* Ukuran maksimum lebih besar */
+  height: auto;
+  transform: scale(1.4); /* Memperbesar gambar */
+  margin-right: 150px; /* Menambah jarak ke kanan */
+}
+
+
+
 
 .modern__bg {
   position: absolute;
-  max-width: 200px;
   right: 0;
   top: -4rem;
   opacity: 0.5;
 }
 
-.modern__img-1,
-.modern__img-2,
-.modern__img-3 {
+.modern__img-1 {
   position: absolute;
   border-radius: 10px;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .modern__img-1 {
-  max-width: 375px;
+  max-width: 900px;
 }
 
-.modern__img-2 {
-  max-width: 175px;
-  right: 0;
-}
-
-.modern__img-3 {
-  max-width: 250px;
-  right: 0;
-  bottom: -2rem;
-}
 
 .modern__grid {
   margin-block: 2rem;
@@ -512,49 +548,6 @@ nav {
 }
 
 .modern__card p {
-  color: var(--text-light);
-}
-
-.testimonial__container .section__header {
-  text-align: center;
-}
-
-.swiper {
-  margin-top: 2rem;
-  padding-bottom: 2rem;
-  width: 100%;
-}
-
-.testimonial__card {
-  max-width: 900px;
-  margin: auto;
-  padding: 1rem;
-  text-align: center;
-}
-
-.testimonial__card p {
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  color: var(--text-dark);
-}
-
-.testimonial__card img {
-  max-width: 60px;
-  margin-inline: auto;
-  margin-bottom: 1rem;
-  border-radius: 100%;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-.testimonial__card h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-dark);
-}
-
-.testimonial__card h5 {
-  font-size: 1rem;
-  font-weight: 500;
   color: var(--text-light);
 }
 
@@ -2197,8 +2190,34 @@ font-size: var(--normal-font-size);
       <a href="#choose"><i class="ri-arrow-down-double-line"></i></a>
     </div>
 
+    <section class="offer__container" id="offer">
+      <div class="offer__grid__top">
+        <img src="assets/konser7.jpg" alt="offer" />
+        <img src="assets/konser5.jpg" alt="offer" />
+        <img src="assets/konser6.jpg" alt="offer" />
+
+        <div class="offer__content">
+          <h2 class="section__header">Jelajahi Konser</h2>
+          <p class="section__subheader">
+            Eksplor tiket konsermu sekarang hanya di vibestix
+
+          </p>
+
+        </div>
+      </div>
+      <div class="offer__grid__bottom">
+        <img src="assets/konser1.jpg" alt="offer" />
+        <img src="assets/konser3.jpg" alt="offer" />
+        <img src="assets/konser2.jpg" alt="offer" />
+        <img src="assets/konser4.jpg" alt="offer" />
+        
+      </div>
+    </section>
+
     <section class="section__container choose__container" id="choose">
-      <img class="choose__bg" src="assets/3.png" alt="bg" />
+    <div class="choose__image">
+        <img src="assets/1.jpg" alt="choose" />
+      </div>
       <div class="choose__content">
         <h2 class="section__header">Vibestix</h2>
         <p class="section__subheader">
@@ -2238,156 +2257,50 @@ font-size: var(--normal-font-size);
           </div>
         </div>
       </div>
-      <div class="choose__image">
-        <img src="assets/1.jpg" alt="choose" />
-      </div>
     </section>
 
-    <section class="offer__container" id="offer">
-      <div class="offer__grid__top">
-        <img src="assets/konser7.jpg" alt="offer" />
-        <img src="assets/konser5.jpg" alt="offer" />
-        <img src="assets/konser6.jpg" alt="offer" />
 
-        <div class="offer__content">
-          <h2 class="section__header">Jelajahi Konser</h2>
-          <p class="section__subheader">
-            Eksplor tiket konsermu sekarang hanya di vibestix
 
-          </p>
 
+
+    <section class="ticket-section">
+  <div class="ticket-content">
+    <h2 class="ticket-title">
+      Aplikasi Pembelian Tiket <br><span class="ticket-highlight">Terbaik !</span>
+    </h2>
+    <div class="ticket-features">
+      <div class="ticket-feature-left">
+        <div class="ticket-feature">
+          <span class="ticket-checkmark">✔</span> <strong>Akses Eksklusif</strong>
+          <p>Tiket presale dan early bird tersedia hanya untuk Anda.</p>
+        </div>
+        <div class="ticket-feature">
+          <span class="ticket-checkmark">✔</span> <strong>Pilihan Lengkap</strong>
+          <p>Dari tiket reguler hingga VIP, semuanya transparan tanpa biaya tersembunyi.</p>
+        </div>
+        <div class="ticket-feature">
+          <span class="ticket-checkmark">✔</span> <strong>Aman dan Terpercaya</strong>
+          <p>Semua tiket 100% resmi, dengan pembayaran terenkripsi.</p>
         </div>
       </div>
-      <div class="offer__grid__bottom">
-        <img src="assets/konser1.jpg" alt="offer" />
-        <img src="assets/konser3.jpg" alt="offer" />
-        <img src="assets/konser2.jpg" alt="offer" />
-        <img src="assets/konser4.jpg" alt="offer" />
-        
-      </div>
-    </section>
-
-
-
-    <section class="section__container modern__container" id="modern">
-      <div class="modern__image">
-        <img src="assets/bernadya.jpg" alt="modern" class="modern__img-1" />
-        <img src="assets/penonton.jpg" alt="modern" class="modern__img-2" />
-        <img src="assets/slipknot.jpg" alt="modern" class="modern__img-3" />
-      </div>
-      <div class="modern__content">
-        <h2 class="section__header">
-            Kami Membantu Anda Menikmati Pengalaman Musik Live Terbaik
-
-        </h2>
-        <p class="section__subheader">
-            Hadirkan Momen Tak Terlupakan dengan Vibestix – Aplikasi Pembelian Tiket Konser Terbaik Anda.
-            Jadikan impian Anda menonton konser dan festival musik favorit menjadi kenyataan bersama kami.
-
-        </p>
-        <div class="modern__grid">
-          <div class="modern__card">
-            <span><i class="ri-checkbox-blank-circle-line"></i></span>
-            <p>
-                Temukan Konser Idaman Anda
-                Kami menyediakan tiket untuk berbagai konser dan festival musik terkini, dari artis lokal hingga internasional.
-
-            </p>
-          </div>
-          <div class="modern__card">
-            <span><i class="ri-checkbox-blank-circle-line"></i></span>
-            <p>
-                Pengalaman Pemesanan yang Mudah dan Cepat
-                Akses fitur pencarian yang disesuaikan dengan genre atau artis favorit Anda, sehingga Anda tidak akan melewatkan konser impian.
-
-            </p>
-          </div>
-          <div class="modern__card">
-            <span><i class="ri-checkbox-blank-circle-line"></i></span>
-            <p>
-                Selalu Terdepan dengan Informasi Terbaru
-                Dapatkan pemberitahuan tentang jadwal konser terbaru, penawaran eksklusif, dan tiket early bird untuk menikmati pengalaman terbaik.
-
-            </p>
-          </div>
-          <div class="modern__card">
-            <span><i class="ri-checkbox-blank-circle-line"></i></span>
-            <p>
-                Lebih dari Sekadar Tiket
-                Nikmati kemudahan mulai dari pembelian tiket hingga berbagai keuntungan eksklusif, seperti tiket reguler dan akses VIP.
-
-            </p>
-          </div>
+      <div class="ticket-feature-right">
+        <div class="ticket-feature">
+          <span class="ticket-checkmark">✔</span> <strong>Update Real-Time</strong>
+          <p>Update jadwal konser secara langsung.</p>
+        </div>
+        <div class="ticket-feature">
+          <span class="ticket-checkmark">✔</span> <strong>Mudah Digunakan</strong>
+          <p>Pesan tiket dalam hitungan menit, kapan saja dan di mana saja.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+  <div class="ticket-image">
+    <img src="assets/komputer.png" alt="modern" class="ticket-img" />
+  </div>
+</section>
 
-    <section class="section__container testimonial__container" id="testimonial">
-      <h2 class="section__header">Testimonials</h2>
-      <!-- Slider main container -->
-      <div class="swiper">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-          <!-- Slides -->
-          <div class="swiper-slide">
-            <div class="testimonial__card">
-              <p>
-                Luar biasa! Dengan Vibestix, saya tidak pernah ketinggalan konser favorit saya. Proses pembelian tiketnya sangat mudah, dan saya langsung mendapatkan notifikasi ketika ada acara baru. Aplikasi ini benar-benar mengubah cara saya menikmati musik live."
-                - Andi Pratama, Pecinta Musik dan Festival Enthusiast
 
-              </p>
-              <img src="assets/profile-pic-1.jpg" alt="testimonial" />
-              <h4>Sam William</h4>
-              <h5>CEO, Co-Founder</h5>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial__card">
-              <p>
-                I hired them to revamp our office space, and the results
-                exceeded my expectations. Their innovative design concepts
-                breathed new life into our workplace, making it both functional
-                and stylish. The team's attention to detail and commitment to
-                quality are truly commendable.
-              </p>
-              <img src="assets/profile-pic-2.jpg" alt="testimonial" />
-              <h4>Michelle Anna</h4>
-              <h5>Office Renovator</h5>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial__card">
-              <p>
-                I had a vision of a minimalist-inspired home, and they brought
-                it to life flawlessly. Their designers understood my aesthetic
-                and incorporated sleek, clean lines, and a neutral color palette
-                to create a serene oasis. I'm in love with my modern,
-                clutter-free space!
-              </p>
-              <img src="assets/profile-pic-3.jpg" alt="testimonial" />
-              <h4>John D'souza</h4>
-              <h5>Banker</h5>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial__card">
-              <p>
-                What sets them apart is their professionalism and efficiency.
-                They made the entire design process hassle-free, from the
-                initial consultation to the final installation. Their team
-                handled everything, leaving me with a beautifully designed
-                modern interior
-              </p>
-              <img src="assets/profile-pic-4.jpg" alt="testimonial" />
-              <h4>David Laid</h4>
-              <h5>Businessman</h5>
-            </div>
-          </div>
-        </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
-      </div>
-    </section>
 
     <section class="section__container blog_container" id="blog">
       <h2 class="section__header">Recent Blog</h2>
@@ -2412,33 +2325,6 @@ font-size: var(--normal-font-size);
       </div>
     </section>
 
-    <footer class="footer">
-      <div class="section__container footer__container">
-        <div class="footer__content">
-          <h4>YANG SEMANGAT DONG YANG SEMANGAT DONG</h4>
-          <p>
-            Mini ku kerjakan gacoan ku budhalkan. Angzayy
-          </p>
-        </div>
-        <div class="footer__form">
-          <form action="/">
-            <input type="text" placeholder="Enter your email" />
-            <button>Subscribe</button>
-          </form>
-        </div>
-      </div>
-      <div class="section__container footer__bar">
-        <div class="footer__logo">
-          <h4><a href="#">TimMini</a></h4>
-          <p>Copyright © 2023 Web Design Mastery. All rights reserved.</p>
-        </div>
-        <ul class="footer__nav">
-          <li class="footer__link"><a href="#">About</a></li>
-          <li class="footer__link"><a href="#">Partnership</a></li>
-          <li class="footer__link"><a href="#">Privacy Policy</a></li>
-        </ul>
-      </div>
-    </footer>
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
