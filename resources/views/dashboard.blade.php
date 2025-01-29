@@ -144,6 +144,19 @@
             width: 100%;
         }
 
+        .glass-effect {
+    background: rgba(255, 255, 255, 0.1); /* Transparan dengan warna dasar */
+    backdrop-filter: blur(10px); /* Efek blur kaca */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Border halus */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Efek bayangan lembut */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animasi pada hover */
+}
+
+.glass-effect:hover {
+    transform: scale(1.05); /* Perbesar sedikit saat hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+}
+
 
     </style>
 
@@ -345,21 +358,17 @@ document.querySelector('a[href="#choose"]').addEventListener('click', function (
 
 
 
-                    <center class="flex justify-center">
-                        <div>
-                        <a href="{{ route('lainya.index') }}" class="block">
-    <button
-        class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-9 py-3 text-center mt-10 mb-10">
-        Lihat lainnya
-    </button>
-</a>
+<center class="flex justify-center">
+    <div>
+        <a href="{{ route('lainya.index') }}" class="block">
+            <button
+                class="glass-effect w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-9 py-3 text-center mt-10 mb-10">
+                Lihat lainnya
+            </button>
+        </a>
+    </div>
+</center>
 
-
-
-
-
-
-                    </center>
 
 
 
