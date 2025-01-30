@@ -2346,3 +2346,7 @@ font-size: var(--normal-font-size);
 </script>
 
 </html>
+        <!-- Scripts -->
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+
+@extends('layouts.footer')

@@ -93,6 +93,9 @@
                             <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         <li class="cursor-pointer text-gray-800 px-4 py-2 text-sm hover:bg-gray-200 hover:rounded-lg hover:text-blue-600">
+                            <a href="{{ route('history.index') }}">History</a>
+                        </li>
+                        <li class="cursor-pointer text-gray-800 px-4 py-2 text-sm hover:bg-gray-200 hover:rounded-lg hover:text-blue-600">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="w-full text-left">Logout</button>
