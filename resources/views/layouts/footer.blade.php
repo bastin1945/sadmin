@@ -8,7 +8,7 @@
   <div class="mx-auto max-w-screen-xl px-4 pb-8 pt-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-md">
       <strong class="block text-center text-xl font-bold text-gray-900 sm:text-3xl">
-        Want us to email you with the latest blockbuster news?
+        Mau tau lebih banyak tentang kami?
       </strong>
 
       <form class="mt-6">
@@ -200,9 +200,9 @@ Follow
         <br />
 
         Created with
-        <a href="#" class="text-gray-300 underline transition hover:text-gray-700/75">Laravel</a>
+        <a href="#" class="text-gray-400 underline transition hover:text-gray-700/75">Laravel</a>
         and
-        <a href="#" class="text-gray-300 underline transition hover:text-gray-700/75"
+        <a href="#" class="text-gray-400 underline transition hover:text-gray-700/75"
           >Laravel Livewire</a
         >.
       </p>

@@ -43,6 +43,14 @@
   color: var(--text-dark);
 }
 
+.section__headeri {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--header-font);
+  color: var(--text-dark);
+}
+
 .section__subheader {
   color: var(--text-light);
 }
@@ -267,6 +275,7 @@ nav {
 /* Styling untuk konten bagian choose */
 .choose__content {
   margin-left: 2rem; /* Memberikan jarak antara teks dan gambar */
+  text-align: left;
 }
 
 /* Styling untuk grid dalam bagian choose */
@@ -458,6 +467,7 @@ nav {
   flex: 1;
   max-width: 50%;
   margin-left:120px;
+  text-align:left;
 }
 
 .ticket-title {
@@ -468,7 +478,7 @@ nav {
 }
 
 .ticket-highlight {
-  color: #3b82f6; /* Warna biru untuk kata "Terbaik!" */
+  color:rgb(0, 82, 213); /* Warna biru untuk kata "Terbaik!" */
 }
 
 .ticket-features {
@@ -2168,10 +2178,16 @@ font-size: var(--normal-font-size);
           <a href="#" class="nav__logo" style="font-family: 'Poppins', sans-serif;  font-weight: 600;  font-size: 24px; ">
               Vibestic <i class="bx bxs-home-alt-2"></i>
           </a>
-
+          <div class="mr-8">
           <!-- Themechange button -->
-          <i class="bx bx-moon change-theme" id="theme-button"></i>
+          <a href="">
+            Home
+          </a>
 
+          <a href="">
+            Jelajahi
+          </a>
+          </div>
           @if (Route::has('login'))
 
                             @auth
@@ -2186,7 +2202,7 @@ font-size: var(--normal-font-size);
                                 >
                                     Log in
                                 </a>
-                                |
+                              <div class="text-white">|</div>
                                 @if (Route::has('register'))
                                     <a
                                         href="{{ route('register') }}"
@@ -2221,7 +2237,7 @@ font-size: var(--normal-font-size);
         <img src="assets/konser6.jpg" alt="offer" />
 
         <div class="offer__content">
-          <h2 class="section__header">Jelajahi Konser</h2>
+          <h2 class="section__headeri">Jelajahi Konser</h2>
           <p class="section__subheader">
             Eksplor tiket konsermu sekarang hanya di vibestix
 
@@ -2328,7 +2344,7 @@ font-size: var(--normal-font-size);
 
 <body style="font-family: Arial, sans-serif; text-align: center; background-color: #fff; color: #333; font-size: 18px;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 30px;">
-        <h2 style="color: rgb(0, 0, 0); font-size: 32px; margin-bottom: 5px;">Keuntungan Memilih <span style="color: blue;">Vibestix</span></h2>
+    <h2 style="color: rgb(0, 0, 0); font-size: 32px; margin-bottom: 5px;">Keuntungan Memilih <span style="color: blue; font-weight: bold;">Vibestix</span></h2>
         <p style="font-size: 20px; margin-bottom: 40px;">Kami menjanjikan pengguna dengan standar 4 layanan ini</p>
         <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 30px;">
             <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
@@ -2361,20 +2377,6 @@ font-size: var(--normal-font-size);
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script src="js/main.js"></script>
   </body>
-  <script>
-  document.addEventListener('mousemove', (e) => {
-    const trail = document.createElement('div');
-    trail.className = 'trail';
-    trail.style.left = `${e.pageX}px`;
-    trail.style.top = `${e.pageY}px`;
-    document.body.appendChild(trail);
-
-    // Menghapus elemen setelah animasi selesai
-    setTimeout(() => {
-      trail.remove();
-    }, 500); // Sesuaikan durasi sesuai dengan animasi fade
-  });
-</script>
 
 </html>
         <!-- Scripts -->
