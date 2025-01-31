@@ -1,21 +1,19 @@
 
 <x-admin-layout>
-    
+
 <div class="mt-4">
     <div class="flex flex-wrap -mx-6">
         <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
             <div class="relative flex justify-between items-start px-5 py-3 shadow-sm rounded-lg bg-white">
                 <!-- Konten kiri -->
-                <div>
+                <div id="ticket-container">
                     <h5 class="mb-2 font-semibold text-gray-500">Total tiket terjual</h5>
-                    <h2 class="mb-2 text-3xl font-bold text-gray-700">40,689</h2>
+                    <h2 id="total-tickets" class="mb-2 text-3xl font-bold text-gray-700">0</h2>
                     <div class="flex items-center">
-                        <!-- SVG Icon -->
-                        <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <svg id="icon" class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path class="fill-current text-green-500" d="M24 3.875l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm0 17.125v2h-24v-22h2v20h22z"/>
                         </svg>
-                        <div class="mr-1 font-semibold text-green-500">8.5%</div>
-                        <!-- Text -->
+                        <div id="percentage" class="mr-1 font-semibold text-green-500">0%</div>
                         <div class="text-md font-semibold text-gray-500">Naik dalam 1 minggu</div>
                     </div>
                 </div>
@@ -32,16 +30,14 @@
         <div class="w-full px-6 sm:w-1/2 xl:w-1/3">
             <div class="relative flex justify-between items-start px-5 py-3 shadow-sm rounded-lg bg-white">
                 <!-- Konten kiri -->
-                <div>
+                <div id="revenue-container">
                     <h5 class="mb-2 font-semibold text-gray-500">Total Pendapatan</h5>
-                    <h2 class="mb-2 text-3xl font-bold text-gray-700">10,689</h2>
+                    <h2 id="total-revenue" class="mb-2 text-3xl font-bold text-gray-700">0</h2>
                     <div class="flex items-center">
-                        <!-- SVG Icon -->
-                        <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path class="fill-current text-green-500" d="M24 3.875l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm0 17.125v2h-24v-22h2v20h22z"/>
+                        <svg id="icon" class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path id="icon-path" class="fill-current text-green-500" d="M24 3.875l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm0 17.125v2h-24v-22h2v20h22z"/>
                         </svg>
-                        <div class="mr-1 font-semibold text-green-500">8.5%</div>
-                        <!-- Text -->
+                        <div id="percentage" class="mr-1 font-semibold text-green-500">0%</div>
                         <div class="text-md font-semibold text-gray-500">Naik dalam 1 minggu</div>
                     </div>
                 </div>
@@ -59,19 +55,17 @@
             <div class="relative flex justify-between items-start px-5 py-3 shadow-sm rounded-lg bg-white">
                 <!-- Konten kiri -->
                 <div>
-                    <h5 class="mb-2 font-semibold text-gray-500">Total Pengguna aktif</h5>
-                    <h2 class="mb-2 text-3xl font-bold text-gray-700">8,282</h2>
+                    <h5 class="mb-2 font-semibold text-gray-500">Total Pengguna Aktif</h5>
+                    <h2 id="total-active-users" class="mb-2 text-3xl font-bold text-gray-700">0</h2>
                     <div class="flex items-center">
-                        <!-- SVG Icon -->
                         <svg class="h-4 w-4 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path class="fill-current text-green-500" d="M24 3.875l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm0 17.125v2h-24v-22h2v20h22z"/>
+                            <path id="active-users-icon-path" class="fill-current text-green-500" d="M24 3.875l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm0 17.125v2h-24v-22h2v20h22z"/>
                         </svg>
-                        <div class="mr-1 font-semibold text-green-500">8.5%</div>
-                        <!-- Text -->
+                        <div id="active-users-percentage" class="mr-1 font-semibold text-green-500">0%</div>
                         <div class="text-md font-semibold text-gray-500">Naik dalam 1 minggu</div>
                     </div>
                 </div>
-                
+
                 <!-- Ikon di kanan atas -->
                 <div class="absolute top-7 right-8 p-3 rounded-3xl bg-green-600 bg-opacity-35 transform translate-x-2 -translate-y-2">
                 <svg class="h-10 w-10 text-green-500"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -81,7 +75,7 @@
             </div>
         </div>
 
-        
+
     </div>
 </div>
 <div class="relative flex justify-between items-start px-5 py-3 shadow-sm rounded-md mt-5 w-full">
@@ -89,7 +83,7 @@
     <div class="mt-8 w-full max-w-[600px] bg-white rounded-md mr-5">
         <canvas id="lineChart1" width="500" height="300" class="mx-auto"></canvas>
     </div>
-    
+
     <!-- Grafik Garis 2 -->
     <div class="mt-8 w-full max-w-[600px] bg-white rounded-md">
         <canvas id="lineChart2" width="500" height="300" class="mx-auto"></canvas>
@@ -107,7 +101,7 @@
                 datasets: [{
                     label: 'Pengguna Aktif',
                     data: [500, 1000, 700, 1200, 900, 2100, 2000,],
-                    borderColor: 'rgba(75, 192, 192, 1)', 
+                    borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderWidth: 2,
                     fill: true
@@ -150,12 +144,6 @@
     </script>
 </div>
 
-
-
-
-
-
-
     <div class="ml-7 mt-0 w-full max-w-[1210px] bg-gray-100 rounded-md">
         <canvas id="myChart" width="1170" height="400" class="mx-auto"></canvas>
     </div>
@@ -183,6 +171,100 @@
                 }
             }
         });
+
+        // Data otomatif
+        async function fetchData() {
+            try {
+            // Ambil data pengguna aktif
+                const responseUsers = await fetch('/api/users/active');
+                const dataUsers = await responseUsers.json();
+
+                const totalUsersElement = document.getElementById('total-active-users');
+                const percentageElementUsers = document.getElementById('active-users-percentage');
+                const iconPath = document.getElementById('active-users-icon-path');
+
+                let prevTotalUsers = parseInt(totalUsersElement.textContent.replace(/,/g, ''), 10) || 0;
+                let newTotalUsers = parseInt(dataUsers.total_active_users) || 0;
+                let percentageIncreaseUsers = prevTotalUsers === 0 ? 0 : ((newTotalUsers - prevTotalUsers) / prevTotalUsers) * 100;
+
+                // Update tampilan pengguna aktif
+                totalUsersElement.textContent = newTotalUsers.toLocaleString('id-ID');
+                percentageElementUsers.textContent = percentageIncreaseUsers.toFixed(1) + "%";
+
+                // Update warna berdasarkan tren pengguna aktif
+                if (newTotalUsers > prevTotalUsers) {
+                    percentageElementUsers.classList.add('text-green-500');
+                    percentageElementUsers.classList.remove('text-red-500');
+                    iconPath.setAttribute('class', 'fill-current text-green-500');
+                } else if (newTotalUsers < prevTotalUsers) {
+                    percentageElementUsers.classList.add('text-red-500');
+                    percentageElementUsers.classList.remove('text-green-500');
+                    iconPath.setAttribute('class', 'fill-current text-red-500');
+                }
+
+                // Ambil data tiket
+                const responseTickets = await fetch('/api/tickets');
+                const dataTickets = await responseTickets.json();
+
+                const totalTicketsElement = document.getElementById('total-tickets');
+                const percentageElementTickets = document.getElementById('percentage');
+                const iconElement = document.getElementById('icon');
+
+                let prevTotalTickets = parseInt(totalTicketsElement.textContent.replace(/,/g, ''), 10) || 0;
+                let newTotalTickets = dataTickets.total_tickets || 0;
+                let percentageIncreaseTickets = ((newTotalTickets - prevTotalTickets) / (prevTotalTickets || 1)) * 100;
+
+                // Update tampilan tiket
+                totalTicketsElement.textContent = newTotalTickets.toLocaleString(); // Format angka
+                percentageElementTickets.textContent = percentageIncreaseTickets.toFixed(1) + "%";
+
+                // Update warna berdasarkan tren tiket
+                if (newTotalTickets > prevTotalTickets) {
+                    percentageElementTickets.classList.add('text-green-500');
+                    percentageElementTickets.classList.remove('text-red-500');
+                    iconElement.querySelector('path').classList.add('text-green-500');
+                    iconElement.querySelector('path').classList.remove('text-red-500');
+                } else if (newTotalTickets < prevTotalTickets) {
+                    percentageElementTickets.classList.add('text-red-500');
+                    percentageElementTickets.classList.remove('text-green-500');
+                    iconElement.querySelector('path').classList.add('text-red-500');
+                    iconElement.querySelector('path').classList.remove('text-green-500');
+                }
+
+                // Ambil data pendapatan
+                const responseRevenue = await fetch('/api/revenue');
+                const dataRevenue = await responseRevenue.json();
+
+                const totalRevenueElement = document.getElementById('total-revenue');
+                const percentageElementRevenue = document.getElementById('percentage-revenue');
+                const iconPathRevenue = document.getElementById('icon-path-revenue');
+
+                let prevRevenue = parseInt(totalRevenueElement.textContent.replace(/,/g, ''), 10) || 0;
+                let newRevenue = parseInt(dataRevenue.total_revenue) || 0;
+                let percentageIncreaseRevenue = prevRevenue === 0 ? 0 : ((newRevenue - prevRevenue) / prevRevenue) * 100;
+
+                // Update tampilan dengan format angka
+                totalRevenueElement.textContent = newRevenue.toLocaleString('id-ID');
+                percentageElementRevenue.textContent = percentageIncreaseRevenue.toFixed(1) + "%";
+
+                // Update warna berdasarkan tren pendapatan
+                if (newRevenue > prevRevenue) {
+                    percentageElementRevenue.classList.add('text-green-500');
+                    percentageElementRevenue.classList.remove('text-red-500');
+                    iconPathRevenue.setAttribute('class', 'fill-current text-green-500');
+                } else if (newRevenue < prevRevenue) {
+                    percentageElementRevenue.classList.add('text-red-500');
+                    percentageElementRevenue.classList.remove('text-green-500');
+                    iconPathRevenue.setAttribute('class', 'fill-current text-red-500');
+                }
+            } catch (error) {
+            console.error("Gagal mengambil data:", error);
+            }
+        }
+
+        // Ambil data pertama kali dan set interval untuk update otomatis
+        fetchData();
+        setInterval(fetchData, 5000); // Update setiap 5 detik
     </script>
 </div>
 
