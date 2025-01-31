@@ -51,8 +51,8 @@
 <!-- Tambahkan sebelum </body> -->
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<header id="header" class="fixed inset-x-0 top-0 z-30 mx-auto w-full max-w-screen-lg bg-white/80 py-6 shadow-lg backdrop-blur-lg md:top-3 md:rounded-2xl visible-header">
-    <div class="px-10 mb-1">
+<header id="header" class=" fixed inset-x-0 top-0 z-30 mx-auto max-w-screen-lg bg-white/80 py-2 shadow-lg backdrop-blur-lg md:top-3 md:rounded-2xl visible-header" style="width: 1000px;">
+    <div class="px-10 m-3">
         <div class="flex items-center justify-between">
             <!-- Logo Section -->
             <div class="flex items-center">

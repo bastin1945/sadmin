@@ -2133,6 +2133,30 @@ font-size: var(--normal-font-size);
   }
 }
 
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    opacity: 10%;
+}
+
+.section__container, .ticket-section {
+    position: relative;
+    z-index: 1;
+}
+
+
+
 
     </style>
 </head>
@@ -2213,6 +2237,8 @@ font-size: var(--normal-font-size);
         
       </div>
     </section>
+    <div class="background-container">
+    <img src="assets/bgpoly.png" alt="" class="bg-image">
 
     <section class="section__container choose__container" id="choose">
     <div class="choose__image">
@@ -2259,10 +2285,6 @@ font-size: var(--normal-font-size);
       </div>
     </section>
 
-
-
-
-
     <section class="ticket-section">
   <div class="ticket-content">
     <h2 class="ticket-title">
@@ -2300,30 +2322,39 @@ font-size: var(--normal-font-size);
   </div>
 </section>
 
+</div>
 
 
-    <section class="section__container blog_container" id="blog">
-      <h2 class="section__header">Recent Blog</h2>
-      <div class="blog__grid">
-        <div class="blog__card">
-          <img src="assets/noah.jpg" alt="blog" />
-          <h4>The Evolution of NOAH</h4>
-          <p>Since 2000, NOAH, formerly known as Peterpan, has been a legendary force in the Indonesian pop-rock scene.</p>
+
+<body style="font-family: Arial, sans-serif; text-align: center; background-color: #fff; color: #333; font-size: 18px;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 30px;">
+        <h2 style="color: rgb(0, 0, 0); font-size: 32px; margin-bottom: 5px;">Keuntungan Memilih <span style="color: blue;">Vibestix</span></h2>
+        <p style="font-size: 20px; margin-bottom: 40px;">Kami menjanjikan pengguna dengan standar 4 layanan ini</p>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 30px;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                <img src="./assets/f1.png" alt="Banyak Pilihan Konser" style="width: 120px; height: 120px; object-fit: contain; margin-bottom: 15px;">
+                <h3 style="font-size: 24px; color: rgb(0, 0, 0); margin-bottom: 10px;">Banyak Pilihan Konser</h3>
+                <p style="font-size: 18px; color: #555;">Kamu bisa melihat dan memilih banyak pilihan konser yang menarik dari artis favoritmu</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                <img src="./assets/f2.png" alt="Online Booking" style="width: 120px; height: 120px; object-fit: contain; margin-bottom: 15px;">
+                <h3 style="font-size: 24px; color: rgb(0, 0, 0); margin-bottom: 10px;">Online Booking!</h3>
+                <p style="font-size: 18px; color: #555;">Kamu bisa membeli tiket konser dengan mudah hanya lewat aplikasi Vibestix</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                <img src="./assets/f3.png" alt="Jaminan Tiket" style="width: 120px; height: 120px; object-fit: contain; margin-bottom: 15px;">
+                <h3 style="font-size: 24px; color: rgb(0, 0, 0); margin-bottom: 10px;">Jaminan Tiket</h3>
+                <p style="font-size: 18px; color: #555;">Jaminan konser terpercaya oleh Vibestix untuk para pecinta musik</p>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                <img src="./assets/f4.png" alt="Tiket Termurah" style="width: 120px; height: 120px; object-fit: contain; margin-bottom: 15px;">
+                <h3 style="font-size: 24px; color: rgb(0, 0, 0); margin-bottom: 10px;">Tiket Termurah!</h3>
+                <p style="font-size: 18px; color: #555;">Nikmati konser termurah dengan performa yang hebat oleh artis favoritmu</p>
+            </div>
         </div>
-        <div class="blog__card">
-          <img src="assets/armada.jpg" alt="blog" />
-          <h4>The Journey of Armada</h4>
-          <p>
-          Since 2007, Armada has been a prominent name in the Indonesian pop-rock music scene.
-          </p>
-        </div>
-        <div class="blog__card">
-          <img src="assets/feast.jpg" alt="blog" />
-          <h4>The Rise of .Feast</h4>
-          <p>Since their formation in 2012, .Feast has emerged as a bold and dynamic force in the Indonesian music scene.</p>
-        </div>
-      </div>
-    </section>
+    </div>
+</body>
+
 
 
     <script src="https://unpkg.com/scrollreveal"></script>
