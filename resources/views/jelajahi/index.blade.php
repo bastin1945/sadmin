@@ -1,5 +1,153 @@
-    <style>
-        body {
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Jelajahi') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    :root {
+  --primary-color: #2f2f2f;
+  --text-dark: #18181b;
+  --text-light: #71717a;
+  --white: #ffffff;
+  --max-width: 1200px;
+  --header-font: "poppins", serif;
+}
+
+nav {
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__logo {
+  flex: 1;
+  margin:0;
+}
+
+.nav__logo a {
+  font-size: 1.7rem; /* Dikurangi sedikit dari 1.8rem */
+  font-weight: 700;
+  font-family: var(--header-font);
+  color: var(--white);
+}
+
+.nav__links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Header & Navigation */
+.header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #080113;
+  transition: .4s;
+}
+
+.nav {
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__logo {
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  column-gap: .25rem;
+  font-weight: var(--font-medium);
+  transition: .3s;
+  font-size: 1.6rem; /* Dikurangi sedikit dari 1.7rem */
+}
+
+.nav__logo i {
+  font-size: 1.2rem; /* Dikurangi sedikit dari 1.3rem */
+}
+
+.nav__logo:hover {
+  color: var(--first-color);
+}
+
+@media screen and (max-width:1023px) {
+  .nav__menu {
+    position: fixed;
+    bottom: 2rem;
+    background-color: var(--container-color);
+    box-shadow: 0 8px 24px hsla(228, 66%, 45%, .15);
+    width: 90%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 1.4rem 3rem; /* Sedikit dikurangi dari 1.5rem */
+    border-radius: 1.25rem;
+    transition: .4s;
+  }
+
+  .nav__list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav__link {
+    color: var(--text-color);
+    display: flex;
+    padding: .55rem; /* Dikurangi sedikit dari .6rem */
+    border-radius: 50%;
+    font-size: 1.25rem; /* Dikurangi sedikit dari 1.3rem */
+  }
+
+  .nav__link i {
+    font-size: 1.4rem; /* Dikurangi sedikit dari 1.5rem */
+  }
+
+  .nav__link span {
+    display: none;
+  }
+}
+
+.nav {
+  height: calc(var(--header-height) + 1.8rem); /* Dikurangi sedikit */
+}
+
+header h1 {
+  font-size: 2.1rem; /* Dikurangi sedikit dari 2.2rem */
+}
+
+header nav a {
+  text-decoration: none;
+  color: #fff;
+  margin: 0 15px;
+  font-weight: bold;
+  font-size: 1.2rem; /* Dikurangi sedikit dari 1.3rem */
+  transition: color 0.3s ease;
+}
+
+header nav a:hover {
+  color: #f4d03f;
+}
+
+
+body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -19,6 +167,10 @@
             text-align: center;
             overflow:hidden;
         }
+
+
+
+
 
         .card {
             border: 1px solid black;
@@ -88,7 +240,17 @@
             justify-content: center;
         }
 
-
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            /* Membuat card-wrap ke baris berikutnya */
+            justify-content: center;
+            /* Memusatkan card dalam container */
+            gap: 20px;
+            /* Memberikan jarak antar card */
+            padding: 10px;
+            /* Padding sekitar container */
+        }
 
         .card {
             width: 300px;
@@ -144,10 +306,54 @@
 }
 
 
-    </style>
 
-    <x-app-layout>
-        <x-slot name="header">
+</style>
+
+<header class="header" id="header">
+      <nav class="nav">
+      <img src="assets/removebg.png" alt="" style="width: 50px; height: auto;"/>
+          <a href="#" class="nav__logo" style="font-family: 'Poppins', sans-serif;  font-weight: 600;  font-size: 24px; ">
+              IBESTIX <i class="bx bxs-home-alt-2"></i>
+          </a>
+          <div class="mr-8">
+          <!-- Themechange button -->
+          <a href="">
+            Home
+          </a>
+
+          <a href="{{ route('jelajahi') }}">
+    Jelajahi
+</a>
+
+          </div>
+          @if (Route::has('login'))
+
+                            @auth
+                                <a href="{{ url('/dashboard') }}"
+                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                Dashboard</a>
+                            @else
+
+                            <a
+                                    href="{{ route('login') }}"
+                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                >
+                                    Log in
+                                </a>
+                              <div class="text-white">|</div>
+                                @if (Route::has('register'))
+                                    <a
+                                        href="{{ route('register') }}"
+                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                    >
+                                        Register
+                                    </a>
+                                @endif
+                            @endauth
+
+                    @endif
+      </nav>
+  </header>
 
             <div>
                 <section class="w-full">
@@ -156,15 +362,7 @@
 
                     </div>
 
-                    <!-- Slider Header -->
-                    <div>
-                <section class="w-full">
-
-                    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-
-                    </div>
-
-                    <div id="targetSection" class="relative py-0 mx-auto w-[90%] max-w-7xl overflow-hidden bg-gray-100 mb-0 rounded-lg" style="margin-top:150px;">
+                    <div id="targetSection" class="relative py-0 mx-auto w-[90%] max-w-7xl overflow-hidden bg-gray-100 mb-0 mt-10 rounded-lg">
     <div id="sliderWrapper" class="relative overflow-hidden">
         <div id="slider" class="flex transition-transform duration-400 ease-in-out">
             <!-- Slide Items -->
@@ -253,7 +451,6 @@
     }, 5000); // Auto slide setiap 5 detik
 </script>
 
-
 <div class="container mx-auto px-4 3xl:px-8 py-8 mt-10">
     <div class="grid grid-cols-3 gap-6">
         @foreach ($konsers as $knsr)
@@ -295,23 +492,6 @@
         @endforeach
     </div>
 </div>
-
-
-<center class="flex justify-center">
-    <div>
-        <a href="{{ route('lainya.index') }}" class="block">
-            <button
-                class="glass-effect w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-9 py-3 text-center mt-10 mb-10">
-                Lihat lainnya
-            </button>
-        </a>
-    </div>
-</center>
-
-
-
-
-
 
                     @extends('layouts.footer')
 
@@ -482,4 +662,3 @@
                             heigh: 100px;
                         }
                     </style>
-    </x-app-layout>

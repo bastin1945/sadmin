@@ -25,7 +25,7 @@
     top: 0px; /* Jarak dari atas */
     left: 0; /* Jarak dari kiri */
     width: 447px; /* Lebar gambar */
-    height: 297px; /* Tinggi gambar */
+    height: 340px; /* Tinggi gambar */
     object-fit: cover; /* Pastikan gambar tidak terdistorsi */
 }
 
@@ -35,7 +35,7 @@
     bottom: 0px; /* Jarak dari atas */
     left: 0; /* Jarak dari kiri */
     width: 373px; /* Lebar gambar */
-    height: 135px; /* Tinggi gambar */
+    height: 180px; /* Tinggi gambar */
     object-fit: cover; /* Pastikan gambar tidak terdistorsi */
         }
 

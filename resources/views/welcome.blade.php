@@ -1028,10 +1028,12 @@ the wesite, in the dark
         column-gap: .25rem;
         font-weight: var(--font-medium);
         transition: .3s;
+        margin:0;
     }
 
     .nav__logo i{
         font-size: 1rem;
+        margin:0;
     }
 
     .nav__logo:hover{
@@ -2176,7 +2178,7 @@ font-size: var(--normal-font-size);
       <nav class="nav">
       <img src="assets/removebg.png" alt="" style="width: 50px; height: auto;"/>
           <a href="#" class="nav__logo" style="font-family: 'Poppins', sans-serif;  font-weight: 600;  font-size: 24px; ">
-              Vibestic <i class="bx bxs-home-alt-2"></i>
+              IBESTIX <i class="bx bxs-home-alt-2"></i>
           </a>
           <div class="mr-8">
           <!-- Themechange button -->
@@ -2184,9 +2186,10 @@ font-size: var(--normal-font-size);
             Home
           </a>
 
-          <a href="">
-            Jelajahi
-          </a>
+<a href="{{ route('jelajahi') }}">
+    Jelajahi
+</a>
+
           </div>
           @if (Route::has('login'))
 

@@ -43,6 +43,13 @@
         shadow-lg;
         transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     }
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+  .custom-bold {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+  }
+
 </style>
 
 <!-- Tambahkan di dalam <head> -->
@@ -51,23 +58,23 @@
 <!-- Tambahkan sebelum </body> -->
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<header id="header" class=" fixed inset-x-0 top-0 z-30 mx-auto max-w-screen-lg bg-white/80 py-2 shadow-lg backdrop-blur-lg md:top-3 md:rounded-2xl visible-header" style="width: 1000px;">
-    <div class="px-10 m-3">
+<header id="header" class="fixed inset-x-0 top-0 z-30 mx-auto max-w-screen-xl bg-white/80 py-4 shadow-lg backdrop-blur-lg md:top-3 md:rounded-2xl visible-header">
+ 
+<div class="px-10 m-3">
         <div class="flex items-center justify-between">
             <!-- Logo Section -->
             <div class="flex items-center">
                 <a href="{{ route('dashboard') }}" class="flex items-center">
                     <img src="{{ asset('assets/removebg.png') }}" alt="Logo" class="h-8 w-8"> <!-- Logo lebih kecil -->
-                    <h1 class="font-bold text-lg text-black ml-2">IBSTIK</h1> <!-- Teks lebih kecil -->
+                    <h1 class="text-lg text-blue-700 ml-0 custom-bold">IBESTIX</h1>
                 </a>
             </div>
 
             <!-- Navigation Links -->
-            <div class="hidden md:flex md:items-center md:gap-6">
-                <a class="text-sm font-medium text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('dashboard') }}">Home</a>
-                <a class="text-sm font-medium text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('lainya.index') }}">Rekomendasi</a>
-                <a class="text-sm font-medium text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="#">Hubungi Kami</a>
-
+            <div class="hidden md:flex md:items-center md:gap-8">
+                <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('dashboard') }}">Home</a>
+                <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('lainya.index') }}">Rekomendasi</a>
+                <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="#">Hubungi Kami</a>
             </div>
 
             <!-- User Section -->
@@ -86,9 +93,6 @@
 
                     <!-- Dropdown Menu -->
                     <ul x-show="open" @click.outside="open = false" x-transition class="absolute right-0 mt-1 w-48 overflow-hidden rounded-lg border border-slate-200 bg-white p-2 shadow-lg">
-                        <li class="cursor-pointer text-gray-800 px-4 py-2 text-sm hover:bg-gray-200 hover:rounded-lg hover:text-blue-600">
-                            <a href="{{ route('profile.edit') }}">Profile</a>
-                        </li>
                         <li class="cursor-pointer text-gray-800 px-4 py-2 text-sm hover:bg-gray-200 hover:rounded-lg hover:text-blue-600">
                             <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>

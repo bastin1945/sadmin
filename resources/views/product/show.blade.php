@@ -4,7 +4,7 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Container -->
-<div class="max-w-5xl mx-auto bg-white rounded-lg overflow-hidden mt-40 mb-40">
+<div class="max-w-7xl mx-auto bg-white rounded-lg overflow-hidden mt-40 mb-40">
 
 
     <!-- Event Content -->

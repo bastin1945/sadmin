@@ -32,13 +32,13 @@ Follow
     <div class="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-32">
       <div class="mx-auto max-w-sm lg:max-w-none">
         <p class="mt-4 text-center text-black-900 lg:text-left lg:text-lg">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium natus quod eveniet
-          aut perferendis distinctio iusto repudiandae, provident velit earum?
+        Temukan konser musik yang kamu sukai dengan mudah melalui platform kami gengz. Kami menawarkan akses cepat dan aman untuk berbagai konser dari atas ternama di seluruh dunia.
+
         </p>
 
         <div class="mt-6 flex justify-center gap-4 lg:justify-start">
           <a
-            class="text-gray-700 transition hover:text-blue-700/75"
+            class="text-white transition hover:text-blue-700/75"
             href="#"
             target="_blank"
             rel="noreferrer"
@@ -55,7 +55,7 @@ Follow
           </a>
 
           <a
-            class="text-gray-700 transition hover:text-blue-700/75"
+            class="text-white transition hover:text-blue-700/75"
             href="#"
             target="_blank"
             rel="noreferrer"
@@ -72,7 +72,7 @@ Follow
           </a>
 
           <a
-            class="text-gray-700 transition hover:text-blue-700/75"
+            class="text-white transition hover:text-blue-700/75"
             href="#"
             target="_blank"
             rel="noreferrer"
@@ -87,7 +87,7 @@ Follow
           </a>
 
           <a
-            class="text-gray-700 transition hover:text-blue-700/75"
+            class="text-white transition hover:text-blue-700/75"
             href="#"
             target="_blank"
             rel="noreferrer"
@@ -104,7 +104,7 @@ Follow
           </a>
 
           <a
-            class="text-gray-700 transition hover:text-blue-700/75"
+            class="text-white transition hover:text-blue-700/75"
             href="#"
             target="_blank"
             rel="noreferrer"
@@ -124,69 +124,69 @@ Follow
 
       <div class="grid grid-cols-1 gap-8 text-center lg:grid-cols-3 lg:text-left">
         <div>
-          <strong class="font-bold text-gray-900"> Services </strong>
+          <strong class="font-bold text-gray-900"> Layanan </strong>
 
           <ul class="mt-6 space-y-1">
             <li>
-              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Marketing </a>
+              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Tiket konser </a>
             </li>
 
             <li>
               <a class="text-black-900 transition hover:text-gray-700/75" href="#">
-                Graphic Design
+                Paket VIP
               </a>
             </li>
 
             <li>
               <a class="text-black-900 transition hover:text-gray-700/75" href="#">
-                App Development
+                Dukungan pelanggan
               </a>
             </li>
 
             <li>
               <a class="text-black-900 transition hover:text-gray-700/75" href="#">
-                Web Development
+                Jadwal acara
               </a>
             </li>
           </ul>
         </div>
 
         <div>
-          <strong class="font-bold text-gray-900"> About </strong>
+          <strong class="font-bold text-gray-900"> Tentang </strong>
 
           <ul class="mt-6 space-y-1">
             <li>
-              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> About </a>
+              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Tentang kami </a>
             </li>
 
             <li>
-              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Careers </a>
+              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Misi kami </a>
             </li>
 
             <li>
-              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> History </a>
+              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Kenapa memilih kami? </a>
             </li>
 
             <li>
-              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Our Team </a>
+              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Partner dan kolaborasi </a>
             </li>
           </ul>
         </div>
 
         <div>
-          <strong class="font-bold text-gray-900"> Support </strong>
+          <strong class="font-bold text-gray-900"> Dukungan </strong>
 
           <ul class="mt-6 space-y-1">
+            <li>
+              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Pusat bantuan </a>
+            </li>
+
+            <li>
+              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Hubungi kami </a>
+            </li>
+
             <li>
               <a class="text-black-900 transition hover:text-gray-700/75" href="#"> FAQs </a>
-            </li>
-
-            <li>
-              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Contact </a>
-            </li>
-
-            <li>
-              <a class="text-black-900 transition hover:text-gray-700/75" href="#"> Live Chat </a>
             </li>
           </ul>
         </div>
@@ -194,15 +194,16 @@ Follow
     </div>
 
     <div class="mt-16 border-t border-gray-100 pt-8">
-      <p class="text-center text-xs/relaxed text-black">
-        © Company 2022. All rights reserved.
+      <p class="text-center text-xs/relaxed text-white">
+      © Tim Mini 2025. Semua hak dilindungi.
+      
 
         <br />
 
-        Created with
-        <a href="#" class="text-gray-400 underline transition hover:text-gray-700/75">Laravel</a>
-        and
-        <a href="#" class="text-gray-400 underline transition hover:text-gray-700/75"
+        Dibuat dengan
+        <a href="#" class="text-black-900 underline transition hover:text-gray-700/75">Laravel</a>
+        dan
+        <a href="#" class="text-black-900 underline transition hover:text-gray-700/75"
           >Laravel Livewire</a
         >.
       </p>

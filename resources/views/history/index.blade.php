@@ -2,7 +2,7 @@
   <x-slot name="">
   </x-slot>
 
-  <div class="max-w-5xl mx-auto flex justify-between bg-white mt-[7rem] mb-6 gap-6">
+  <div class="max-w-7xl mx-auto flex justify-between bg-white mt-[7rem] mb-6 gap-6">
     <!-- Sidebar -->
     <div class="w-64 bg-white p-4">
       <div class="flex items-center space-x-3 border-b pb-4 mb-4">
@@ -10,15 +10,18 @@
             <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
       </svg>
         <div>
-          <p class="font-semibold">Sasti Juni</p>
-<button>
-<div class="flex">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4" style="margin-top: 3px; margin-right: 3px;">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+          <p class="font-semibold">{{ Auth::user()->name }}</p>
+<a href="{{ route('profile.edit') }}">
+    <button>
+        <div class="flex">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4" style="margin-top: 3px; margin-right: 3px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
             </svg>
             <p class="text-sm text-black">Ubah profil</p>
-          </div>
-</button>
+        </div>
+    </button>
+</a>
+
         </div>
       </div>
       <nav>
