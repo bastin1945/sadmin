@@ -50,22 +50,25 @@
             <th class="px-4 py-2">Tiket</th>
             <th class="px-4 py-2">Jumlah</th>
             <th class="px-4 py-2">Harga Tiket</th>
-            <th class="px-4 py-2">Jenis Tiket</th>
+            <th class="px-4 py-2">Status</th>
         </tr>
     </thead>
 
     <tbody>
-    @foreach ($order as $index => $orde)
-        
-    <tr class="text-gray-700">
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->user->name }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->konser->nama }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->jumlah_tiket }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->harga_total }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->jenis_tiket }}</td>
-    </tr>
-    @endforeach
+    
+        <tr class="text-gray-700">
+            <td class="border-b border-gray-300 px-4 py-2 text-center">423</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">Sasti juni</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">Konser sedjiwa</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">2</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">Rp.1.120.000</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">
+                <!-- Ganti dengan status menggunakan ikon centang atau silang -->
+                <i class="fas fa-check text-green-500" title="Aktif"></i>
+                <!-- Atau jika Nonaktif -->
+                <!-- <i class="fas fa-times text-red-500" title="Nonaktif"></i> -->
+            </td>
+        </tr>
 
     </tbody>
 </table>

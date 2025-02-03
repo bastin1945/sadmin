@@ -59,7 +59,7 @@
 
     <!-- Dropdown Menu -->
     <div id="dropdown-menu" class="hidden origin-top-right bg-white rounded-lg border-b border-gray-200 absolute z-10 w-48">
-        <a href="{{ route('admin.ui-elements') }}" id="history-order" class="block px-6 py-3 text-dark hover:bg-blue-500 hover:text-white rounded-lg transition-all duration-300 text-sm">History order</a>
+        <a href="{{ route('admin.adminhistory.index') }}" id="history-order" class="block px-6 py-3 text-dark hover:bg-blue-500 hover:text-white rounded-lg transition-all duration-300 text-sm">History order</a>
 
         <!-- Added the new link for ui-elements-review -->
          
