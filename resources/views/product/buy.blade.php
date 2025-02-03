@@ -217,24 +217,6 @@
     }
   }
 
-  // Event listener for increasing the quantity
-  document.getElementById('increase').addEventListener('click', function() {
-    var jumlahInput = document.getElementById('jumlah');
-    var currentValue = parseInt(jumlahInput.value);
-    jumlahInput.value = currentValue + 1;
-    updateHarga();  // Recalculate total price when quantity changes
-  });
-
-  // Event listener for decreasing the quantity
-  document.getElementById('decrease').addEventListener('click', function() {
-    var jumlahInput = document.getElementById('jumlah');
-    var currentValue = parseInt(jumlahInput.value);
-    if (currentValue > 1) {
-      jumlahInput.value = currentValue - 1;
-      updateHarga();  // Recalculate total price when quantity changes
-    }
-  });
-
 
 
   // Handling modal popup confirmation
