@@ -14,4 +14,8 @@ class order extends Model
     public function promo (){
         return $this->belongsTo(promo::class,'promo_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

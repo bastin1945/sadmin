@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
@@ -11,7 +12,9 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        return view('history.index');
+        $order = order::with(['tiket','promo','user'])->get();
+        // dd($order->toArray());
+        return view('history.index',compact('order'));
     }
 
     /**
