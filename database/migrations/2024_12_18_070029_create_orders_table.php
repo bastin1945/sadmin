@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('tiket_id')->constrained()->OnDelete('cascade');
             $table->integer('jumlah_tiket');
             $table->decimal('harga_total');
-            $table->foreignId('promo_id')->constrained()->onDelete('cascade');
+            $table->foreignId('promo_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

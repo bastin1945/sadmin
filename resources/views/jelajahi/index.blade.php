@@ -240,17 +240,6 @@ body {
             justify-content: center;
         }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            /* Membuat card-wrap ke baris berikutnya */
-            justify-content: center;
-            /* Memusatkan card dalam container */
-            gap: 20px;
-            /* Memberikan jarak antar card */
-            padding: 10px;
-            /* Padding sekitar container */
-        }
 
         .card {
             width: 300px;

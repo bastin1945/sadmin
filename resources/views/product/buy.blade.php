@@ -29,7 +29,7 @@
     /* Add other styles here... */
 </style>
 
-<div class="max-w-5xl mx-auto flex justify-between bg-white mt-[7rem] mb-6 gap-6">
+<div class="max-w-7xl mx-auto flex justify-between bg-white mt-[8rem] mb-6 gap-6">
     <!-- Bagian Kiri -->
     <div class="w-1/2 mr-4 bg-white rounded-lg">
         @if ($errors->any())
@@ -133,21 +133,20 @@
         </div>
     </div>
 </div>
-
-<!-- Modal Popup -->
+<!-- modalllll popup -->
 <div id="modal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-600 bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-lg font-semibold mb-4">Konfirmasi Pembayaran</h2>
-        <p>Apakah Anda yakin ingin melakukan pembayaran?</p>
-        <div class="mt-4 flex justify-end space-x-3">
-            <button id="batal-btn" class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
-            <button id="konfirmasi-btn" class="px-4 py-2 bg-blue-500 text-white rounded">Bayar</button>
+            <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+                <h2 class="text-lg font-semibold mb-4">Konfirmasi Pembayaran</h2>
+                <p>Apakah Anda yakin ingin melakukan pembayaran?</p>
+                <div class="mt-4 flex justify-end space-x-3">
+                    <button id="batal-btn" class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
+                    <button id="konfirmasi-btn" class="px-4 py-2 bg-blue-500 text-white rounded">Bayar</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<!-- Popup Pembayaran Sukses -->
-<div class="popup-container" id="popupContainer">
+        <!-- popup sudah bayar -->
+        <div class="popup-container" id="popupContainer">
     <div class="popup">
         <div class="success-icon flex items-center justify-center">
             <div class="bg-green-500 rounded-full p-1 flex items-center justify-center">
@@ -156,34 +155,135 @@
                 </svg>
             </div>
         </div>
+
         <h2 class="text-2xl font-bold mb-2 text-center">Pembayaran Sukses!</h2>
         <p class="text-center text-gray-600">Pembayaran Anda telah berhasil dilakukan.</p>
+
         <div class="bg-gray-100 rounded-xl p-6 mt-4">
+            <!-- Bagian Total -->
             <div class="text-popup p-4 flex flex-between items-center text-center mx-8">
                 <span class="text-lg font-semibold">Total:</span>
                 <span id="popup-total" class="text-3xl font-bold mt-2">Rp 0</span>
             </div>
+
             <hr class="my-4 border-gray-300">
+
+            <!-- Detail Pembayaran -->
             <div class="text-popup mt-2 text-center">
                 <span class="text-gray-700">Nama Konser:</span>
-                <strong class="text-black">{{ $konser->nama }}</strong>
+                <strong class="text-black">Sedjiwa</strong>
             </div>
+
             <div class="text-popup text-center">
                 <span class="text-gray-700">Tanggal Pembayaran:</span>
                 <strong>
-                    <span class="text-black">{{ now()->format('M d, Y, H:i:s') }}</span>
+                <span class="text-black">Mar 22, 2023, 13:22:16</span>
                 </strong>
             </div>
+
             <div class="text-popup text-center">
                 <span class="text-gray-700">Pembeli:</span>
                 <strong>
-                    <span class="text-black">{{ auth()->user()->name }}</span>
+                <span class="text-black">Kink Bastin</span>
                 </strong>
+            </div>
+            
+            <!-- Timer countdown -->
+            <div class="text-center mt-4">
+                <span class="text-lg font-semibold">Akan diarahkan ke riwayat dalam</span>
+                <div id="timer" class="text-2xl font-bold text-blue-500 mt-2">00:05</div>
             </div>
         </div>
     </div>
 </div>
 
+
+
+<script>
+  // Function to update ticket price and total payment
+  function updateHarga() {
+    var category = document.getElementById('category');
+    var hargaTiket = category.options[category.selectedIndex].getAttribute('data-harga');
+    var jumlahTiket = parseInt(document.getElementById('jumlah').value);
+
+    if (hargaTiket) {
+        var totalHarga = hargaTiket * jumlahTiket;
+        
+        // Update harga tiket dan total pembayaran
+        document.getElementById('harga-tiket').textContent = `Rp ${hargaTiket}`;
+        document.getElementById('total-pembayaran').textContent = `Rp ${totalHarga}`;
+
+        // Update nilai input harga_total yang tersembunyi
+        document.getElementById('harga_total').value = totalHarga;
+    }
+  }
+
+  // Event listener for increasing the quantity
+  document.getElementById('increase').addEventListener('click', function() {
+    var jumlahInput = document.getElementById('jumlah');
+    var currentValue = parseInt(jumlahInput.value);
+    jumlahInput.value = currentValue + 1;
+    updateHarga();  // Recalculate total price when quantity changes
+  });
+
+  // Event listener for decreasing the quantity
+  document.getElementById('decrease').addEventListener('click', function() {
+    var jumlahInput = document.getElementById('jumlah');
+    var currentValue = parseInt(jumlahInput.value);
+    if (currentValue > 1) {
+      jumlahInput.value = currentValue - 1;
+      updateHarga();  // Recalculate total price when quantity changes
+    }
+  });
+
+
+
+// Handling modal popup confirmation
+document.getElementById('bayar-btn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent form submission initially
+    var totalPembayaran = document.getElementById('total-pembayaran').textContent;
+    var konserNama = document.querySelector('.mb-6.mt-4.text-lg.font-semibold.text-gray-800').textContent; // Assuming this is the concert name
+    var userPembeli = 'Kink Bastin'; // Replace this with dynamic user data if available
+
+    // Populate the popup with data
+    document.getElementById('popup-total').textContent = totalPembayaran;
+    document.querySelector('.popup-container .text-black:nth-of-type(1)').textContent = konserNama; // Update concert name in the popup
+    document.querySelector('.popup-container .text-black:nth-of-type(2)').textContent = userPembeli; // Update buyer name in the popup
+
+    document.getElementById('modal').classList.remove('hidden'); // Show modal on 'Bayar Sekarang' click
+});
+// Function to show payment success popup
+function showPopup() {
+    let popupContainer = document.getElementById('popupContainer');
+    let totalPembayaran = document.getElementById('total-pembayaran').textContent || "Rp0";
+    document.getElementById('popup-total').textContent = totalPembayaran;
+    popupContainer.style.display = 'flex';
+    setTimeout(() => popupContainer.classList.add('show'), 10);
+    
+    // Timer countdown logic
+    let countdownTime = 5; // 5 seconds
+    let timerElement = document.getElementById('timer');
+    
+    let countdownInterval = setInterval(function() {
+        let seconds = countdownTime;
+        
+        // Format the timer as SS
+        timerElement.textContent = `00:${String(seconds).padStart(2, '0')}`;
+        
+        // Decrease the countdown time
+        countdownTime--;
+        
+        // When the countdown reaches zero, redirect the user
+        if (countdownTime < 0) {
+            clearInterval(countdownInterval);
+            window.location.href = "{{ route('history.index') }}"; // Redirect to history page
+        }
+    }, 1000); // Update every 1 second
+}
+
+
+
+</script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {

@@ -9,6 +9,8 @@ use App\Http\Controllers\KonserController;
 use App\Http\Controllers\LainyaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JelajahiController;
+use App\Http\Controllers\HistoryController;
 use Illuminate\Http\Request;
 
 // Rute yang dapat diakses oleh semua user (guest dan login)
@@ -16,11 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/jelajahi', [JelajahiController::class, 'index'])->name('jelajahi');
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/dashboard', [FrontController::class, 'index'])->name('dashboard');
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
 });
 
 // Rute untuk melihat konser dan tiket (read-only)

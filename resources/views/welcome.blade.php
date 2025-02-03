@@ -146,6 +146,8 @@ nav {
   width: 100%;
 }
 
+
+
 .nav__menu__btn {
   display: none;
   font-size: 1.5rem;
@@ -180,7 +182,7 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 600vh;
   object-fit: cover; /* Untuk memastikan video memenuhi container */
   z-index: -1; /* Mengatur video di belakang konten lainnya */
 }
