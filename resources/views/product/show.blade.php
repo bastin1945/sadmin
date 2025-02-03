@@ -13,7 +13,7 @@
         <!-- Image Section -->
         <div class="flex-shrink-0 md:w-1/2 ">
             <img src="{{ asset('storage/' . $konser->image) }}" alt="Event Image"
-                class="object-cover rounded-lg" style="width: 500px; height: 500px">
+                class="object-cover rounded-lg" style="width: 600px; height: 400px">
         </div>
 
         <!-- Event Details -->

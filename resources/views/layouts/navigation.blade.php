@@ -70,15 +70,17 @@
                 </a>
             </div>
 
+            <!-- User Section -->
+             
+            <div x-data="{ open: false }" class="relative flex items-center gap-4">
+                
             <!-- Navigation Links -->
-            <div class="hidden md:flex md:items-center md:gap-8">
+            <div class="hidden md:flex md:items-end md:gap-8 mr-14">
                 <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('dashboard') }}">Home</a>
                 <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('lainya.index') }}">Rekomendasi</a>
                 <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="#">Hubungi Kami</a>
             </div>
 
-            <!-- User Section -->
-            <div x-data="{ open: false }" class="relative flex items-center gap-4">
                 @if(Auth::check())
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="flex items-center gap-2 text-sm font-medium text-gray-900 focus:outline-none transition-all duration-200 hover:text-blue-600 hover:scale-105 transform">

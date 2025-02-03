@@ -20,7 +20,7 @@
    
   <div class="p-4 rounded-sm" style="box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 0 4px rgba(0, 0, 0, 0.06);">
   <div class="flex items-center justify-between">
-    <label for="jumlah" class="text-sm font-medium text-gray-600">Atur Jumlah</label>
+    <label for="jumlah" class="text-sm font-medium text-black">Atur Jumlah</label>
     <div class="flex items-center space-x-3">
       <button id="decrease" class="text-lg font-bold text-gray-600 border border-gray-600 rounded">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
