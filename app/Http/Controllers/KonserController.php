@@ -72,6 +72,13 @@ class KonserController extends Controller
         return view('konser.show');
     }
 
+    public function detail  (konser $konser)
+    
+    {
+        $konser = konser::all()->findOrFail($id);
+        return view('konser.detail');
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

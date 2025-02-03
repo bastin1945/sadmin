@@ -45,7 +45,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('/admin/konser/{id}', [KonserController::class, 'update'])->name('admin.konser.update');
     Route::delete('/admin/konser/{id}', [KonserController::class, 'destroy'])->name('admin.konser.destroy');
     Route::resource('konser', KonserController::class)->except(['show']);
-
+    Route::get('admin/konser/detail', [KonserController::class, 'detail'])->name('admin.konser.detail');
 
     // Route::resource('admin/konser', KonserController::class);
     Route::resource('tiket', TiketController::class)->except(['show']);
