@@ -1,5 +1,4 @@
 @include('layouts.app')
-
 <style>
     body {
         font-family: 'Poppins', sans-serif;
@@ -238,20 +237,27 @@
 
 
 
-// Handling modal popup confirmation
-document.getElementById('bayar-btn').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent form submission initially
-    var totalPembayaran = document.getElementById('total-pembayaran').textContent;
-    var konserNama = document.querySelector('.mb-6.mt-4.text-lg.font-semibold.text-gray-800').textContent; // Assuming this is the concert name
-    var userPembeli = 'Kink Bastin'; // Replace this with dynamic user data if available
-
-    // Populate the popup with data
-    document.getElementById('popup-total').textContent = totalPembayaran;
-    document.querySelector('.popup-container .text-black:nth-of-type(1)').textContent = konserNama; // Update concert name in the popup
-    document.querySelector('.popup-container .text-black:nth-of-type(2)').textContent = userPembeli; // Update buyer name in the popup
-
+  // Handling modal popup confirmation
+document.getElementById('bayar-btn').addEventListener('click', function() {
     document.getElementById('modal').classList.remove('hidden'); // Show modal on 'Bayar Sekarang' click
 });
+
+// Hide modal on 'Batal' button click
+document.getElementById('batal-btn').addEventListener('click', function() {
+    document.getElementById('modal').classList.add('hidden');
+});
+
+// Handle form submission on 'Bayar' button click (payment confirmation)
+document.getElementById('konfirmasi-btn').addEventListener('click', function() {
+    // Simulate payment success (could be replaced with actual payment logic)
+    showPopup(); // Show payment success popup
+
+    // Optionally submit the form here
+    // document.querySelector('form').submit();
+    document.getElementById('modal').classList.add('hidden'); // Hide modal after confirmation
+});
+
+// Function to show payment success popup
 // Function to show payment success popup
 function showPopup() {
     let popupContainer = document.getElementById('popupContainer');
