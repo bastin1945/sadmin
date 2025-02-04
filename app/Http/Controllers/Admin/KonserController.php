@@ -43,7 +43,7 @@ class KonserController extends Controller
             'lokasi_id' => 'required|exists:lokasis,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
-            
+
             'nama.required' => 'Nama tidak boleh kosong',
             'deskripsi.required' => 'Deskripsi tidak boleh kosong',
             'tanggal.required' => 'Tanggal tidak boleh kosong',
@@ -78,6 +78,12 @@ class KonserController extends Controller
         $konser = Konser::findOrFail($id);
         $lokasi = Lokasi::all();
         return view('admin.konser.edit', compact('konser', 'lokasi'));
+    }
+
+
+    public function detail(string $id){
+        $konser = Konser::findOrFail($id);
+        return view('admin.konser.detail', compact('konser'));
     }
 
     public function update(Request $request, $id)

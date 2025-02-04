@@ -1,12 +1,11 @@
 <x-admin-layout>
 
-<script src="https://cdn.tailwindcss.com"></script>
 <!-- Container -->
-<div class="max-w-7xl mx-auto bg-white rounded-lg overflow-hidden mt-40 mb-40">
+<div class="max-w-7xl mx-auto bg-white rounded-lg overflow-hidden mt-0 mb-40">
 
 
     <!-- Event Content -->
-    <div class="flex flex-col md:flex-row">
+    <div class="flex flex-col md:flex-row p-5">
 
         <!-- Image Section -->
         <div class="flex-shrink-0 md:w-1/2 ">

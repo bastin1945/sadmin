@@ -48,7 +48,7 @@ use App\Http\Controllers\Admin\PermissionController;
     Route::put('/admin/konser/{id}', [KonserController::class, 'update'])->name('admin.konser.update');
     Route::delete('/admin/konser/{id}', [KonserController::class, 'destroy'])->name('admin.konser.destroy');
     Route::resource('konser', KonserController::class)->except(['show']);
-        Route::get('detail/{id)', [KonserController::class, 'detail'])->name('detail');
+        Route::get('konser/{id}', [KonserController::class, 'detail'])->name('admin.konser.detail');
 
     // Route::resource('admin/konser', KonserController::class);
     Route::resource('tiket', TiketController::class)->except(['show']);

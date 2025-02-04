@@ -72,12 +72,12 @@ class KonserController extends Controller
         return view('konser.show');
     }
 
-    public function detail  (konser $konser)
-    
-    {
-        $konser = konser::all()->findOrFail($id);
-        return view('konser.detail');
-    }
+    // public function detail(konser $konser)
+
+    // {
+    //     $konser = konser::all()->findOrFail($id);
+    //     return view('konser.detail');
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -92,7 +92,7 @@ class KonserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $request->validate([
             'nama' => 'required|string|max:255',
             'tanggal' => 'required|date',

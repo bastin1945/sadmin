@@ -15,8 +15,8 @@
     </script>
 @endif
 
-    <div class="bg-white min-h-screen px-5 rounded-lg"> 
-        
+    <div class="bg-white min-h-screen px-5 rounded-lg">
+
         <div class="flex justify-between items-center px-5 py-5">
             <h1 class="text-2xl font-bold">Manajemen Konser</h1>
             <div class="flex items-center space-x-4">
@@ -27,9 +27,9 @@
                 </svg>
             </span>
             <form action="" method="get">
-            <input id="search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600" 
+            <input id="search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600"
             type="text" placeholder="Search for something" name="search" value="{{ request()->get('search') }}">
-            
+
             </form>
         </div>
 
@@ -67,7 +67,7 @@
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $konser->lokasi->location }}</td>
                         <td class="border-b border-gray-300 px-4 py-2 text-center">
 
-                        <a href="{{ route('detail', $konser->id) }}">
+                        <a href="{{ route('admin.admin.konser.detail', $konser->id) }}">
                                 <button class="w-full h-8 flex items-center justify-center px-4 py-2 rounded text-gray-600 bg-indigo-200 hover:opacity-80 focus:outline-none">
                                     Detail
                                 </button>
@@ -75,7 +75,7 @@
                         </td>
                         <td class="border-b border-gray-300 px-4 py-2 text-center">
                             <div class="flex justify-center gap-2">
-                                <a href="{{ route('admin.konsers.edit', $konser->id) }}">
+                                <a href="{{ route('admin.konser.edit', $konser->id) }}">
                                     <button class="border px-3 py-2 rounded hover:bg-green-600 hover:text-white">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
