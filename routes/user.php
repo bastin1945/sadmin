@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/dashboard', [FrontController::class, 'index'])->name('dashboard');
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::get('/history/{id}', [HistoryController::class, 'show'])->name('history.show');
+
 });
 
 // Rute untuk melihat konser dan tiket (read-only)

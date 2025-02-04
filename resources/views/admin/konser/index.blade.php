@@ -67,7 +67,7 @@
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $konser->lokasi->location }}</td>
                         <td class="border-b border-gray-300 px-4 py-2 text-center">
 
-                        <a href="{{ route('admin.konser.detail', $konser->id)) }}">
+                        <a href="{{ route('detail', $konser->id) }}">
                                 <button class="w-full h-8 flex items-center justify-center px-4 py-2 rounded text-gray-600 bg-indigo-200 hover:opacity-80 focus:outline-none">
                                     Detail
                                 </button>
