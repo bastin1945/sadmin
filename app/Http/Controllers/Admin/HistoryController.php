@@ -15,7 +15,7 @@ class HistoryController extends Controller
     {
         $order = order::with('tiket','promo','user')->get();
         // dd($order->toArray());
-        return view('history.index',compact('order'));
+        return view('admin.history.index',compact('order'));
     }
 
     /**

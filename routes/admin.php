@@ -1,19 +1,20 @@
-<?php
+    <?php
 
-use App\Http\Controllers\Admin\PromoController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\KonserController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\TiketController;
+use App\Http\Controllers\Admin\KonserController;
 use App\Http\Controllers\Admin\LokasiController;
+use App\Http\Controllers\Admin\HistoryController;
+use App\Http\Controllers\Admin\PermissionController;
+
 
 // Rute untuk admin
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::get('/forms', function () {
         return view('admin.forms');
@@ -31,21 +32,23 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
         return view('admin.ui-elements-review');
     })->name('ui-elements-review');
 
-
     // Manajemen pengguna, peran, dan izin
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
 
     // Manajemen konser dan tiket
-    Route::resource('konsers', KonserController::class);
+    Route::   resource('admindashboard',DashboardController::class);
+                    Route::get('/admindashboard', [DashboardController::class, 'index'])->name('admindashboard.index');
+
+        Route::resource('konsers', KonserController::class);
     // Route::get('/konser', [KonserController::class, 'index'])->name('konser.index');
     Route::get('konsers/create', [KonserController::class, 'create'])->name('admin.konsers.create');
     Route::post('admin/konser/store', [KonserController::class, 'store'])->name('admin.konser.store');
     Route::put('/admin/konser/{id}', [KonserController::class, 'update'])->name('admin.konser.update');
     Route::delete('/admin/konser/{id}', [KonserController::class, 'destroy'])->name('admin.konser.destroy');
     Route::resource('konser', KonserController::class)->except(['show']);
-    Route::get('admin/konser/detail', [KonserController::class, 'detail'])->name('admin.konser.detail');
+        Route::get('detail/{id)', [KonserController::class, 'detail'])->name('detail');
 
     // Route::resource('admin/konser', KonserController::class);
     Route::resource('tiket', TiketController::class)->except(['show']);
@@ -60,8 +63,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('admin/promo/store', [PromoController::class, 'store'])->name('admin.promo.store');
     Route::get('/admin/promo/{id}/edit', [PromoController::class, 'edit'])->name('admin.promo.edit');
     Route::put('/admin/promo/{id}', [PromoController::class, 'update'])->name('admin.promo.update');
-    
-    //punyae lokasi
+
+        Route::resource('adminhistory', HistoryController::class);
+        Route::get('/admin/adminhistory/index', [HistoryController::class, 'index'])->name('admin.adminhistory.index');
+
+        //punyae lokasi
     Route::resource('lokasi', LokasiController::class);
     Route::get('/admin/lokasi/index', [LokasiController::class, 'index'])->name('admin.lokasi.index');
     Route::get('/admin/lokasi/create', [LokasiController::class, 'create'])->name('admin.lokasi.create');

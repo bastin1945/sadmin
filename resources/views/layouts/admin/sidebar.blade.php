@@ -10,7 +10,7 @@
     </div>
 
     <nav class="mt-2">
-    <a class="flex items-center ml-4 mr-4  px-6 py-2 {{ Route::is('admin.dashboard') ? 'bg-blue-500 text-white' : 'text-dark hover:bg-gray-200 hover:text-white' }} px-4 py-4 rounded-lg" href="{{ route('admin.dashboard') }}">
+    <a class="flex items-center ml-4 mr-4  px-6 py-2 {{ Route::is('admin.admindashboard') ? 'bg-blue-500 text-white' : 'text-dark hover:bg-gray-200 hover:text-white' }} px-4 py-4 rounded-lg" href="{{ route('admin.admindashboard.index') }}">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="transition-all duration-300">
             <path d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z"/>
         </svg>
