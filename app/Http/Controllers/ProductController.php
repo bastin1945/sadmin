@@ -94,7 +94,7 @@ class ProductController extends Controller
     public function buy($id)
     {
         $konser = Konser::with('tiket')->findOrFail($id);
-
+        
 
         //  dd($konser->toArray());
         return view('product.buy', compact('konser'));

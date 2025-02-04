@@ -29,7 +29,7 @@
     /* Add other styles here... */
 </style>
 
-<div class="max-w-5xl mx-auto flex justify-between bg-white mt-[7rem] mb-6 gap-6">
+<div class="max-w-7xl mx-auto flex justify-between bg-white mt-[8rem] mb-6 gap-6">
     <!-- Bagian Kiri -->
     <div class="w-1/2 mr-4 bg-white rounded-lg">
         @if ($errors->any())
@@ -47,7 +47,8 @@
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
             <input type="hidden" id="harga_total" name="harga_total" value="0">
 
-             <div class="mb-6 p-2 rounded-sm shadow-md">
+             <div class="mb-2 p-2 rounded-sm " style="box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), -2px 0 3px rgba(0, 0, 0, 0.05), 2px 0 3px rgba(0, 0, 0, 0.05);">
+
                 <label for="category" class="block mb-2 text-md font-medium text-black-600">Pilih kategori konser</label>
                 <select name="tiket_id" id="category" class="w-full px-4 py-2 text-sm font-medium text-black-600 border border-white rounded focus:ring focus:ring-indigo-200 mb-3" onchange="updateHarga()">
                     <option value="" class="text-gray-400">Kategori</option>
@@ -57,20 +58,29 @@
                 </select>
             </div>
             <!-- Container untuk Atur Jumlah -->
-            <div class="p-4 rounded-sm shadow-md">
+            <div class="p-4 rounded-sm shadow-md" style="box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), -2px 0 3px rgba(0, 0, 0, 0.05), 2px 0 3px rgba(0, 0, 0, 0.05);">
+
                 <div class="flex items-center justify-between">
                     <label for="jumlah" class="text-sm font-medium text-gray-600">Atur Jumlah</label>
                     <div class="flex items-center space-x-3">
-                        <button id="decrease" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded">-</button>
-                        <input id="jumlah" type="text" name="jumlah_tiket" value="1" readonly class="w-12 text-center text-gray-800 font-semibold border border-white rounded">
-                        <button id="increase" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded">+</button>
+                        <button id="decrease" type="button" class="text-lg font-bold text-black border-2 border-black rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                        </svg>
+                        </button>
+                        <input id="jumlah" type="text" name="jumlah_tiket" value="0" readonly class="w-12 text-center text-gray-800 font-semibold border border-white rounded">
+                        <button id="increase" type="button" class="text-lg font-bold text-black border-2 border-black rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                        </button>
                     </div>
                 </div>
             </div>
 
            
 
-            <div class="p-4 rounded-sm shadow-md">
+            <div class="mt-2 p-4 rounded-sm shadow-md" style="box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), -2px 0 3px rgba(0, 0, 0, 0.05), 2px 0 3px rgba(0, 0, 0, 0.05);">
                 <label for="promo_code" class="block mb-2 text-sm font-medium text-gray-600">Masukkan Kode Promo</label>
                 <input id="promo_code" type="text" name="promo_id" class="w-full px-4 py-2 text-sm font-medium text-black-600 border border-gray-300 rounded uppercase" placeholder="Kode Promo">
                 <button id="apply-promo" type="button" class="mt-2 px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-indigo-700">Gunakan Promo</button>
@@ -130,7 +140,7 @@
                 <span id="total-pembayaran">Rp 0</span>
             </div>
         </div>
-        <button type="submit" id="bayar-btn" class="mt-4 w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-indigo-700">Bayar Sekarang</button>
+                    <button type="submit" id="bayar-btn" class="mt-4 w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-indigo-700">Bayar Sekarang</button>
         </form>
     </div>
 </div>
