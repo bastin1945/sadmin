@@ -25,7 +25,12 @@
         <div class="flex justify-between items-center px-5 py-5">
     <h1 class="text-2xl font-bold">Data History Order</h1>
     <div class="flex items-center space-x-4">
-    <div class="relative mx-4 lg:mx-0">
+    
+    </div>
+</div>
+<div class="flex justify-end px-5 mb-7"> <!-- Tambahkan flex justify-end -->
+
+<div class="relative mx-4 lg:mx-0">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
                     <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -37,13 +42,6 @@
 
             </form>
         </div>
-    </div>
-</div>
-<div class="flex justify-end px-5 mb-7"> <!-- Tambahkan flex justify-end -->
-
-                <select class="border border-gray-300 rounded px-2 py-1 text-gray-500 focus:outline-none appearance-none w-28 pr-3">
-                    <option>October</option>
-                </select>
         </div>
 
 <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
@@ -51,25 +49,28 @@
         <tr>
             <th class="px-4 py-2">No</th>
             <th class="px-4 py-2">Nama user</th>
-            <th class="px-4 py-2">Tiket</th>
-            <th class="px-4 py-2">Jumlah</th>
-            <th class="px-4 py-2">Harga Tiket</th>
-            <th class="px-4 py-2">Jenis Tiket</th>
+            <th class="px-4 py-2">Email</th>
+            <th class="px-4 py-2">Password</th>
+            <th class="px-4 py-2 text-center">Aksi</th>
         </tr>
     </thead>
 
     <tbody>
-    @foreach ($order as $index => $orde)
-        
+
     <tr class="text-gray-700">
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->user->name }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->konser->nama }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->jumlah_tiket }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->harga_total }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->jenis_tiket }}</td>
+        <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
+        <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
+        <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
+        <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
+        <td class="border-b border-gray-300 px-4 py-2 text-center">
+        <button type="button" class="border text-red-700 px-3 py-2 rounded hover:bg-red-600 hover:text-white" onclick="confirmDelete({{}})">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                    </svg>
+                                </button>
+        </td>
     </tr>
-    @endforeach
+
 
     </tbody>
 </table>

@@ -49,12 +49,6 @@
 
                 </div>
             </ul>
-            <a href="{{ route('productbuy',$konser->id) }}" class="button">
-            <button
-                class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-48 py-2.5 text-center mt-10 mb-2">
-beli sekarang
-            </button>
-            </a>
             <!-- Description -->
             <h3 class="mt-6 font-semibold text-gray-700">Deskripsi Event</h3>
             <p class="text-gray-600 mt-2 text-sm leading-relaxed">{{ $konser->deskripsi }}</p>

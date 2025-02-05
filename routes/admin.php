@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\KonserController;
 use App\Http\Controllers\Admin\LokasiController;
 use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PenggunaController;
 
 
 // Rute untuk admin
@@ -41,7 +42,7 @@ use App\Http\Controllers\Admin\PermissionController;
     Route::   resource('admindashboard',DashboardController::class);
                     Route::get('/admindashboard', [DashboardController::class, 'index'])->name('admindashboard.index');
 
-        Route::resource('konsers', KonserController::class);
+    Route::resource('konsers', KonserController::class);
     // Route::get('/konser', [KonserController::class, 'index'])->name('konser.index');
     Route::get('konsers/create', [KonserController::class, 'create'])->name('admin.konsers.create');
     Route::post('admin/konser/store', [KonserController::class, 'store'])->name('admin.konser.store');
@@ -74,4 +75,7 @@ use App\Http\Controllers\Admin\PermissionController;
     // Route::get('/admin/lokasi/{id}/create', [LokasiController::class, 'create'])->name('admin.lokasi.create');
     Route::get('admin/lokasi/{id}/edit', [LokasiController::class, 'edit'])->name('admin.lokasi.edit');
     Route::put('/admin/lokasi/{id}', [LokasiController::class, 'update'])->name('admin.lokasi.update');
+
+    Route::resource('pengguna', PenggunaController::class);
+    Route::get('/admin/pengguna/index', [PenggunaController::class, 'index'])->name('admin.pengguna.index');
 });

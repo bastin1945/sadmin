@@ -1,5 +1,7 @@
 @include('layouts.app')
-<x-slot name=""></x-slot>
+<x-slot name="">
+    
+</x-slot>
 
 <div class="max-w-7xl mx-auto flex justify-between bg-white mt-[7rem] mb-6 gap-6">
     <!-- Sidebar -->
@@ -56,8 +58,8 @@
                     </div>
 
                     <div class="flex space-x-2 mt-2">
-                        <button @click="openDetail = true; selectedOrder = {{ $orde->id }}" class="bg-blue-800 text-xs text-white px-1 py-2 rounded-lg" style="width: 120px; height: 36px;">Detail</button>
                         <button @click="openReview = true; selectedOrder = {{ $orde->id }}" class="bg-blue-800 text-xs text-white px-1 py-2 rounded-lg ml-2" style="width: 120px; height: 36px;">Review</button>
+                        <button @click="openDetail = true; selectedOrder = {{ $orde->id }}" class="bg-blue-800 text-xs text-white px-1 py-2 rounded-lg" style="width: 120px; height: 36px;">Detail</button>
                     </div>
                 </div>
             </div>
@@ -128,7 +130,7 @@
 </div>
 
 <!-- Custom Success Popup -->
-<div class="popup-container hidden" id="popupContainer">
+<div class="popup-container sukses" id="popupContainer">
     <div class="popup">
         <div class="flex justify-end">
             <button id="close" class="">
@@ -138,10 +140,11 @@
             </button>
         </div>
         <div class="success-icon flex items-center justify-center">
-            <div class="bg-green-500 rounded-full p-1 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 text-white">
-                    <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" clip-rule="evenodd" />
-                </svg>
+            <div class="bg-green-500 rounded-full p-4 flex items-center justify-center mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+</svg>
+
             </div>
         </div>
         <p class="text-center text-gray-600">Pembayaran Anda telah berhasil dilakukan.</p>
@@ -173,10 +176,6 @@
             </div>
             
             <!-- Timer countdown -->
-            <div class="text-center mt-4">
-                <span class="text-lg font-semibold">Akan diarahkan ke riwayat dalam</span>
-                <div id="timer" class="text-2xl font-bold text-blue-500 mt-2">00:29</div>
-            </div>
         </div>
     </div>
 </div>
@@ -205,7 +204,7 @@
     animation: fadeIn 0.3s ease; /* Animation for popup */
 }
 
-.hidden {
+.sukses {
     display: none; /* Hide the popup by default */
 }
 
@@ -220,7 +219,7 @@
         transform: translateY(0);
     }
 }
-</style>
+</style>        
 
 <script>
     let orders = @json($order);
@@ -246,8 +245,6 @@
         };
 
         // Timer countdown
-        let countdownTimer = 29; // Set countdown time in seconds
-        const timerDisplay = document.getElementById('timer');
         
         const timerInterval = setInterval(function() {
             if (countdownTimer <= 0) {

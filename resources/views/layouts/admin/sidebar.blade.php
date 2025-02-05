@@ -46,25 +46,24 @@
         <span class="mx-3 font-bold text-sm">Lokasi</span>
     </a>
 
-    <div>
-    <a id="dropdown-button" class="flex items-center ml-4 mr-4 px-6 py-2 {{ Route::is('') ? 'bg-blue-500 text-white' : 'text-dark hover:bg-gray-200 hover:text-white' }} px-4 py-4 rounded-lg cursor-pointer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="transition-all duration-300">
+    <a class="flex items-center ml-4 mr-4 px-6 py-2 {{ Route::is('admin.adminhistory.index') ? 'bg-blue-500 text-white' : 'text-dark hover:bg-gray-200 hover:text-white' }} px-4 py-4 rounded-lg" href="{{ route('admin.adminhistory.index') }}" >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="transition-all duration-300">
             <path d="M6 14h6v-6c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6zm16 0c0 5.523-4.478 10-10 10s-10-4.477-10-10 4.478-10 10-10 10 4.477 10 10zm-2 0c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8 8-3.589 8-8zm-6-11.819v-2.181h-4v2.181c1.408-.238 2.562-.243 4 0zm6.679 3.554l1.321-1.321-1.414-1.414-1.407 1.407c.536.402 1.038.844 1.5 1.328z"/>
         </svg>
-        <span class="mx-3 font-bold text-sm">History</span>
-        <svg id="dropdown-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-        </svg>
+
+        <span class="mx-3 font-bold text-sm">History order</span>
     </a>
 
-    <!-- Dropdown Menu -->
-    <div id="dropdown-menu" class="hidden origin-top-right bg-white rounded-lg border-b border-gray-200 absolute z-10 w-48">
-        <a href="{{ route('admin.adminhistory.index') }}" id="history-order" class="block px-6 py-3 text-dark hover:bg-blue-500 hover:text-white rounded-lg transition-all duration-300 text-sm">History order</a>
+    <a class="flex items-center ml-4 mr-4 px-6 py-2 {{ Route::is('admin.pengguna.index') ? 'bg-blue-500 text-white' : 'text-dark hover:bg-gray-200 hover:text-white' }} px-4 py-4 rounded-lg" href="{{ route('admin.pengguna.index') }}" >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+</svg>
 
-        <!-- Added the new link for ui-elements-review -->
-         
-        <a href="{{ route('admin.ui-elements-review') }}" class="block px-6 py-3 text-dark hover:bg-blue-500 hover:text-white rounded-lg transition-all duration-300 text-sm">History Review</a>
-    </div>
+
+        <span class="mx-3 font-bold text-sm">Pengguna</span>
+    </a>
+
+    <div>
 </div>
 
 
