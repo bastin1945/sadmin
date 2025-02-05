@@ -60,7 +60,7 @@
 
                 <!-- Main Content -->
                 <div class="container mx-auto px-4 3xl:px-8 py-8 mt-10 ml-1/4">
-                    <div class="grid grid-cols-3 gap-6">
+                    <div class="grid grid-cols-3 gap-1">
                         @if ($isEmpty)
                             <p class="text-red-500 font-semibold">Konser tidak ada pada lokasi ini.</p>
                         @else
