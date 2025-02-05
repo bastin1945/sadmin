@@ -95,7 +95,7 @@ beli sekarang
                     </div>
                     <div>
                         <p class="font-medium text-gray-800">Sasti Juni</p>
-                        <p class="text-yellow-500 text-sm">⭐ 4/5</p>
+                        {{-- <p class="text-yellow-500 text-sm">⭐ 4/5</p> --}}
                         <p class="text-gray-600 text-sm mt-1">This icon pack is just what I need for my latest project.
                             Love the playful look!</p>
                         <!-- Placeholder for thumbnails -->
@@ -114,7 +114,7 @@ beli sekarang
                     </div>
                     <div>
                         <p class="font-medium text-gray-800">Sasti Juni</p>
-                        <p class="text-yellow-500 text-sm">⭐ 4/5</p>
+                        {{-- <p class="text-yellow-500 text-sm">⭐ 4/5</p> --}}
                         <p class="text-gray-600 text-sm mt-1">This icon pack is just what I need for my latest project.
                             Love the playful look!</p>
                         <!-- Placeholder for thumbnails -->
