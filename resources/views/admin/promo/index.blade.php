@@ -14,8 +14,8 @@
         });
     </script>
 @endif
-    <div class="bg-white min-h-screen px-5 rounded-lg"> 
-        
+    <div class="bg-white min-h-screen px-5 rounded-lg">
+
 
 
         <div class="flex justify-between items-center px-5 py-5">
@@ -37,22 +37,20 @@
                     <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </span>
-            <form action="" method="get">
-            <input id="search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600"
-            type="text" placeholder="Search for something" name="search" value="{{ request()->get('search') }}">
 
-            </form>
         </div>
-        
-                <select class="ml-3 mr-3 border border-gray-300 rounded px-2 py-1 text-gray-500 focus:outline-none appearance-none w-28 pr-3">
-                    <option>October</option>
-                </select>
-                <select class="mr-3 border border-gray-300 rounded px-2 py-1 text-gray-500 focus:outline-none appearance-none w-28 pr-3">
-                    <option>October</option>
-                </select>
-                <select class="border border-gray-300 rounded px-2 py-1 text-gray-500 focus:outline-none appearance-none w-28 pr-3">
-                    <option>October</option>
-                </select>
+<form action="{{ route('admin.promo.index') }}" method="get">
+    <input id="search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600"
+           type="text" placeholder="Search for something" name="search" value="{{ request()->get('search') }}">
+
+
+
+    <select name="status_promo" onchange="this.form.submit()" class="border border-gray-300 rounded-md pl-0 px-7 py-2 text-gray-500 focus:outline-none appearance-none w-32 pr-8">
+    <option value="">Status Promo</option>
+    <option value="Aktif" {{ request('status_promo') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+    <option value="Tidak Aktif" {{ request('status_promo') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+</select>
+</form>
             </div>
 
         <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
@@ -110,13 +108,44 @@
                 @endforeach
             </tbody>
         </table>
-
-        <!-- Pagination -->
-        <div class="mt-4">
-            {{ $promo->links() }} <!-- Menambahkan pagination -->
-        </div>
-
     </div>
+
+<!-- Pagination Links -->
+<div class="flex justify-center mt-4">
+    <nav class="inline-flex -space-x-px" aria-label="Pagination">
+        @if ($promo->onFirstPage())
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                &laquo; Prev
+            </span>
+        @else
+            <a href="{{ $promo->previousPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                &laquo; Prev
+            </a>
+        @endif
+
+        @foreach ($promo->getUrlRange(1, $promo->lastPage()) as $page => $url)
+            @if ($page == $promo->currentPage())
+                <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 cursor-default">
+                    {{ $page }}
+                </span>
+            @else
+                <a href="{{ $url }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                    {{ $page }}
+                </a>
+            @endif
+        @endforeach
+
+        @if ($promo->hasMorePages())
+            <a href="{{ $promo->nextPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                Next &raquo;
+            </a>
+        @else
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                Next &raquo;
+            </span>
+        @endif
+    </nav>
+</div>
 
     <script>
     function confirmDelete(id) {

@@ -20,13 +20,14 @@ Route::get('/', function () {
 
 Route::get('/jelajahi', [JelajahiController::class, 'index'])->name('jelajahi');
 
+Route::get('/dashboard', [FrontController::class, 'index'])->name('dashboard');
 
+Route::get('/lainya', [LainyaController::class, 'index'])->name('lainya.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/dashboard', [FrontController::class, 'index'])->name('dashboard');
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
     Route::get('/history/{id}', [HistoryController::class, 'show'])->name('history.show');
 
@@ -56,6 +57,7 @@ Route::post('/apply-promo', [ProductController::class, 'applyPromo'])->name('app
 Route::post('/check-promo', [ProductController::class, 'checkPromo'])->name('check.promo');
 Route::get('/lainya', [LainyaController::class, 'index'])->name('lainya.index');
 Route::post('/apply-discount', [ProductController::class, 'applyDiscount']);
+Route::post('/midtrans/token', [ProductController::class, 'getToken'])->name('midtrans.token');
 
 
 Route::get('/buy-ticket', function () {

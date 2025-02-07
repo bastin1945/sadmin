@@ -1,5 +1,11 @@
 @include('layouts.app')
 
+<!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
+<script type="text/javascript"
+    src="https://app.stg.midtrans.com/snap/snap.js"
+    data-client-key="SB-Mid-client-67HxRxpo_4xACWIf"></script>
+<!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
+
 <style>
     body {
         font-family: 'Poppins', sans-serif;
@@ -21,7 +27,7 @@
         padding: 40px;
         border-radius: 12px;
         text-align: center;
-        width: 45vw; 
+        width: 45vw;
         max-width: 100%;
         transform: scale(1);
         transition: transform 0.3s ease-in-out;
@@ -47,8 +53,7 @@
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
             <input type="hidden" id="harga_total" name="harga_total" value="0">
 
-             <div class="mb-2 p-2 rounded-sm " style="box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), -2px 0 3px rgba(0, 0, 0, 0.05), 2px 0 3px rgba(0, 0, 0, 0.05);">
-
+            <div class="mb-2 p-2 rounded-sm" style="box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), -2px 0 3px rgba(0, 0, 0, 0.05), 2px 0 3px rgba(0, 0, 0, 0.05);">
                 <label for="category" class="block mb-2 text-md font-medium text-black-600">Pilih kategori konser</label>
                 <select name="tiket_id" id="category" class="w-full px-4 py-2 text-sm font-medium text-black-600 border border-white rounded focus:ring focus:ring-indigo-200 mb-3" onchange="updateHarga()">
                     <option value="" class="text-gray-400">Kategori</option>
@@ -57,36 +62,33 @@
                     @endforeach
                 </select>
             </div>
+
             <!-- Container untuk Atur Jumlah -->
             <div class="p-4 rounded-sm shadow-md" style="box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), -2px 0 3px rgba(0, 0, 0, 0.05), 2px 0 3px rgba(0, 0, 0, 0.05);">
-
                 <div class="flex items-center justify-between">
                     <label for="jumlah" class="text-sm font-medium text-gray-600">Atur Jumlah</label>
                     <div class="flex items-center space-x-3">
                         <button id="decrease" type="button" class="text-lg font-bold text-black border-2 border-black rounded-md">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                        </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                            </svg>
                         </button>
                         <input id="jumlah" type="text" name="jumlah_tiket" value="0" readonly class="w-12 text-center text-gray-800 font-semibold border border-white rounded">
                         <button id="increase" type="button" class="text-lg font-bold text-black border-2 border-black rounded-md">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
                         </button>
                     </div>
                 </div>
             </div>
-
-           
 
             <div class="mt-2 p-4 rounded-sm shadow-md" style="box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.05), 0 2px 3px rgba(0, 0, 0, 0.05), -2px 0 3px rgba(0, 0, 0, 0.05), 2px 0 3px rgba(0, 0, 0, 0.05);">
                 <label for="promo_code" class="block mb-2 text-sm font-medium text-gray-600">Masukkan Kode Promo</label>
                 <input id="promo_code" type="text" name="promo_id" class="w-full px-4 py-2 text-sm font-medium text-black-600 border border-gray-300 rounded uppercase" placeholder="Kode Promo">
                 <button id="apply-promo" type="button" class="mt-2 px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-indigo-700">Gunakan Promo</button>
             </div>
-
-
+        </form>
     </div>
 
     <!-- Bagian Kanan -->
@@ -140,8 +142,21 @@
                 <span id="total-pembayaran">Rp 0</span>
             </div>
         </div>
-                    <button type="submit" id="bayar-btn" class="mt-4 w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-indigo-700">Bayar Sekarang</button>
-        </form>
+        <!-- Button to Open the Modal -->
+<button id="pay-button" class="mt-4 w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-indigo-700">Bayar Sekarang</button>
+
+<!-- Confirmation Modal -->
+<div id="modal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-600 bg-opacity-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-lg font-semibold mb-4">Konfirmasi Pembayaran</h2>
+        <p>Apakah Anda yakin ingin melakukan pembayaran?</p>
+        <div class="mt-4 flex justify-end space-x-3">
+            <button id="batal-btn" class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
+            <button id="konfirmasi-btn" class="px-4 py-2 bg-blue-500 text-white rounded">Bayar</button>
+        </div>
+    </div>
+</div>
+
     </div>
 </div>
 
@@ -207,9 +222,7 @@
 
             document.getElementById("harga-tiket").innerText = "Rp " + totalBayar.toLocaleString();
             document.getElementById("total-pembayaran").innerText = "Rp " + totalBayar.toLocaleString();
-            
-            // Update input harga_total
-            document.getElementById("harga_total").value = totalBayar; 
+            document.getElementById("harga_total").value = totalBayar; // Update input harga_total
         }
 
         $("#increase").click(function() {
@@ -227,41 +240,37 @@
         });
 
         $("#apply-promo").click(function() {
-    let promoCode = $("#promo_code").val();
-    let hargaTiket = parseInt($("#harga-tiket").text().replace(/\D/g, ''));
+            let promoCode = $("#promo_code").val();
+            let hargaTiket = parseInt($("#harga-tiket").text().replace(/\D/g, ''));
 
-    if (promoCode === "") {
-        alert("Silakan masukkan kode promo!");
-        return;
-    }
-
-    $.ajax({
-        url: "{{ route('apply.promo') }}",
-        type: "POST",
-        data: {
-            promo_code: promoCode,
-            harga_tiket: hargaTiket, // Tambahkan harga_tiket di sini
-            _token: "{{ csrf_token() }}"
-        },
-        success: function(response) {
-            if (response.success) {
-                // Update UI dengan diskon dan total setelah diskon
-                $("#total-pembayaran").text(`Rp ${response.total_setelah_diskon.toLocaleString()}`);
-                $("#potongan-diskon").text(`Rp ${response.diskon.toLocaleString()}`);
-
-                // Update input harga_total
-                $("#harga_total").val(response.total_setelah_diskon);
-                
-                alert(response.message);
-            } else {
-                alert(response.message);
+            if (promoCode === "") {
+                alert("Silakan masukkan kode promo!");
+                return;
             }
-        },
-        error: function(xhr) {
-            alert("Terjadi kesalahan, coba lagi.");
-        }
-    });
-});
+
+            $.ajax({
+                url: "{{ route('apply.promo') }}",
+                type: "POST",
+                data: {
+                    promo_code: promoCode,
+                    harga_tiket: hargaTiket,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $("#total-pembayaran").text(`Rp ${response.total_setelah_diskon.toLocaleString()}`);
+                        $("#potongan-diskon").text(`Rp ${response.diskon.toLocaleString()}`);
+                        $("#harga_total").val(response.total_setelah_diskon);
+                        alert(response.message);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr) {
+                    alert("Terjadi kesalahan, coba lagi.");
+                }
+            });
+        });
 
         $("form").on("submit", function(event) {
             updateHarga(); // Pastikan harga total terupdate sebelum submit
@@ -272,3 +281,63 @@
         });
     });
 </script>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript"
+        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const payButton = document.getElementById('pay-button');
+        const modal = document.getElementById('modal');
+        const batalButton = document.getElementById('batal-btn');
+        const konfirmasiButton = document.getElementById('konfirmasi-btn');
+
+        // Show the modal when the pay button is clicked
+        payButton.addEventListener('click', function() {
+            @if(auth()->check())
+                modal.classList.remove('hidden'); // Show the modal
+            @else
+                window.location.href = '{{ route("login") }}'; // Redirect to login page
+            @endif
+        });
+
+        // Hide the modal when the batal button is clicked
+        batalButton.addEventListener('click', function() {
+            modal.classList.add('hidden'); // Hide the modal
+        });
+
+        // Handle the payment when the konfirmasi button is clicked
+        konfirmasiButton.addEventListener('click', function() {
+            let totalBayar = document.getElementById("harga_total").value; // Get the total price
+            window.snap.pay('{{$snapToken}}', {
+                onSuccess: function(result) {
+                    alert("Payment success!");
+                    console.log(result);
+                    document.getElementById("popup-total").innerText = "Rp " + parseInt(totalBayar).toLocaleString(); // Update total in success pop-up
+                    $("#popupContainer").show(); // Show the success pop-up
+                    modal.classList.add('hidden'); // Hide the confirmation modal
+                },
+                onPending: function(result) {
+                    alert("Waiting for your payment!");
+                    console.log(result);
+                },
+                onError: function(result) {
+                    alert("Payment failed!");
+                    console.log(result);
+                },
+                onClose: function() {
+                    alert('You closed the popup without finishing the payment');
+                }
+            });
+            modal.classList.add('hidden'); // Hide the modal after payment process starts
+        });
+    });
+</script>
+</body>
+</html>

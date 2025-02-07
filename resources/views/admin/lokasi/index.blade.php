@@ -14,7 +14,7 @@
     </script>
 @endif
 
-<div class="bg-white min-h-screen px-5 rounded-lg"> 
+<div class="bg-white min-h-screen px-5 rounded-lg">
     <div class="flex justify-between items-center px-5 py-5">
         <h1 class="text-2xl font-bold">Manajemen Lokasi</h1>
 
@@ -64,7 +64,7 @@
                                 </svg>
                             </button>
                         </a>
-                        
+
 
                             <form id="delete-form-{{ $data->id }}" action="{{ route('admin.lokasi.destroy', $data->id) }}" method="POST" style="display: none;">
                                 @csrf
@@ -86,6 +86,42 @@
             @endforelse
         </tbody>
     </table>
+    <!-- Pagination Links -->
+</div>
+<div class="flex justify-center mt-4">
+    <nav class="inline-flex -space-x-px" aria-label="Pagination">
+        @if ($lokasi->onFirstPage())
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                &laquo; Prev
+            </span>
+        @else
+            <a href="{{ $lokasi->previousPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                &laquo; Prev
+            </a>
+        @endif
+
+        @foreach ($lokasi->getUrlRange(1, $lokasi->lastPage()) as $page => $url)
+            @if ($page == $lokasi->currentPage())
+                <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 cursor-default">
+                    {{ $page }}
+                </span>
+            @else
+                <a href="{{ $url }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                    {{ $page }}
+                </a>
+            @endif
+        @endforeach
+
+        @if ($lokasi->hasMorePages())
+            <a href="{{ $lokasi->nextPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                Next &raquo;
+            </a>
+        @else
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                Next &raquo;
+            </span>
+        @endif
+    </nav>
 </div>
 
 <script>

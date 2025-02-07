@@ -59,7 +59,7 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <header id="header" class="fixed inset-x-0 top-0 z-30 mx-auto max-w-screen-xl bg-white/80 py-4 shadow-lg backdrop-blur-lg md:top-3 md:rounded-2xl visible-header">
- 
+
 <div class="px-10 m-3">
         <div class="flex items-center justify-between">
             <!-- Logo Section -->
@@ -71,9 +71,9 @@
             </div>
 
             <!-- User Section -->
-             
+
             <div x-data="{ open: false }" class="relative flex items-center gap-4">
-                
+
             <!-- Navigation Links -->
             <div class="hidden md:flex md:items-end md:gap-8 mr-14">
                 <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('dashboard') }}">Home</a>

@@ -21,11 +21,11 @@
 </style>
 
 
-    <div class="bg-white min-h-screen px-5"> 
+    <div class="bg-white min-h-screen px-5">
         <div class="flex justify-between items-center px-5 py-5">
-    <h1 class="text-2xl font-bold">Data History Order</h1>
+    <h1 class="text-2xl font-bold">Pengguna</h1>
     <div class="flex items-center space-x-4">
-    
+
     </div>
 </div>
 <div class="flex justify-end px-5 mb-7"> <!-- Tambahkan flex justify-end -->
@@ -50,33 +50,72 @@
             <th class="px-4 py-2">No</th>
             <th class="px-4 py-2">Nama user</th>
             <th class="px-4 py-2">Email</th>
-            <th class="px-4 py-2">Password</th>
+
             <th class="px-4 py-2 text-center">Aksi</th>
         </tr>
     </thead>
 
     <tbody>
+@foreach ($users as $index => $use)
 
-    <tr class="text-gray-700">
-        <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">
-        <button type="button" class="border text-red-700 px-3 py-2 rounded hover:bg-red-600 hover:text-white" onclick="confirmDelete({{}})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                    </svg>
-                                </button>
-        </td>
-    </tr>
+<tr class="text-gray-700">
+    <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
+    <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $use->name }}</td>
+    <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $use->email }}</td>
 
+    <td class="border-b border-gray-300 px-4 py-2 text-center">
+        <button type="button" class="border text-red-700 px-3 py-2 rounded hover:bg-red-600 hover:text-white" onclick="confirmDelete()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+            </svg>
+        </button>
+    </td>
+</tr>
+
+@endforeach
 
     </tbody>
 </table>
-
         </div>
+
+<!-- Pagination Links -->
+<div class="flex justify-center mt-4">
+    <nav class="inline-flex -space-x-px" aria-label="Pagination">
+        @if ($users->onFirstPage())
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                &laquo; Prev
+            </span>
+        @else
+            <a href="{{ $users->previousPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                &laquo; Prev
+            </a>
+        @endif
+
+        @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+            @if ($page == $users->currentPage())
+                <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 cursor-default">
+                    {{ $page }}
+                </span>
+            @else
+                <a href="{{ $url }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                    {{ $page }}
+                </a>
+            @endif
+        @endforeach
+
+        @if ($users->hasMorePages())
+            <a href="{{ $users->nextPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                Next &raquo;
+            </a>
+        @else
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                Next &raquo;
+            </span>
+        @endif
+    </nav>
+</div>
     </div>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </x-admin-layout>
 

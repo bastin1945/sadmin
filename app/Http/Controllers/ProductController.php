@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use user;
+use Midtrans\Snap;
 use App\Models\order;
 use App\Models\Promo;
 use App\Models\tiket;
 use App\Models\konser;
 use Illuminate\Http\Request;
+use League\Flysystem\Config;
 use Illuminate\Support\Facades\Auth;
+use Exception;
 
 class ProductController extends Controller
 {
@@ -30,7 +34,6 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
 
     public function store(Request $request)
     {
@@ -91,13 +94,69 @@ class ProductController extends Controller
         // dd($konser->toArray());
         return view('product.show', compact('konser'));
     }
-    public function buy($id)
+    public function buy(Request $request, $id)
     {
-        $konser = Konser::with('tiket')->findOrFail($id);
-        
+        // Pastikan pengguna sudah login
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Silakan login untuk melanjutkan pembelian.');
+        }
 
-        //  dd($konser->toArray());
-        return view('product.buy', compact('konser'));
+        $konser = Konser::with('tiket')->findOrFail($id);
+
+        // Ambil promo aktif, misalnya hanya satu promo yang berlaku
+        $promo = Promo::first(); // Atau gunakan kondisi lain untuk mendapatkan promo tertentu
+        $totalHarga = 0;
+        $jumlahTiket = $request->input('jumlah', 1); // Misalnya jumlah tiket yang dibeli
+        $user = auth()->user();
+
+        // Pastikan user tidak null
+        $firstName = $user->name ?? 'Pengguna'; // Ganti dengan nilai default jika null
+        $lastName = ''; // Jika tidak ada field untuk nama belakang, bisa dikosongkan atau diambil dari field lain
+        $email = $user->email;
+
+        // Inisialisasi persentase diskon
+        $persentaseDiskon = 0;
+        if ($promo) { // Pastikan ada promo
+            $persentaseDiskon = $promo->nilai_diskon; // Ambil persentase diskon
+        }
+
+        foreach ($konser->tiket as $tiket) {
+            // Hitung diskon berdasarkan persentase
+            $diskon = ($tiket->harga_tiket * $persentaseDiskon) / 100; // Diskon dalam nilai
+            $hargaSetelahDiskon = $tiket->harga_tiket - $diskon; // Hitung harga setelah diskon
+            $totalHarga += max(0, $hargaSetelahDiskon) * $jumlahTiket; // Pastikan harga tidak negatif
+        }
+
+        // Tambahkan log untuk debug
+        error_log('Total Harga Setelah Promo: ' . $totalHarga);
+
+        // Pastikan totalHarga lebih besar dari 0.01
+        if ($totalHarga < 0.01) {
+            throw new Exception('Gross amount must be greater than or equal to 0.01');
+        }
+
+        // Set up Midtrans
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = false;
+        \Midtrans\Config::$isSanitized = true;
+        \Midtrans\Config::$is3ds = true;
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => $totalHarga,
+            ),
+            'customer_details' => array(
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'email' => $email,
+                'phone' => '08111222333',
+            ),
+        );
+
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+
+        return view('product.buy', compact('konser', 'snapToken'));
     }
 
 

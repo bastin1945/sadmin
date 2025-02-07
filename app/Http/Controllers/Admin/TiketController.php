@@ -12,16 +12,41 @@ class TiketController extends Controller
     public function index()
     {
         $search = request()->input('search');
-if ($search) {
-    // Mengambil tiket berdasarkan konser_id atau kriteria lain
-    $tiket = tiket::whereHas('konser', function($query) use ($search) {
-        $query->where('nama', 'like', '%' . $search . '%');
-    })->orWhere('konser_id', 'like', '%' . $search . '%')->get();
-} else {
-    // Ambil semua tiket dengan relasi konser
-    $tiket = tiket::with('konser')->get();
-}
-        return view('admin.tiket.index', compact('tiket'));
+        $jenis_tiket = request()->input('jenis_tiket');
+        $harga_tiket = request()->input('harga_tiket');
+        $status_tiket = request()->input('status_tiket');
+
+        $query = Tiket::with('konser');
+
+        if ($search) {
+            $query->whereHas('konser', function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%');
+            })->orWhere('konser_id', 'like', '%' . $search . '%');
+        }
+
+        // Filter berdasarkan jenis tiket
+        if ($jenis_tiket) {
+            $query->where('jenis_tiket', $jenis_tiket);
+        }
+
+        // Filter berdasarkan harga tiket
+        if ($harga_tiket) {
+            $query->where('harga_tiket', '<=', $harga_tiket);
+        }
+
+        // Filter berdasarkan status tiket
+        if ($status_tiket) {
+            $query->where('status_tiket', $status_tiket);
+        }
+
+        // Ambil tiket yang sudah difilter
+        $tiket = $query->paginate(10);
+
+        // Ambil data unik untuk dropdown
+        $jenisTikets = Tiket::select('jenis_tiket')->distinct()->pluck('jenis_tiket');
+        $statusTikets = Tiket::select('status_tiket')->distinct()->pluck('status_tiket');
+
+        return view('admin.tiket.index', compact('tiket', 'jenisTikets', 'statusTikets'));
     }
 
     public function create()

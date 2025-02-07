@@ -12,19 +12,39 @@ use Illuminate\Support\Facades\Storage;
 
 class KonserController extends Controller
 {
-    public function index()
+
+
+
+    public function index(Request $request)
     {
         $search = request()->input('search');
-        if ($search){
-            $konsers = konser::where('nama','like','%'.$search.'%')->get();
-        }else {
-            $konsers = Konser::with('lokasi')->get();
+        $lokasi_id = request()->input('lokasi_id'); // Ambil input lokasi
+        $tanggal = $request->input('tanggal');
+        // Ambil semua lokasi untuk dropdown
+        $lokasis = Lokasi::all(); // Pastikan Anda mengambil data lokasi
+
+        // Query dasar untuk konser
+        $konsers = Konser::with('lokasi'); // Mengambil konser dengan relasi lokasi
+
+        // Pencarian berdasarkan nama konser
+        if ($search) {
+            $konsers->where('nama', 'like', '%' . $search . '%');
         }
-        // dd($konsers->toArray()); // Load relasi promo
-        return view('admin.konser.index', compact('konsers'));
+
+        // Filter berdasarkan lokasi jika ada input dari user
+        if ($lokasi_id) {
+            $konsers->where('lokasi_id', $lokasi_id);
+        }
+
+        if ($tanggal) {
+            $konsers->whereDate('tanggal', $tanggal);
+        }
+
+        // Ambil data konser yang sudah difilter
+        $konsers = $konsers->paginate(10);
+
+        return view('admin.konser.index', compact('konsers', 'lokasis')); // Kirimkan $lokasis ke view
     }
-
-
 
     public function create()
     {

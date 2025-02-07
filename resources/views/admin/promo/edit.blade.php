@@ -121,11 +121,15 @@
         </div>
 
         <div class="form-group">
-            <div class="input-container">
-                <label for="status">Status Promo</label>
-                <input class="mt-4" type="text" id="status" name="status_promo" value="{{ $promo->status_promo }}" readonly style="width: 100%">
-            </div>
-        </div>
+    <div class="input-container">
+        <label for="status">Status Promo</label>
+        <select id="status" name="status_promo" class="mt-4" style="width: 100%">
+            <option value="">Pilih Status</option>
+            <option value="Aktif" {{ $promo->status_promo == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+            <option value="Tidak Aktif" {{ $promo->status_promo == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+        </select>
+    </div>
+</div>
 
         <div class="form-actions">
             <button type="button" class="cancel" onclick="window.history.back();" onmouseover="this.style.backgroundColor='red'; this.style.color='white';" onmouseout="this.style.backgroundColor='#e0e0e0'; this.style.color='#333';">

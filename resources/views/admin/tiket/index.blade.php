@@ -39,18 +39,25 @@
 
             </form>
         </div>
-        
-                <select class="ml-3 mr-3 border border-gray-300 rounded px-2 py-1 text-gray-500 focus:outline-none appearance-none w-28 pr-3">
-                    <option>October</option>
-                </select>
-                <select class="mr-3 border border-gray-300 rounded px-2 py-1 text-gray-500 focus:outline-none appearance-none w-28 pr-3">
-                    <option>October</option>
-                </select>
-                <select class="border border-gray-300 rounded px-2 py-1 text-gray-500 focus:outline-none appearance-none w-28 pr-3">
-                    <option>October</option>
-                </select>
-            </div>
 
+
+    <form id="filterForm" method="GET" action="{{ route('admin.tiket.index') }}">
+    <select name="jenis_tiket" onchange="this.form.submit()" class="ml-3 mr-3 border border-gray-300 rounded px-2 py-2 text-gray-500 focus:outline-none appearance-none w-40 pr-3">
+        <option value="">Jenis Tiket</option>
+        @foreach ($jenisTikets as $jenis)
+            <option value="{{ $jenis }}" {{ request('jenis_tiket') == $jenis ? 'selected' : '' }}>{{ $jenis }}</option>
+        @endforeach
+    </select>
+
+
+    <select name="status_tiket" onchange="this.form.submit()" class="border border-gray-300 rounded px-2 py-2 text-gray-500 focus:outline-none appearance-none w-40 pr-3">
+        <option value="">Status Tiket</option>
+        @foreach ($statusTikets as $status)
+            <option value="{{ $status }}" {{ request('status_tiket') == $status ? 'selected' : '' }}>{{ $status }}</option>
+        @endforeach
+    </select>
+</form>
+</div>
         <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
             <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
                 <tr>
@@ -105,6 +112,42 @@
         </table>
     </div>
 
+<!-- Pagination Links -->
+<div class="flex justify-center mt-4">
+    <nav class="inline-flex -space-x-px" aria-label="Pagination">
+        @if ($tiket->onFirstPage())
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                &laquo; Prev
+            </span>
+        @else
+            <a href="{{ $tiket->previousPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                &laquo; Prev
+            </a>
+        @endif
+
+        @foreach ($tiket->getUrlRange(1, $tiket->lastPage()) as $page => $url)
+            @if ($page == $tiket->currentPage())
+                <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 cursor-default">
+                    {{ $page }}
+                </span>
+            @else
+                <a href="{{ $url }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                    {{ $page }}
+                </a>
+            @endif
+        @endforeach
+
+        @if ($tiket->hasMorePages())
+            <a href="{{ $tiket->nextPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                Next &raquo;
+            </a>
+        @else
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                Next &raquo;
+            </span>
+        @endif
+    </nav>
+</div>
     <script>
     function confirmDelete(id) {
         Swal.fire({

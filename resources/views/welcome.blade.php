@@ -31,8 +31,10 @@
 
 .section__container {
   max-width: var(--max-width);
+
+
   margin: auto;
-  padding: 5rem 1rem;
+  padding: 8rem 1rem;
 }
 
 .section__header {
@@ -173,14 +175,16 @@ nav {
   max-width: fit-content;
   text-align: center;
   color: var(--white);
-  overflow: hidden; 
-  background: rgba(0, 0, 0, 0.5); 
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .background-video {
   position: absolute;
   top: 0;
   left: 0;
+  background-color: #000
+ opacity: 50\%;
   width: 100%;
   height: 100%;
   object-fit: cover; /* Untuk memastikan video memenuhi container */
@@ -568,7 +572,7 @@ nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  
+
 }
 
 .blog__card {
@@ -576,14 +580,14 @@ nav {
 }
 
 .blog__card:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 .blog__card img {
   margin-bottom: 1rem;
   border-radius: 10px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-  
+
 }
 
 .blog__card h4 {
@@ -2130,7 +2134,7 @@ font-size: var(--normal-font-size);
   position: absolute;
   width: 10px;
   height: 10px;
-  background: rgba(0, 89, 255, 0.7); 
+  background: rgba(0, 89, 255, 0.7);
   border-radius: 50%;
   pointer-events: none;
   animation: fade 0.8s ease-out forwards;
@@ -2184,11 +2188,11 @@ font-size: var(--normal-font-size);
           </a>
           <div class="mr-8">
           <!-- Themechange button -->
-          <a href="">
+          <a href="{{ route('dashboard') }}">
             Home
           </a>
 
-<a href="{{ route('jelajahi') }}">
+<a href="{{ route('lainya.index') }}">
     Jelajahi
 </a>
 
@@ -2255,7 +2259,7 @@ font-size: var(--normal-font-size);
         <img src="assets/konser3.jpg" alt="offer" />
         <img src="assets/konser2.jpg" alt="offer" />
         <img src="assets/konser4.jpg" alt="offer" />
-        
+
       </div>
     </section>
     <div class="background-container">

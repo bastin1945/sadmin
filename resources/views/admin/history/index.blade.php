@@ -21,7 +21,7 @@
 </style>
 
 
-    <div class="bg-white min-h-screen px-5"> 
+    <div class="bg-white min-h-screen px-5">
         <div class="flex justify-between items-center px-5 py-5">
     <h1 class="text-2xl font-bold">Data History Order</h1>
     <div class="flex items-center space-x-4">
@@ -60,7 +60,7 @@
 
     <tbody>
     @foreach ($order as $index => $orde)
-        
+
     <tr class="text-gray-700">
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->user->name }}</td>
@@ -75,6 +75,43 @@
 </table>
 
         </div>
+
+<!-- Pagination Links -->
+<div class="flex justify-center mt-4">
+    <nav class="inline-flex -space-x-px" aria-label="Pagination">
+        @if ($order->onFirstPage())
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                &laquo; Prev
+            </span>
+        @else
+            <a href="{{ $order->previousPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                &laquo; Prev
+            </a>
+        @endif
+
+        @foreach ($order->getUrlRange(1, $order->lastPage()) as $page => $url)
+            @if ($page == $order->currentPage())
+                <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 cursor-default">
+                    {{ $page }}
+                </span>
+            @else
+                <a href="{{ $url }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                    {{ $page }}
+                </a>
+            @endif
+        @endforeach
+
+        @if ($order->hasMorePages())
+            <a href="{{ $order->nextPageUrl() }}" class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 hover:bg-blue-100">
+                Next &raquo;
+            </a>
+        @else
+            <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-300 bg-gray-200 border border-gray-300 cursor-default">
+                Next &raquo;
+            </span>
+        @endif
+    </nav>
+</div>
     </div>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </x-admin-layout>

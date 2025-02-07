@@ -15,29 +15,45 @@ class LainyaController extends Controller
     {
         $city = $request->input('city'); // Lokasi yang dipilih
         $search = $request->input('search'); // Nama konser yang dicari
+        $minPrice = $request->input('min_price'); // Minimum price
+        $maxPrice = $request->input('max_price'); // Maximum price
 
-        $konsers = konser::with(['lokasi','tiket'])->whereHas('tiket', function ($query) {
-            $query->where('jenis_tiket', 'Regular');
-        })->with([
-                    'tiket' => function ($query) {
-                        $query->where('jenis_tiket', 'Regular');
-                    }
-                ]);
-       
+        // Start building the query
+        $konsers = konser::with(['lokasi', 'tiket'])
+            ->whereHas('tiket', function ($query) {
+                $query->where('jenis_tiket', 'Regular');
+            });
 
         if ($search) {
             $konsers->where('nama', 'like', '%' . $search . '%');
         }
 
         if ($city) {
-            $konsers->whereHas('lokasi', function ($query) use ($city) {
+            $konsers = $konsers->whereHas('lokasi', function ($query) use ($city) {
                 $query->where('location', $city);
             });
         }
 
-        $konsers = $konsers->get();
+        // Apply price filters
+        if ($minPrice) {
+            $konsers->whereHas('tiket', function ($query) use ($minPrice) {
+                $query->where('harga_tiket', '>=', $minPrice);
+            });
+        }
 
-        $locations = Lokasi::select('location')->distinct()->get();
+        if ($maxPrice) {
+            $konsers->whereHas('tiket', function ($query) use ($maxPrice) {
+                $query->where('harga_tiket', '<=', $maxPrice);
+            });
+        }
+
+        // Now paginate the results
+        $konsers = $konsers->paginate(6); // Adjust the number to your preference
+
+        $locations = Lokasi::whereHas('konser') // Assuming 'konsers' is the relationship method in Lokasi
+            ->select('location')
+            ->distinct()
+            ->get();
         $isEmpty = $city && $konsers->isEmpty();
 
         return view('lainya.index', compact('konsers', 'locations', 'city', 'isEmpty'));

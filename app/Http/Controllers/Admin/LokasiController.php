@@ -15,12 +15,18 @@ class LokasiController extends Controller
     public function index()
     {
         $search = request()->input('search');
-        if ($search){
-            $lokasi = Lokasi::where('nama','like','%'.$search.'%')->get();
-        }else {
-            $lokasi = Lokasi::with('konser')->orderBy('location','asc')->get();
+        if ($search) {
+            // Menggunakan paginate untuk hasil pencarian
+            $lokasi = Lokasi::where('location', 'like', '%' . $search . '%')
+                ->orderBy('location', 'asc') // Pastikan hasil terurut
+                ->paginate(10); // Pagination dengan 10 item per halaman
+        } else {
+            // Menggunakan paginate untuk semua lokasi
+            $lokasi = Lokasi::with('konser')
+                ->orderBy('location', 'asc')
+                ->paginate(10); // Pagination dengan 10 item per halaman
         }
-        // dd($konsers->toArray()); // Load relasi promo
+
         return view('admin.lokasi.index', compact('lokasi'));
     }
 
@@ -65,7 +71,7 @@ class LokasiController extends Controller
         $lokasi = Lokasi::findOrFail($id);  // Ambil data berdasarkan ID
         return view('admin.lokasi.edit', compact('lokasi'));
     }
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -75,18 +81,18 @@ class LokasiController extends Controller
         $request->validate([
             'location' => 'required|string|max:255',
         ]);
-    
+
         $lokasi = Lokasi::findOrFail($id);
-    
+
         $lokasi->location = $request->input('location');
-    
+
         if ($lokasi->save()) {
             return redirect()->route('admin.lokasi.index')->with('success', 'Lokasi berhasil diperbarui.');
         } else {
             return back()->withErrors('Terjadi masalah saat menyimpan data.');
         }
     }
-    
+
 
 
     /**

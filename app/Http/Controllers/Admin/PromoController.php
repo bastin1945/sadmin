@@ -12,7 +12,31 @@ class PromoController extends Controller
 {
     public function index()
     {
-        $promo = promo::paginate(10);
+        $search = request()->get('search');
+        $bulan = request()->get('bulan');
+        $tahun = request()->get('tahun');
+        $status_promo = request()->get('status_promo');
+
+        $query = Promo::query();
+
+        if ($search) {
+            $query->where('code_promo', 'like', '%' . $search . '%');
+        }
+
+        // Filter berdasarkan bulan dan tahun
+        if ($bulan && $tahun) {
+            $query->whereMonth('tanggal_mulai', $bulan)
+                ->whereYear('tanggal_mulai', $tahun);
+        }
+
+        // Filter berdasarkan status promo
+        if ($status_promo) {
+            $query->where('status_promo', $status_promo);
+        }
+
+        // Ambil promo yang sudah difilter
+        $promo = $query->paginate(10);
+
         return view('admin.promo.index', compact('promo'));
     }
 
@@ -49,7 +73,7 @@ class PromoController extends Controller
         $promo = promo::findOrFail($id);
         return view('admin.promo.edit', compact('promo'));
     }
-    
+
 
     public function update(Request $request, $id)
 {

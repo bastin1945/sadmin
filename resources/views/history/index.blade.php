@@ -1,6 +1,6 @@
 @include('layouts.app')
 <x-slot name="">
-    
+
 </x-slot>
 
 <div class="max-w-7xl mx-auto flex justify-between bg-white mt-[7rem] mb-6 gap-6">
@@ -174,7 +174,7 @@
                     <span class="text-black">{{ Auth::user()->name }}</span>
                 </strong>
             </div>
-            
+
             <!-- Timer countdown -->
         </div>
     </div>
@@ -219,11 +219,11 @@
         transform: translateY(0);
     }
 }
-</style>        
+</style>
 
 <script>
     let orders = @json($order);
-    
+
     document.addEventListener('DOMContentLoaded', function() {
         // Check if the session has a success message
         @if(session('success'))
@@ -245,7 +245,7 @@
         };
 
         // Timer countdown
-        
+
         const timerInterval = setInterval(function() {
             if (countdownTimer <= 0) {
                 clearInterval(timerInterval);
