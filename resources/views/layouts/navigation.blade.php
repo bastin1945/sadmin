@@ -77,7 +77,7 @@
             <!-- Navigation Links -->
             <div class="hidden md:flex md:items-end md:gap-8 mr-14">
                 <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('dashboard') }}">Home</a>
-                <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('lainya.index') }}">Rekomendasi</a>
+                <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="{{ route('lainya.index') }}">Jelajahi</a>
                 <a class="text-lg font-semibold text-gray-900 transition-all duration-200 hover:text-blue-600 hover:scale-110 transform" href="#">Hubungi Kami</a>
             </div>
 
