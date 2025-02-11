@@ -1,4 +1,6 @@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -175,7 +177,7 @@
             /* Blue border on hover */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        
+
     </style>
 
     <x-app-layout>

@@ -62,9 +62,10 @@
     .nav-link:hover, .nav-link.active {
         color: #1e40af;
         transform: scale(1.1);
-        border-bottom: 3px solid #1e40af;
+
     }
 </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <header id="header" class="fixed inset-x-0 top-0 z-30 mx-auto max-w-screen-xl bg-white/80 py-4 shadow-lg backdrop-blur-lg md:top-3 md:rounded-2xl visible-header">
     <div class="px-10 m-3">
@@ -78,10 +79,12 @@
             </div>
 
             <!-- Navigation Links -->
-            <nav class="hidden md:flex md:items-center md:gap-8 mr-14">
-                <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
+            <nav class="hidden md:flex md:items-center md:gap-5 mr-14 pl-96">
+
+                <a href="{{ route('dashboard') }}" class="nav-link  {{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('lainya.index') }}" class="nav-link {{ request()->routeIs('lainya.index') ? 'active' : '' }}">Jelajahi</a>
                 <a href="#" class="nav-link">Hubungi Kami</a>
+
             </nav>
 
             <!-- User Section -->
@@ -99,8 +102,8 @@
                     </button>
 
                     <ul x-show="open" @click.outside="open = false" x-transition class="absolute right-0 mt-1 w-48 overflow-hidden rounded-lg border border-slate-200 bg-white p-2 shadow-lg">
-                        <li><a href="{{ route('dashboard') }}" class="block px-4 py-2 hover:bg-gray-200">Dashboard</a></li>
-                        <li><a href="{{ route('history.index') }}" class="block px-4 py-2 hover:bg-gray-200">History</a></li>
+                        <li><a href="{{ route('dashboard') }}" class="block px-4 py-2 hover:bg-gray-200 text-left">Dashboard</a></li>
+                        <li><a href="{{ route('history.index') }}" class="block px-4 py-2 hover:bg-gray-200 text left">History</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

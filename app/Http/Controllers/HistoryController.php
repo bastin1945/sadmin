@@ -12,7 +12,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $order = order::with(['tiket','promo','user'])->get();
+        $order = order::with(['tiket','promo','user',])->get();
         // dd($order->toArray());
         return view('history.index',compact('order'));
     }
@@ -23,6 +23,15 @@ class HistoryController extends Controller
     public function create()
     {
         //
+    }
+
+
+
+    public function show($id)
+    {
+        $oder = Order::with(['tiket.konser.lokasi'])->findOrFail($id); // Ambil pesanan berdasarkan ID
+        // dd($oder->toArray());
+        return view('history.show', compact('oder'));
     }
 
     /**
@@ -36,10 +45,7 @@ class HistoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

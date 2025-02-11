@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JelajahiController;
 use App\Http\Controllers\HistoryController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ReviewController;
 
 // Rute yang dapat diakses oleh semua user (guest dan login)
 Route::get('/', function () {
@@ -30,6 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
     Route::get('/history/{id}', [HistoryController::class, 'show'])->name('history.show');
+
+
+
+
+Route::post('/review', [ReviewController::class, 'store'])->middleware('auth');
 
 });
 

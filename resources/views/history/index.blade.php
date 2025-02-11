@@ -1,7 +1,6 @@
 @include('layouts.app')
-<x-slot name="">
 
-</x-slot>
+<x-slot name=""></x-slot>
 
 <div class="max-w-7xl mx-auto flex justify-between bg-white mt-[7rem] mb-6 gap-6">
     <!-- Sidebar -->
@@ -45,7 +44,7 @@
                     style="width: 230px; height: 130px;">
 
                 <div class="flex-1">
-                    <p class="font-semibold text-2xl">{{ $orde->tiket->konser->nama }}</p>
+                    <p class="font-semibold text-2xl ">{{ $orde->tiket->konser->nama }}</p>
                     <p class="text-sm text-gray-600 pt-1">Varian: {{ $orde->tiket->jenis_tiket }}</p>
                     <p class="text-md text-red-500 font-bold">{{ number_format($orde->tiket->harga_tiket, 0, ',', '.') }}</p>
                 </div>
@@ -58,8 +57,8 @@
                     </div>
 
                     <div class="flex space-x-2 mt-2">
-                        <button @click="openReview = true; selectedOrder = {{ $orde->id }}" class="bg-blue-800 text-xs text-white px-1 py-2 rounded-lg ml-2" style="width: 120px; height: 36px;">Review</button>
                         <button @click="openDetail = true; selectedOrder = {{ $orde->id }}" class="bg-blue-800 text-xs text-white px-1 py-2 rounded-lg" style="width: 120px; height: 36px;">Detail</button>
+                        <button @click="openReview = true; selectedOrder = {{ $orde->id }}" class="bg-blue-800 text-xs text-white px-1 py-2 rounded-lg ml-2" style="width: 120px; height: 36px;">Review</button>
                     </div>
                 </div>
             </div>
@@ -68,7 +67,6 @@
         <!-- Pop-up Detail Tiket -->
         <div x-show="openDetail" class="fixed inset-0 flex items-center justify-center p-8">
             <div class="bg-white rounded-lg p-6 transform transition-all duration-300 shadow-lg" style="width:700px;">
-                <div class="">
                 <template x-if="selectedOrder">
                     <div>
                         <h2 class="text-lg font-semibold mb-1" x-text="orders.find(order => order.id === selectedOrder).tiket.konser.nama"></h2>
@@ -129,131 +127,6 @@
     </div>
 </div>
 
-<!-- Custom Success Popup -->
-<div class="popup-container sukses" id="popupContainer">
-    <div class="popup">
-        <div class="flex justify-end">
-            <button id="close" class="">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-            </button>
-        </div>
-        <div class="success-icon flex items-center justify-center">
-            <div class="bg-green-500 rounded-full p-4 flex items-center justify-center mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-</svg>
-
-            </div>
-        </div>
-        <p class="text-center text-gray-600">Pembayaran Anda telah berhasil dilakukan.</p>
-        <div class="bg-gray-100 rounded-xl p-6 mt-4">
-            <div class="text-popup p-4 flex justify-between items-center mx-20">
-                <span class="text-lg font-semibold">Total:</span>
-                <span id="popup-total" class="text-3xl font-bold mt-2">Rp {{ number_format($orde->harga_total, 0, ',', '.') }}</span>
-            </div>
-
-            <hr class="my-4 border-gray-300">
-
-            <div class="text-popup flex justify-between items-center mx-8">
-                <span class="text-gray-700">Nama Konser:</span>
-                <strong class="text-black">{{ $orde->tiket->konser->nama }}</strong>
-            </div>
-
-            <div class="text-popup flex justify-between items-center mx-8">
-                <span class="text-gray-700">Tanggal Pembayaran:</span>
-                <strong>
-                    <span class="text-black" id="created-at-date">{{ session('payment_date') }}</span>
-                </strong>
-            </div>
-
-            <div class="text-popup flex justify-between items-center mx-8">
-                <span class="text-gray-700">Pembeli:</span>
-                <strong>
-                    <span class="text-black">{{ Auth::user()->name }}</span>
-                </strong>
-            </div>
-
-            <!-- Timer countdown -->
-        </div>
-    </div>
-</div>
-
-<style>
-.popup-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    z-index: 1000; /* Ensure it appears above other content */
-}
-
-.popup {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    width: 90%;
-    max-width: 500px; /* Limit max width */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease; /* Animation for popup */
-}
-
-.sukses {
-    display: none; /* Hide the popup by default */
-}
-
-/* Animation keyframes */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-</style>
-
 <script>
-    let orders = @json($order);
-
-    document.addEventListener('DOMContentLoaded', function() {
-        // Check if the session has a success message
-        @if(session('success'))
-            // Show the custom popup
-            document.getElementById('popupContainer').classList.remove('hidden');
-        @endif
-
-        // Close the popup when the close button is clicked
-        document.getElementById('close').onclick = function() {
-            document.getElementById('popupContainer').classList.add('hidden');
-        };
-
-        // Close the popup when clicking outside of it
-        window.onclick = function(event) {
-            const popup = document.getElementById('popupContainer');
-            if (event.target === popup) {
-                popup.classList.add('hidden');
-            }
-        };
-
-        // Timer countdown
-
-        const timerInterval = setInterval(function() {
-            if (countdownTimer <= 0) {
-                clearInterval(timerInterval);
-                // Redirect to another page or perform another action here
-            } else {
-                timerDisplay.textContent = `00:${countdownTimer < 10 ? '0' : ''}${countdownTimer}`;
-                countdownTimer--;
-            }
-        }, 1000);
-    });
+    let orders = @json($order); // Menggunakan Laravel untuk mengonversi data menjadi JSON
 </script>
