@@ -73,7 +73,7 @@ class ProductController extends Controller
             'promo_id' => isset($promo) ? $promo->id : null,  // Simpan ID promo jika ada
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Pemesanan berhasil!');
+        return redirect()->route('history.index')->with('success', 'Pemesanan berhasil!');
     }
 
     /**

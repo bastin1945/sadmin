@@ -108,23 +108,23 @@
                 placeholder="Isikan Alamat Anda">
         </div>
 
-        <button type="button" id="bayar-btn" class="mt-5 w-full px-5 py-4 text-white bg-blue-500 rounded-md hover:bg-indigo-700">
+        <button type="submit" id="bayar-btn" class="mt-5 w-full px-5 py-4 text-white bg-blue-500 rounded-md hover:bg-indigo-700">
             <i class="fas fa-credit-card"></i> Bayar Sekarang
         </button>
+    <script>
+        document.getElementById('bayar-btn').addEventListener('click', function() {
+            @auth
+                // Jika user sudah login, jalankan aksi bayar
+                alert('Proses pembayaran dimulai...');
+            @else
+                // Jika user belum login, arahkan ke halaman login
+                window.location.href = "{{ route('login') }}";
+            @endauth
+        });
+    </script>
     </form>
 </div>
 
-<script>
-    document.getElementById('bayar-btn').addEventListener('click', function() {
-        @auth
-            // Jika user sudah login, jalankan aksi bayar
-            alert('Proses pembayaran dimulai...');
-        @else
-            // Jika user belum login, arahkan ke halaman login
-            window.location.href = "{{ route('login') }}";
-        @endauth
-    });
-</script>
 
 
     <!-- Bagian Kanan -->
