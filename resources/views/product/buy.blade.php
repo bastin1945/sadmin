@@ -132,7 +132,7 @@
         <div class="w-auto h-60 border border-gray-300 rounded-md">
             <img src="{{ asset('storage/' . $konser->image) }}" alt="Gambar HD" class="rounded-md w-full h-full">
         </div>
-        <h2 class="mb-6 mt-4 text-lg font-semibold text-gray-800">{{ $konser->nama }}</h2>
+        <h2 class="mb-6 mt-4 text-lg font-semibold text-gray-800">Tiket Konser {{ $konser->nama }}</h2>
         <div class="flex items-start mb-0 space-x-4">
             <div class="flex-1 mb-4">
                 <div class="flex items-center space-x-2">
