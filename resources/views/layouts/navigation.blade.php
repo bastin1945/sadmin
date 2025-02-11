@@ -83,7 +83,7 @@
 
                 <a href="{{ route('dashboard') }}" class="nav-link  {{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('lainya.index') }}" class="nav-link {{ request()->routeIs('lainya.index') ? 'active' : '' }}">Jelajahi</a>
-                <a href="#" class="nav-link">Hubungi Kami</a>
+                <a href="{{ route('hubungi.index') }}"  class="nav-link {{ request()->routeIs('hubungi.index') ? 'active' : '' }}">Hubungi Kami</a>
 
             </nav>
 
@@ -119,3 +119,23 @@
         </div>
     </div>
 </header>
+
+<script>
+    let lastScrollY = window.scrollY;
+    const header = document.getElementById("header");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > lastScrollY) {
+            // Scrolling down
+            header.classList.remove("visible-header");
+            header.classList.add("hidden-header");
+        } else {
+            // Scrolling up
+            header.classList.remove("hidden-header");
+            header.classList.add("visible-header");
+        }
+        lastScrollY = window.scrollY;
+    });
+</script>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

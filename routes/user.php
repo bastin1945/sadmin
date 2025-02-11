@@ -13,6 +13,8 @@ use App\Http\Controllers\JelajahiController;
 use App\Http\Controllers\HistoryController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\HubungiController;
+
 
 // Rute yang dapat diakses oleh semua user (guest dan login)
 Route::get('/', function () {
@@ -24,6 +26,8 @@ Route::get('/jelajahi', [JelajahiController::class, 'index'])->name('jelajahi');
 Route::get('/dashboard', [FrontController::class, 'index'])->name('dashboard');
 
 Route::get('/lainya', [LainyaController::class, 'index'])->name('lainya.index');
+
+Route::get('/hubungi', [HubungiController::class, 'index'])->name('hubungi.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
