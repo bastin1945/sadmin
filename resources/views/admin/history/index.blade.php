@@ -55,6 +55,7 @@
             <th class="px-4 py-2">Jumlah</th>
             <th class="px-4 py-2">Harga Tiket</th>
             <th class="px-4 py-2">Jenis Tiket</th>
+            <th class="px-4 py-2">Status Pembayaran</th>
         </tr>
     </thead>
 
@@ -68,6 +69,35 @@
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->jumlah_tiket }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->harga_total }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->jenis_tiket }}</td>
+      <td class="border-b border-gray-300 px-4 py-2 text-center">
+    <form action="{{ route('admin.admin.adminhistory.updateStatus', $orde->id) }}" method="POST">
+        @csrf
+        @method('PATCH')
+        <div class="flex justify-center items-center space-x-2">
+            <select name="status_pembayaran"
+                class="border rounded px-2 w-28 py-1 text-sm focus:outline-none focus:ring
+                {{ $orde->status_pembayaran == 'pending' ? ' text-yellow-700' : '' }}
+                {{ $orde->status_pembayaran == 'paid' ? ' text-green-700' : '' }}
+                {{ $orde->status_pembayaran == 'cancelled' ? ' text-red-700' : '' }}">
+                <option value="pending" style="color: orange;" {{ $orde->status_pembayaran == 'pending' ? 'selected' : '' }}>Pending</option>
+                <option value="paid" style="color: green;" {{ $orde->status_pembayaran == 'paid' ? 'selected' : '' }}>Paid</option>
+                <option value="cancelled" style="color: red;" {{ $orde->status_pembayaran == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+            </select>
+            <script>
+    document.getElementById('dropdownButton').addEventListener('click', function () {
+        const dropdown = document.getElementById('dropdownMenu');
+        dropdown.classList.toggle('hidden');
+    });
+</script>
+
+            <button type="submit" class="bg-blue-500 text-white px-3 py-1 text-sm rounded hover:bg-blue-600 transition">
+                Update
+            </button>
+        </div>
+    </form>
+</td>
+
+
     </tr>
     @endforeach
 

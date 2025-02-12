@@ -95,7 +95,7 @@
             <label for="address" class="block mb-2 text-sm font-semibold text-gray-700">
                 <i class="fas fa-map-marker-alt"></i> Isikan Nomer Anda
             </label>
-            <input id="address" type="text" name="address"
+            <input id="address" type="numner" name="contact"
                 class="w-full px-4 py-2 text-sm font-medium text-gray-800 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Isikan Nomer">
         </div>
@@ -103,7 +103,7 @@
             <label for="address" class="block mb-2 text-sm font-semibold text-gray-700">
                 <i class="fas fa-map-marker-alt"></i> Isikan Alamat Anda
             </label>
-            <input id="address" type="text" name="address"
+            <input id="address" type="text" name="alamat"
                 class="w-full px-4 py-2 text-sm font-medium text-gray-800 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Isikan Alamat Anda">
         </div>

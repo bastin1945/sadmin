@@ -56,6 +56,21 @@ class HistoryController extends Controller
     {
         //
     }
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+        $validated = $request->validate([
+            'status_pembayaran' => 'required',
+        ]);
+
+        $order->status_pembayaran = $validated['status_pembayaran'];
+        $order->save();
+
+        return redirect()->back()->with('success', 'Status pembayaran berhasil diperbarui.');
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

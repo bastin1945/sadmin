@@ -45,11 +45,30 @@
 
 
 
-    <select name="status_promo" onchange="this.form.submit()" class="border border-gray-300 rounded-md pl-0 px-7 py-2 text-gray-500 focus:outline-none appearance-none w-32 pr-8">
+    <select name="status_promo" onchange="this.form.submit()" class="border border-gray-300 rounded-md pl-2 px-7 py-2 text-gray-500 focus:outline-none appearance-none w-40 pr-8">
     <option value="">Status Promo</option>
     <option value="Aktif" {{ request('status_promo') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
     <option value="Tidak Aktif" {{ request('status_promo') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
 </select>
+
+    <input type="date"
+           name="tanggal_mulai"
+           id="tanggal_mulai"
+           value="{{ request('tanggal_mulai') }}"
+           class="border border-gray-300 rounded-md px-4 py-2 text-gray-500 focus:outline-none">
+
+    <!-- Input Tanggal Berakhir -->
+
+    <input type="date"
+           name="tanggal_berakhir"
+           id="tanggal_berakhir"
+           value="{{ request('tanggal_berakhir') }}"
+           class="border border-gray-300 rounded-md px-4 py-2 text-gray-500 focus:outline-none">
+
+    <!-- Submit Button -->
+    <button type="submit" class=" bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none">
+        Filter
+    </button>
 </form>
             </div>
 

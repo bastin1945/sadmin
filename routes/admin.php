@@ -51,7 +51,10 @@ use App\Http\Controllers\Admin\PenggunaController;
     Route::resource('konser', KonserController::class)->except(['show']);
         Route::get('konser/{id}', [KonserController::class, 'detail'])->name('admin.konser.detail');
 
-    // Route::resource('admin/konser', KonserController::class);
+
+
+
+        // Route::resource('admin/konser', KonserController::class);
     Route::resource('tiket', TiketController::class)->except(['show']);
     Route::get('/tiket', [TiketController::class, 'index'])->name('tiket.index');
     Route::get('admin/tiket/create', [TiketController::class, 'create'])->name('admin.tiket.create');
@@ -66,6 +69,8 @@ use App\Http\Controllers\Admin\PenggunaController;
     Route::put('/admin/promo/{id}', [PromoController::class, 'update'])->name('admin.promo.update');
 
         Route::resource('adminhistory', HistoryController::class);
+        Route::patch('/admin/adminhistory/{id}', [HistoryController::class, 'updateStatus'])->name('admin.adminhistory.updateStatus');
+
         Route::get('/admin/adminhistory/index', [HistoryController::class, 'index'])->name('admin.adminhistory.index');
 
         //punyae lokasi

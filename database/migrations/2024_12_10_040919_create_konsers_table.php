@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nama');
             $table->date('tanggal');
             $table->time('jam');
+            $table->date('tanggal_penukaran');
+            $table->string('lokasi_penukaran');
             $table->foreignId('lokasi_id')->constrained()->onDelete('cascade');
             $table->string('deskripsi');
             $table->string('image')->nullable();

@@ -16,9 +16,12 @@ class PromoController extends Controller
         $bulan = request()->get('bulan');
         $tahun = request()->get('tahun');
         $status_promo = request()->get('status_promo');
+        $tanggal_mulai = request()->get('tanggal_mulai');
+        $tanggal_berakhir = request()->get('tanggal_berakhir');
 
         $query = Promo::query();
 
+        // Filter berdasarkan search
         if ($search) {
             $query->where('code_promo', 'like', '%' . $search . '%');
         }
@@ -27,6 +30,14 @@ class PromoController extends Controller
         if ($bulan && $tahun) {
             $query->whereMonth('tanggal_mulai', $bulan)
                 ->whereYear('tanggal_mulai', $tahun);
+        }
+
+        // Filter berdasarkan tanggal mulai dan tanggal berakhir
+        if ($tanggal_mulai) {
+            $query->whereDate('tanggal_mulai', '>=', $tanggal_mulai);
+        }
+        if ($tanggal_berakhir) {
+            $query->whereDate('tanggal_berakhir', '<=', $tanggal_berakhir);
         }
 
         // Filter berdasarkan status promo
@@ -39,6 +50,7 @@ class PromoController extends Controller
 
         return view('admin.promo.index', compact('promo'));
     }
+
 
     public function create()
     {

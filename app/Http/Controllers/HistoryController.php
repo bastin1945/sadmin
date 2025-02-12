@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HistoryController extends Controller
 {
@@ -12,10 +13,25 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $order = order::with(['tiket','promo','user',])->get();
-        // dd($order->toArray());
-        return view('history.index',compact('order'));
+        $order = Order::with(['tiket', 'promo', 'user'])
+            ->where('user_id', Auth::id()) // Filter data berdasarkan user login
+            ->get();
+
+
+
+        return view('history.index', compact('order'));
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status_pembayaran = $request->status_pembayaran;
+        $order->save();
+
+        return response()->json(['success' => true]);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +45,7 @@ class HistoryController extends Controller
 
     public function show($id)
     {
-        $oder = Order::with(['tiket.konser.lokasi'])->findOrFail($id); // Ambil pesanan berdasarkan ID
+        $oder = Order::with('tiket')->findOrFail($id); // Ambil pesanan berdasarkan ID
         // dd($oder->toArray());
         return view('history.show', compact('oder'));
     }

@@ -126,6 +126,24 @@
                 </select>
             </div>
         </div>
+          <div class="form-group">
+            <div class="input-container">
+
+        <label for="tanggal_penukaran">Tanggal Penukaran Tiket</label>
+        <input class="mt-4" type="date" id="tanggal_penukaran" name="tanggal_penukaran">
+
+            </div>
+
+        <!-- Jumlah Tiket -->
+            <div class="input-container">
+                <label for="lokasi_penukaran">Lokasi penukaran tiket</label>
+                <input type="text" id="Lokasi_Penukaran" name="lokasi_penukaran" class="mt-4"
+                       placeholder="Masukan Jumlah Tiket" value="{{ old('jumlah_tiket') }}">
+                @error('jumlah_tiket')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="input-container">

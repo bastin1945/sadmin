@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('email');
             $table->integer('contact');
             $table->string('alamat');
+            $table->string('kode_tiket')->unique();
+            $table->enum('status_pembayaran',['pendding','lunas'])->default('pendding');
             $table->foreignId('promo_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });

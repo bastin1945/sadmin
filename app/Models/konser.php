@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class konser extends Model
 {
     use HasFactory;
-    protected $fillable = ['nama', 'tanggal', 'jam', 'lokasi_id', 'deskripsi','image',];
+    protected $fillable = ['nama', 'tanggal', 'jam', 'tanggal_penukaran','lokasi_penukaran','lokasi_id', 'deskripsi','image',];
 
     public function order (){
         return $this->hasMany(Order::class);

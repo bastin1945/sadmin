@@ -39,7 +39,10 @@ class ProductController extends Controller
             'tiket_id' => 'required|exists:tikets,id',
             'jumlah_tiket' => 'required|integer|min:1',
             'harga_total' => 'required|numeric',
-            'promo_id' => 'nullable|exists:promos,code_promo',  // Validasi menggunakan kode promo
+            'promo_id' => 'nullable|exists:promos,code_promo',
+            'email' => 'required',
+            'contact' => 'required',
+            'alamat' =>  'required'// Validasi menggunakan kode promo
         ]);
 
         // Ambil harga tiket dari database
@@ -70,7 +73,10 @@ class ProductController extends Controller
             'tiket_id' => $request->tiket_id,
             'jumlah_tiket' => $request->jumlah_tiket,
             'harga_total' => $totalSetelahDiskon, // Simpan harga total setelah diskon
-            'promo_id' => isset($promo) ? $promo->id : null,  // Simpan ID promo jika ada
+            'promo_id' => isset($promo) ? $promo->id : null,
+            'email' => $request->email,
+            'contact' => $request->contact,
+            'alamat' => $request->alamat // Simpan ID promo jika ada
         ]);
 
         return redirect()->route('history.index')->with('success', 'Pemesanan berhasil!');

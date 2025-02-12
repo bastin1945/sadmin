@@ -43,6 +43,8 @@ class KonserController extends Controller
         // Ambil data konser yang sudah difilter
         $konsers = $konsers->paginate(10);
 
+        
+
         return view('admin.konser.index', compact('konsers', 'lokasis')); // Kirimkan $lokasis ke view
     }
 
@@ -59,7 +61,9 @@ class KonserController extends Controller
             'nama' => 'required|string|max:255|unique:konsers,nama',
             'deskripsi' => 'required|string|max:1000',
             'tanggal' => 'required|date',
-            'jam' => 'required|date_format:H:i', // Ubah validasi jam
+            'jam' => 'required|date_format:H:i',
+            'tanggal_penukaran' => 'required|date',
+            'lokasi_penukaran' => 'required',// Ubah validasi jam
             'lokasi_id' => 'required|exists:lokasis,id',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
@@ -84,6 +88,8 @@ class KonserController extends Controller
             'deskripsi' => $request->deskripsi,
             'tanggal' => $request->tanggal,
             'jam' => $request->jam,
+            'tanggal_penukaran' => $request->tanggal_penukaran,
+            'lokasi_penukaran' => $request->lokasi_penukaran,
             'lokasi_id' => $request->lokasi_id,
             'image' => $path,
         ]);
