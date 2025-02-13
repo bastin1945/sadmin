@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\is_recommended;
+use view;
+use App\Models\views;
 use App\Models\konser;
-use Illuminate\Http\Request;
 use App\Models\lokasi;
+use App\Models\sales;
+use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
@@ -53,9 +57,48 @@ class FrontController extends Controller
 
         $konsers = $konsers->paginate(3);
 
-        
+        $populer = views::whereHas('konser.tiket', function ($query) {
+            $query->where('jenis_tiket', 'Regular');
+        })->with([
+                    'konser' => function ($query) {
+                        $query->with([
+                            'tiket' => function ($query) {
+                                $query->where('jenis_tiket', 'Regular');
+                            }
+                        ]);
+                    }
+                ])->get();
 
-        return view('dashboard', compact('konsers', 'locations')); // Pass locations to the view
+        $sales = sales::whereHas('konser.tiket', function ($query) {
+            $query->where('jenis_tiket', 'Regular');
+        })->with([
+                    'konser' => function ($query) {
+                        $query->with([
+                            'tiket' => function ($query) {
+                                $query->where('jenis_tiket', 'Regular');
+                            }
+                        ]);
+                    }
+                ])->get();
+
+                // dd($sales->toArray());
+
+        $rekomend = is_recommended::whereHas('konser.tiket', function ($query) {
+            $query->where('jenis_tiket', 'Regular');
+        })->with([
+                    'konser' => function ($query) {
+                        $query->with([
+                            'tiket' => function ($query) {
+                                $query->where('jenis_tiket', 'Regular');
+                            }
+                        ]);
+                    }
+                ])->get();
+
+
+        // dd($rekomend->toArray());
+
+        return view('dashboard', compact('konsers', 'locations','populer','sales','rekomend')); // Pass locations to the view
     }
     /**
      * Show the form for creating a new resource.

@@ -1,6 +1,5 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -177,7 +176,6 @@
             /* Blue border on hover */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
     </style>
 
     <x-app-layout>
@@ -198,78 +196,87 @@
 
             </div>
 
-           <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slider with Glow Effect</title>
-    <style>
-        /* Glow effect for the images */
-        #slider .slide img {
-            transition: box-shadow 0.3s ease-in-out;
-        }
+            <!DOCTYPE html>
+            <html lang="en">
 
-        #slider .slide img:hover {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(0, 0, 255, 0.7);
-        }
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Image Slider with Glow Effect</title>
+                <style>
+                    /* Glow effect for the images */
+                    #slider .slide img {
+                        transition: box-shadow 0.3s ease-in-out;
+                    }
 
-        /* Glow effect for buttons */
-        button {
-            transition: box-shadow 0.3s ease-in-out;
-        }
+                    #slider .slide img:hover {
+                        box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(0, 0, 255, 0.7);
+                    }
 
-        button:hover {
-            box-shadow: 0 0 15px rgba(0, 0, 255, 0.7), 0 0 30px rgba(0, 0, 255, 0.5);
-        }
-    </style>
-</head>
-<body>
-    <div id="targetSection" class="relative py-0 mx-auto w-[90%] max-w-7xl overflow-hidden bg-gray-100 mb-0 rounded-lg" style="margin-top:150px;">
-        <div id="sliderWrapper" class="relative overflow-hidden">
-            <div id="slider" class="flex transition-transform duration-400 ease-in-out">
-                <!-- Slide Items -->
-                <div class="flex-shrink-0 w-full slide">
-                    <img src="assets/hd1.png" alt="Slide 1" class="w-full h-auto rounded-3xl">
-                </div>
-                <div class="flex-shrink-0 w-full slide">
-                    <img src="assets/hd2.png" alt="Slide 2" class="w-full h-auto rounded-3xl">
-                </div>
-                <div class="flex-shrink-0 w-full slide">
-                    <img src="assets/hd3.png" alt="Slide 3" class="w-full h-auto rounded-3xl">
-                </div>
-                <div class="flex-shrink-0 w-full slide">
-                    <img src="assets/hd4.png" alt="Slide 4" class="w-full h-auto rounded-3xl">
-                </div>
-                <div class="flex-shrink-0 w-full slide">
-                    <img src="assets/hd5.png" alt="Slide 5" class="w-full h-auto rounded-3xl">
-                </div>
-            </div>
-        </div>
+                    /* Glow effect for buttons */
+                    button {
+                        transition: box-shadow 0.3s ease-in-out;
+                    }
 
-        <!-- Navigation -->
-        <button id="prevBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white text-black rounded-full p-3 shadow hover:scale-110 transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
-        <button id="nextBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white text-black rounded-full p-3 shadow hover:scale-110 transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-        </button>
+                    button:hover {
+                        box-shadow: 0 0 15px rgba(0, 0, 255, 0.7), 0 0 30px rgba(0, 0, 255, 0.5);
+                    }
+                </style>
+            </head>
 
-        <!-- Indicators -->
-        <div id="indicators" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
-            <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
-            <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
-            <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
-            <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
-        </div>
-    </div>
-</body>
-</html>
+            <body>
+                <div id="targetSection"
+                    class="relative py-0 mx-auto w-[90%] max-w-7xl overflow-hidden bg-gray-100 mb-0 rounded-lg"
+                    style="margin-top:150px;">
+                    <div id="sliderWrapper" class="relative overflow-hidden">
+                        <div id="slider" class="flex transition-transform duration-400 ease-in-out">
+                            <!-- Slide Items -->
+                            <div class="flex-shrink-0 w-full slide">
+                                <img src="assets/hd1.png" alt="Slide 1" class="w-full h-auto rounded-3xl">
+                            </div>
+                            <div class="flex-shrink-0 w-full slide">
+                                <img src="assets/hd2.png" alt="Slide 2" class="w-full h-auto rounded-3xl">
+                            </div>
+                            <div class="flex-shrink-0 w-full slide">
+                                <img src="assets/hd3.png" alt="Slide 3" class="w-full h-auto rounded-3xl">
+                            </div>
+                            <div class="flex-shrink-0 w-full slide">
+                                <img src="assets/hd4.png" alt="Slide 4" class="w-full h-auto rounded-3xl">
+                            </div>
+                            <div class="flex-shrink-0 w-full slide">
+                                <img src="assets/hd5.png" alt="Slide 5" class="w-full h-auto rounded-3xl">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <button id="prevBtn"
+                        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white text-black rounded-full p-3 shadow hover:scale-110 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button id="nextBtn"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white text-black rounded-full p-3 shadow hover:scale-110 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+
+                    <!-- Indicators -->
+                    <div id="indicators" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                        <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
+                        <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
+                        <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
+                        <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
+                        <span class="w-3 h-3 bg-gray-400 rounded-full cursor-pointer"></span>
+                    </div>
+                </div>
+            </body>
+
+            </html>
             <script>
                 let currentIndex = 0;
                 const slider = document.getElementById('slider');
@@ -382,156 +389,174 @@
 
 
 
-                <h2 class="text-2xl font-semibold px-0 ">Populer</h2>
-                <div class="container mx-auto 3xl:px-8 py- mt-3 ">
+
+                <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
+                    <h2 class="text-2xl font-semibold mb-4">Populer</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                        @foreach ($konsers as $knsr)
-                            <div
-                                class="bg-white border border-gray-400 rounded-lg  overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
-                                <!-- Menampilkan gambar -->
-                                @if ($knsr->image)
-                                    <img src="{{ asset('storage/' . $knsr->image) }}" alt="Gambar {{ $knsr->nama }}"
-                                        class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                                @else
-                                    <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
-                                        class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                                @endif
+                        @foreach ($populer as $pop)
+                            @if ($pop->konser)
+                                <div
+                                    class="bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
+                                    <!-- Menampilkan gambar -->
+                                    @if ($pop->konser->image)
+                                        <img src="{{ asset('storage/' . $pop->konser->image) }}"
+                                            alt="Gambar {{ $pop->konser->nama }}"
+                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                                    @else
+                                        <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
+                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                                    @endif
 
-                                <div class="p-3">
-                                    <h3
-                                        class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-                                        {{ $knsr->nama }}</h3>
-                                    <ul class="event-details text-gray-600 mt-1 space-y-1">
-                                        <li class="flex items-center text-sm">
-                                            <i
-                                                class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $knsr->tanggal }}
-                                        </li>
-                                        <li class="flex items-center text-sm">
-                                            <i
-                                                class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $knsr->lokasi->location }}
-                                        </li>
-                                    </ul>
+                                    <div class="p-3">
+                                        <h3
+                                            class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+                                            {{ $pop->konser->nama }}
+                                        </h3>
+                                        <ul class="event-details text-gray-600 mt-1 space-y-1">
+                                            <li class="flex items-center text-sm">
+                                                <i
+                                                    class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $pop->konser->tanggal }}
+                                            </li>
+                                            <li class="flex items-center text-sm">
+                                                <i
+                                                    class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $pop->konser->lokasi->location }}
+                                            </li>
+                                        </ul>
 
-                                    @foreach ($knsr->tiket as $kt)
-                                        <div class="flex flex-col">
-                                            <p class="text-sm font-bold text-orange-600">Stok: {{ $kt->jumlah_tiket }}
-                                                tiket</p>
-                                        </div>
-                                        <div class="flex items-center justify-between pt-1 ">
-                                            <p class="text-xl font-bold text-orange-600">
-                                                Rp: {{ number_format($kt->harga_tiket, 0, ',', '.') }}</p>
-                                    @endforeach
+                                        @foreach ($pop->konser->tiket as $tiket)
+                                            <div class="flex flex-col">
+                                                <p class="text-sm font-bold text-orange-600">Stok:
+                                                    {{ $tiket->jumlah_tiket }} tiket</p>
+                                            </div>
+                                            <div class="flex items-center justify-between pt-1">
+                                                <p class="text-xl font-bold text-orange-600">
+                                                    Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
+                                                </p>
+                                        @endforeach
 
-                                    <a href="{{ route('product.show', $knsr->id) }}"
-                                        class=" inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                        Detail
-                                    </a>
+                                        <a href="{{ route('product.show', $pop->konser->id) }}"
+                                            class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                            Detail
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
                     </div>
+                    @endif
                     @endforeach
                 </div>
             </div>
-            <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
-                <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                    @foreach ($konsers as $knsr)
-                        <div
-                            class="bg-white border border-gray-400 rounded-lg  overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
-                            <!-- Menampilkan gambar -->
-                            @if ($knsr->image)
-                                <img src="{{ asset('storage/' . $knsr->image) }}" alt="Gambar {{ $knsr->nama }}"
-                                    class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                            @else
-                                <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
-                                    class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                            @endif
+                <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
+                    <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+                        @foreach ($sales as $pop)
+                            @if ($pop->konser)
+                                <div
+                                    class="bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
+                                    <!-- Menampilkan gambar -->
+                                    @if ($pop->konser->image)
+                                        <img src="{{ asset('storage/' . $pop->konser->image) }}"
+                                            alt="Gambar {{ $pop->konser->nama }}"
+                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                                    @else
+                                        <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
+                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                                    @endif
 
-                            <div class="p-3">
-                                <h3
-                                    class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-                                    {{ $knsr->nama }}</h3>
-                                <ul class="event-details text-gray-600 mt-1 space-y-1">
-                                    <li class="flex items-center text-sm">
-                                        <i
-                                            class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $knsr->tanggal }}
-                                    </li>
-                                    <li class="flex items-center text-sm">
-                                        <i
-                                            class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $knsr->lokasi->location }}
-                                    </li>
-                                </ul>
+                                    <div class="p-3">
+                                        <h3
+                                            class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+                                            {{ $pop->konser->nama }}
+                                        </h3>
+                                        <ul class="event-details text-gray-600 mt-1 space-y-1">
+                                            <li class="flex items-center text-sm">
+                                                <i
+                                                    class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $pop->konser->tanggal }}
+                                            </li>
+                                            <li class="flex items-center text-sm">
+                                                <i
+                                                    class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $pop->konser->lokasi->location }}
+                                            </li>
+                                        </ul>
 
-                                @foreach ($knsr->tiket as $kt)
-                                    <div class="flex flex-col">
-                                        <p class="text-sm font-bold text-orange-600">Stok: {{ $kt->jumlah_tiket }}
-                                            tiket</p>
+                                        @foreach ($pop->konser->tiket as $tiket)
+                                            <div class="flex flex-col">
+                                                <p class="text-sm font-bold text-orange-600">Stok:
+                                                    {{ $tiket->jumlah_tiket }} tiket</p>
+                                            </div>
+                                            <div class="flex items-center justify-between pt-1">
+                                                <p class="text-xl font-bold text-orange-600">
+                                                    Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
+                                                </p>
+                                        @endforeach
+
+                                        <a href="{{ route('product.show', $pop->konser->id) }}"
+                                            class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                            Detail
+                                        </a>
                                     </div>
-                                    <div class="flex items-center justify-between pt-1 ">
-                                        <p class="text-xl font-bold text-orange-600">
-                                            Rp: {{ number_format($kt->harga_tiket, 0, ',', '.') }}</p>
-                                @endforeach
-
-                                <a href="{{ route('product.show', $knsr->id) }}"
-                                    class=" inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                    Detail
-                                </a>
-                            </div>
-                        </div>
+                                </div>
+                    </div>
+                    @endif
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-            </div>
-            <div class="container mx-auto 3xl:px-8 py-8 ">
-                <h2 class="text-2xl font-semibold mb-4">Rekomendasi</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                    @foreach ($konsers as $knsr)
-                        <div
-                            class="bg-white border border-gray-400 rounded-lg  overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
-                            <!-- Menampilkan gambar -->
-                            @if ($knsr->image)
-                                <img src="{{ asset('storage/' . $knsr->image) }}" alt="Gambar {{ $knsr->nama }}"
-                                    class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                            @else
-                                <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
-                                    class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                            @endif
+                <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
+                    <h2 class="text-2xl font-semibold mb-4">Rekomendasi</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+                        @foreach ($rekomend as $pop)
+                            @if ($pop->konser)
+                                <div
+                                    class="bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
+                                    <!-- Menampilkan gambar -->
+                                    @if ($pop->konser->image)
+                                        <img src="{{ asset('storage/' . $pop->konser->image) }}"
+                                            alt="Gambar {{ $pop->konser->nama }}"
+                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                                    @else
+                                        <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
+                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                                    @endif
 
-                            <div class="p-3">
-                                <h3
-                                    class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-                                    {{ $knsr->nama }}</h3>
-                                <ul class="event-details text-gray-600 mt-1 space-y-1">
-                                    <li class="flex items-center text-sm">
-                                        <i
-                                            class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $knsr->tanggal }}
-                                    </li>
-                                    <li class="flex items-center text-sm">
-                                        <i
-                                            class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $knsr->lokasi->location }}
-                                    </li>
-                                </ul>
+                                    <div class="p-3">
+                                        <h3
+                                            class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+                                            {{ $pop->konser->nama }}
+                                        </h3>
+                                        <ul class="event-details text-gray-600 mt-1 space-y-1">
+                                            <li class="flex items-center text-sm">
+                                                <i
+                                                    class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $pop->konser->tanggal }}
+                                            </li>
+                                            <li class="flex items-center text-sm">
+                                                <i
+                                                    class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $pop->konser->lokasi->location }}
+                                            </li>
+                                        </ul>
 
-                                @foreach ($knsr->tiket as $kt)
-                                    <div class="flex flex-col">
-                                        <p class="text-sm font-bold text-orange-600">Stok: {{ $kt->jumlah_tiket }}
-                                            tiket</p>
+                                        @foreach ($pop->konser->tiket as $tiket)
+                                            <div class="flex flex-col">
+                                                <p class="text-sm font-bold text-orange-600">Stok:
+                                                    {{ $tiket->jumlah_tiket }} tiket</p>
+                                            </div>
+                                            <div class="flex items-center justify-between pt-1">
+                                                <p class="text-xl font-bold text-orange-600">
+                                                    Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
+                                                </p>
+                                        @endforeach
+
+                                        <a href="{{ route('product.show', $pop->konser->id) }}"
+                                            class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                            Detail
+                                        </a>
                                     </div>
-                                    <div class="flex items-center justify-between pt-1 ">
-                                        <p class="text-xl font-bold text-orange-600">
-                                            Rp: {{ number_format($kt->harga_tiket, 0, ',', '.') }}</p>
-                                @endforeach
-
-                                <a href="{{ route('product.show', $knsr->id) }}"
-                                    class=" inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                    Detail
-                                </a>
-                            </div>
-                        </div>
+                                </div>
+                    </div>
+                    @endif
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-            </div>
+
+
 
             <center class="flex justify-center">
                 <div>

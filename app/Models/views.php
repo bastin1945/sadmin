@@ -8,7 +8,7 @@ class views extends Model
 {
     protected $fillable = ['konser_id'];
 
-    public function views()
+    public function konser()    
     {
         return $this->belongsTo(konser::class,'konser_id');
     }

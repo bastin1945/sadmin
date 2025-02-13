@@ -32,6 +32,14 @@ class konser extends Model
     {
         return $this->hasMany(Tiket::class);
     }
+    public function views()
+    {
+        return $this->hasMany(views::class);
+    }
+    public function sales()
+    {
+        return $this->hasMany(sales::class);
+    }
 
     public function lokasi()
     {

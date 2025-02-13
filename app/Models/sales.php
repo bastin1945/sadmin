@@ -8,7 +8,7 @@ class sales extends Model
 {
     protected $fillable = ['konser_id'];
 
-    public function sales()
+    public function konser()
     {
         return $this->belongsTo(konser::class, 'konser_id');
     }
