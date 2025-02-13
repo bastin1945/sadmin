@@ -46,22 +46,22 @@
             <form action="" method="get">
                 <li class="pt-2 pb-0">
                     <input type="text" placeholder="Cari Dan Temukan Konser" name="search" value="{{ request()->get('search') }}"
-                        class="w-full px-4 py-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
+                        class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
                 </li>
 
-                <h3 class="text-lg font-semibold text-indigo-700 pt-3">Harga</h3>
+                <h3 class="text-lg font-semibold text-indigo-700 pt-3">tanggal</h3>
                 <div class="flex space-x-2 mb-3">
 <li class="pt-2 pb-0">
                     <input type="date" placeholder="Cari Dan Temukan Konser" name="search" value="{{ request()->get('search') }}"
-                        class="w-5xl px-20 py-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
+                        class="w-5xl px-20 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
                 </li>
                 </div>
-                <h3 class="text-lg font-semibold text-indigo-700 pt-2">Harga</h3>
+                <h3 class="text-lg font-semibold text-indigo-700 pt-1">Harga</h3>
                 <div class="flex space-x-2 mb-3">
                     <input type="text" name="min_price" placeholder="Min" value="{{ request()->get('min_price') }}"
-                        class="flex-1 w-24 pl-2 py-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200" oninput="this.form.submit()">
+                        class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200" oninput="this.form.submit()">
                     <input type="text" name="max_price" placeholder="Max" value="{{ request()->get('max_price') }}"
-                        class="flex-1 w-24 pl-2 py-1 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200" oninput="this.form.submit()">
+                        class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200" oninput="this.form.submit()">
                 </div>
 
                 <div class="mt-3 flex space-x-3">
@@ -135,7 +135,7 @@
 </script>
 
                 <!-- Main Content -->
-<div class="container mx-auto px-4 3xl:px-8 py-8 pl-10 mt-6">
+<div class="container w-full  px-6 3xl:px-8 py-8 pl-10 mt-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
         @if ($isEmpty)
             <p class="text-red-500 font-semibold text-center">Konser tidak ada pada lokasi ini.</p>

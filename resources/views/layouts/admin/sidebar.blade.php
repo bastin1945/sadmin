@@ -1,5 +1,5 @@
 <div x-cloak :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed inset-0 z-20 transition-opacity bg-dark opacity-50 lg:hidden"></div>
-    
+
 <div x-cloak :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-white lg:translate-x-0 lg:static lg:inset-0">
     <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
@@ -46,6 +46,8 @@
         <span class="mx-3 font-bold text-sm">Lokasi</span>
     </a>
 
+
+
     <a class="flex items-center ml-4 mr-4 px-6 py-2 {{ Route::is('admin.adminhistory.index') ? 'bg-blue-500 text-white' : 'text-dark hover:bg-gray-200 hover:text-white' }} px-4 py-4 rounded-lg" href="{{ route('admin.adminhistory.index') }}" >
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="transition-all duration-300">
             <path d="M6 14h6v-6c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6zm16 0c0 5.523-4.478 10-10 10s-10-4.477-10-10 4.478-10 10-10 10 4.477 10 10zm-2 0c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8 8-3.589 8-8zm-6-11.819v-2.181h-4v2.181c1.408-.238 2.562-.243 4 0zm6.679 3.554l1.321-1.321-1.414-1.414-1.407 1.407c.536.402 1.038.844 1.5 1.328z"/>
@@ -62,6 +64,24 @@
 
         <span class="mx-3 font-bold text-sm">Pengguna</span>
     </a>
+    <div x-data="{ open: false }" class="relative">
+            <button @click="open = !open" class="flex items-center justify-between w-full px-6 py-2 ml-4 mr-4 text-dark rounded-lg hover:bg-gray-200 focus:outline-none">
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="transition-all duration-300">
+                        <path d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z"/>
+                    </svg>
+                    <span class="mx-3 font-bold text-sm">Tampilan Dashboard</span>
+                </div>
+                <svg class="w-4 h-4 transition-transform transform" :class="open ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div x-show="open" class="mt-2 space-y-2 pl-12" style="display: none;">
+                <a href="#" class="block px-4 py-2 text-sm text-dark rounded-lg hover:bg-gray-200">Atur Populer</a>
+                <a href="#" class="block px-4 py-2 text-sm text-dark rounded-lg hover:bg-gray-200">Atur Paling Laris</a>
+                <a href="#" class="block px-4 py-2 text-sm text-dark rounded-lg hover:bg-gray-200">Atur Rekomendasi</a>
+            </div>
+        </div>
 
     <div>
 </div>
@@ -127,7 +147,7 @@
 
 
 
-    
+
 </div>
 
 <script>

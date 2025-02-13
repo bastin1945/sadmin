@@ -53,6 +53,8 @@ class FrontController extends Controller
 
         $konsers = $konsers->paginate(3);
 
+        
+
         return view('dashboard', compact('konsers', 'locations')); // Pass locations to the view
     }
     /**

@@ -7,9 +7,9 @@
 <div class="max-w-7xl mx-auto bg-white rounded-lg overflow-hidden mb-40 justify-center" style="margin-top:150px;">
 
     <!-- Event Content -->
-    <div class="flex flex-col md:flex-row pl-5">
+    <div class="flex flex-col md:flex-row pl-5 ">
         <!-- Image Section -->
-        <div class="flex-shrink-0 ">
+        <div class="flex-shrink-0  ">
             <img src="{{ asset('storage/' . $konser->image) }}" alt="Event Image"
                 class="object-cover rounded-lg" style="width: 800px; height: 330px">
                 <div class="flex justify-between mt-6">
@@ -64,7 +64,7 @@
     <a href="{{ route('productbuy', $konser->id) }}" class="button">
         <button
             class="text-white bg-gradient-to-r from-blue-800 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-40 py-2.5 text-center mt-10 mb-2">
-            Beli Tiket
+            Pesan Tiket
         </button>
     </a>
 </div>

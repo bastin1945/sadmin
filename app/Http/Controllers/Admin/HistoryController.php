@@ -13,7 +13,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $order = Order::with('tiket', 'promo', 'user')->paginate(10); // Ambil data order dengan pagination
+        $order = Order::with('tiket', 'promo', 'user')->orderBy('created_at','desc')->paginate('10'); // Ambil data order dengan pagination
         return view('admin.history.index', compact('order'));
     }
 

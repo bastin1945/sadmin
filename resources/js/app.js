@@ -8,4 +8,7 @@ Alpine.start();
 
 import 'alpinejs';
 
+import Turbolinks from "turbolinks";
+Turbolinks.start();
+
 // console.log(location.href.substring(location.href.lastIndexOf('/') + 1));

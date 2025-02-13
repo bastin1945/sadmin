@@ -1,5 +1,7 @@
 @include('layouts.app')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
     body {
         font-family: 'Poppins', sans-serif;
@@ -29,110 +31,90 @@
     /* Add other styles here... */
 </style>
 
-<div class="max-w-7xl mx-auto flex justify-between bg-white mt-[9rem] mb-0  gap-3 ">
+<div class="max-w-7xl mx-auto flex justify-between bg-white mt-[9rem] mb-0 gap-3 border border-gray-300 rounded-lg shadow-lg">
     <!-- Bagian Kiri -->
-   <div class="w-1/2 mr-4 bg-white rounded-lg border border-gray-300 shadow-md p-4">
-    @if ($errors->any())
-        <div class="alert alert-danger mb-4">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div class="w-1/2 p-6 bg-white rounded-l-lg shadow-md  hover:shadow-xl">
+        @if ($errors->any())
+            <div class="alert alert-danger mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <form action="{{ route('product.store') }}" method="POST">
-        @csrf
-        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-        <input type="hidden" id="harga_total" name="harga_total" value="0">
+        <form action="{{ route('product.store') }}" method="POST">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+            <input type="hidden" id="harga_total" name="harga_total" value="0">
 
-        <div class="mb-3">
-            <label for="category" class="block mb-2 text-md font-medium text-black-600">
-                <i class="fas fa-tags"></i> Pilih Kategori Konser
-            </label>
-            <hr class="w-full border-t border-gray-300 mb-2">
-            <select name="tiket_id" id="category" class="w-full px-4 py-2 text-sm font-medium text-black-600 border border-gray-500 rounded focus:ring focus:ring-indigo-200">
-                <option value="" class="text-gray-300">Kategori Konser</option>
-                @foreach ($konser->tiket as $kt)
-                    <option value="{{ $kt->id }}" data-harga="{{ $kt->harga_tiket }}">{{ $kt->jenis_tiket }} | Rp:{{ number_format($kt->harga_tiket) }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="mb-4">
+                <label for="category" class="block mb-2 text-lg font-medium text-gray-700">
+                    <i class="fas fa-tags"></i> Pilih Kategori Konser
+                </label>
+                <select name="tiket_id" id="category" required class="w-full px-4 py-3 text-sm font-medium text-gray-600 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out">
+                    <option value="" class="text-gray-300">Kategori Konser</option>
+                    @foreach ($konser->tiket as $kt)
+                        <option value="{{ $kt->id }}" data-harga="{{ $kt->harga_tiket }}">{{ $kt->jenis_tiket }} | Rp:{{ number_format($kt->harga_tiket) }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-       <div class="flex items-center justify-between m-0 mb-3 gap-4 border border-gray-500 p-2 pt-0 rounded-md">
-    <div class="w-6xl">
-        <label for="jumlah" class="block mb-1 text-sm font-semibold text-gray-700">
-            <i class="fas fa-percent"></i> Jumlah Tiket
-        </label>
-        <div class="flex items-center">
-            <button id="decrease" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3">-</button>
-            <input id="jumlah" type="text" name="jumlah_tiket" value="1" readonly class="w-12 text-center text-gray-800 font-semibold border border-gray-300 rounded mx-2">
-            <button id="increase" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3">+</button>
-        </div>
-    </div>
-    <div class="w-full">
-        <div class="flex gap-2 pt-5">
-            <input id="promo_code" type="text" name="promo_id" class="w-full px-4 py-2 text-sm font-medium text-gray-800 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Kode Promo">
-            <button id="apply-promo" type="button" class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                Gunakan Promo
+            <div class="flex items-center justify-between mb-4 gap-4 border border-gray-300 p-3 rounded-md shadow-sm">
+                <div class="w-full">
+                    <label for="jumlah" class="block mb-1 text-sm font-semibold text-gray-700">
+                        <i class="fas fa-percent"></i> Jumlah Tiket
+                    </label>
+                    <div class="flex items-center">
+                        <button id="decrease" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">-</button>
+                        <input id="jumlah" type="text" name="jumlah_tiket" value="1" readonly class="w-12 text-center text-gray-800 font-semibold border border-gray-300 rounded mx-2 shadow-sm">
+                        <button id="increase" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">+</button>
+                    </div>
+                </div>
+                <div class="w-full">
+                    <div class="flex gap-2">
+                        <input id="promo_code" type="text" name="promo_id" class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Kode Promo">
+                        <button id="apply-promo" type="button" class="px-4 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">
+                            Gunakan Promo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block mb-2 text-sm font-semibold text-gray-700">
+                    <i class="fas fa-envelope"></i> Isikan Gmail Anda
+                </label>
+                <input id="email" type="text" name="email" required class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Isikan Gmail Anda">
+            </div>
+
+            <div class="mb-4">
+                <label for="contact" class="block mb-2 text-sm font-semibold text-gray-700">
+                    <i class="fas fa-phone"></i> Isikan Nomer Anda
+                </label>
+                <input id="contact" type="number" name="contact" required class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Isikan Nomer">
+            </div>
+
+            <div class="mb-4">
+                <label for="address" class="block mb-2 text-sm font-semibold text-gray-700">
+                    <i class="fas fa-map-marker-alt"></i> Isikan Alamat Anda
+                </label>
+                <input id="address" type="text" name="alamat" required class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Isikan Alamat Anda">
+            </div>
+
+            <button type="submit" id="bayar-btn" class="mt-5 w-full px-5 py-4 text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-md hover:from-blue-600 hover:to-indigo-700 transition">
+                <i class="fas fa-credit-card"></i> Pesan Sekarang
             </button>
-        </div>
+        </form>
     </div>
-</div>
-
-
-        <div class="mb-4">
-            <label for="email" class="block mb-2 text-sm font-semibold text-gray-700">
-                <i class="fas fa-envelope"></i> Isikan Gmail Anda
-            </label>
-            <input id="email" type="text" name="email"
-                class="w-full px-4 py-2 text-sm font-medium text-gray-800 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Isikan Gmail Anda">
-        </div>
-
-        <div class="mb-4">
-            <label for="address" class="block mb-2 text-sm font-semibold text-gray-700">
-                <i class="fas fa-map-marker-alt"></i> Isikan Nomer Anda
-            </label>
-            <input id="address" type="numner" name="contact"
-                class="w-full px-4 py-2 text-sm font-medium text-gray-800 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Isikan Nomer">
-        </div>
-        <div class="mb-4">
-            <label for="address" class="block mb-2 text-sm font-semibold text-gray-700">
-                <i class="fas fa-map-marker-alt"></i> Isikan Alamat Anda
-            </label>
-            <input id="address" type="text" name="alamat"
-                class="w-full px-4 py-2 text-sm font-medium text-gray-800 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Isikan Alamat Anda">
-        </div>
-
-        <button type="submit" id="bayar-btn" class="mt-5 w-full px-5 py-4 text-white bg-blue-500 rounded-md hover:bg-indigo-700">
-            <i class="fas fa-credit-card"></i> Bayar Sekarang
-        </button>
-    <script>
-        document.getElementById('bayar-btn').addEventListener('click', function() {
-            @auth
-                // Jika user sudah login, jalankan aksi bayar
-                alert('Proses pembayaran dimulai...');
-            @else
-                // Jika user belum login, arahkan ke halaman login
-                window.location.href = "{{ route('login') }}";
-            @endauth
-        });
-    </script>
-    </form>
-</div>
-
-
 
     <!-- Bagian Kanan -->
-    <div class="w-1/2 p-6 pb-0 bg-white border border-gray-200 rounded-lg shadow-md">
-        <div class="w-auto h-60 border border-gray-300 rounded-md">
-            <img src="{{ asset('storage/' . $konser->image) }}" alt="Gambar HD" class="rounded-md w-full h-full">
+    <div class="w-1/2 p-6 bg-white rounded-r-lg shadow-md  hover:shadow-xl">
+        <div class="w-auto h-60 border border-gray-300 rounded-md overflow-hidden shadow-sm">
+            <img src="{{ asset('storage/' . $konser->image) }}" alt="Gambar HD" class="rounded-md w-full h-full object-cover transition-transform duration-300 hover:scale-110">
         </div>
-        <h2 class="mb-6 mt-4 text-lg font-semibold text-gray-800">Tiket Konser {{ $konser->nama }}</h2>
+        <h2 class="mb-6 mt-4 text-xl font-semibold text-gray-800">Tiket Konser {{ $konser->nama }}</h2>
         <div class="flex items-start mb-0 space-x-4">
             <div class="flex-1 mb-4">
                 <div class="flex items-center space-x-2">
@@ -300,13 +282,7 @@
     });
 });
 
-        $("form").on("submit", function(event) {
-            updateHarga(); // Pastikan harga total terupdate sebelum submit
-            if (parseInt($("#harga_total").val()) === 0) { // Cek input harga_total
-                event.preventDefault();
-                alert("Harga total harus diisi!");
-            }
-        });
+
     });
 </script>
 
