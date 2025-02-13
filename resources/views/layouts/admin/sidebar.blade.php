@@ -64,24 +64,32 @@
 
         <span class="mx-3 font-bold text-sm">Pengguna</span>
     </a>
-    <div x-data="{ open: false }" class="relative">
-            <button @click="open = !open" class="flex items-center justify-between w-full px-6 py-2 ml-4 mr-4 text-dark rounded-lg hover:bg-gray-200 focus:outline-none">
-                <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="transition-all duration-300">
-                        <path d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z"/>
-                    </svg>
-                    <span class="mx-3 font-bold text-sm">Tampilan Dashboard</span>
-                </div>
-                <svg class="w-4 h-4 transition-transform transform" :class="open ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                </svg>
-            </button>
-            <div x-show="open" class="mt-2 space-y-2 pl-12" style="display: none;">
-                <a href="#" class="block px-4 py-2 text-sm text-dark rounded-lg hover:bg-gray-200">Atur Populer</a>
-                <a href="#" class="block px-4 py-2 text-sm text-dark rounded-lg hover:bg-gray-200">Atur Paling Laris</a>
-                <a href="#" class="block px-4 py-2 text-sm text-dark rounded-lg hover:bg-gray-200">Atur Rekomendasi</a>
-            </div>
+    <div x-data="{ open: false }" class="relative bg-white shadow-lg rounded-lg overflow-hidden">
+    <button @click="open = !open" class="flex items-center justify-between w-xl px-6 py-3  pl-6 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-t-lg focus:outline-none transition duration-300">
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="text-blue-600 transition-all duration-300">
+                <path d="M21 13v10h-6v-6h-6v6h-6v-10h-3l12-12 12 12h-3zm-1-5.907v-5.093h-3v2.093l3 3z"/>
+            </svg>
+            <span class="mx-3 font-semibold text-sm">Tampilan Dashboard</span>
         </div>
+        <svg class="w-5 h-5 text-gray-600 transition-transform transform" :class="open ? 'rotate-180' : ''" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+    </button>
+
+    <div x-show="open" x-transition class="mt-2 space-y-2 bg-gray-50 py-2 pl-10">
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-100 hover:text-blue-800 transition duration-300">
+            <i class="fa-solid fa-star mr-2 text-yellow-500"></i> Atur Populer
+        </a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-green-100 hover:text-green-800 transition duration-300">
+            <i class="fa-solid fa-fire mr-2 text-red-500"></i> Atur Paling Laris
+        </a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-100 hover:text-purple-800 transition duration-300">
+            <i class="fa-solid fa-thumbs-up mr-2 text-purple-500"></i> Atur Rekomendasi
+        </a>
+    </div>
+</div>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
     <div>
 </div>
