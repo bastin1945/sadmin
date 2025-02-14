@@ -23,7 +23,7 @@
 
     <div class="bg-white min-h-screen px-5">
         <div class="flex justify-between items-center px-5 py-5">
-    <h1 class="text-2xl font-bold">Pengguna</h1>
+    <h1 class="text-2xl font-bold">Atur rekomendeasi></h1>
     <div class="flex items-center space-x-4">
 
     </div>
@@ -49,8 +49,6 @@
         <tr>
             <th class="px-4 py-2">No</th>
             <th class="px-4 py-2">Nama user</th>
-            <th class="px-4 py-2">Email</th>
-
             <th class="px-4 py-2 text-center">Aksi</th>
         </tr>
     </thead>
@@ -58,10 +56,11 @@
     <tbody>
 
 
+@foreach ($recommend as $index => $pop)
+
 <tr class="text-gray-700">
-    <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
-    <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
-    <td class="border-b border-gray-300 px-4 py-2 text-center"></td>
+    <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
+    <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $pop->konser->nama }}</td>
 
     <td class="border-b border-gray-300 px-4 py-2 text-center">
         <button type="button" class="border text-red-700 px-3 py-2 rounded hover:bg-red-600 hover:text-white" onclick="confirmDelete()">
@@ -71,6 +70,7 @@
         </button>
     </td>
 </tr>
+@endforeach
 
 
 

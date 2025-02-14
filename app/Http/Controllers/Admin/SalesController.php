@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\sales;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -12,7 +13,18 @@ class SalesController extends Controller
      */
     public function index()
     {
-        return view('admin.laris.index');
+        $sales = sales::whereHas('konser.tiket', function ($query) {
+            $query->where('jenis_tiket', 'Regular');
+        })->with([
+                    'konser' => function ($query) {
+                        $query->with([
+                            'tiket' => function ($query) {
+                                $query->where('jenis_tiket', 'Regular');
+                            }
+                        ]);
+                    }
+                ])->get();
+        return view('admin.laris.index',compact('sales'));
     }
 
     /**

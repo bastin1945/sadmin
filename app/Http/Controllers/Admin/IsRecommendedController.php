@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\is_recommended;
 use Illuminate\Http\Request;
 
 class IsRecommendedController extends Controller
@@ -12,7 +13,18 @@ class IsRecommendedController extends Controller
      */
     public function index()
     {
-        return view('admin.recommend.index');
+        $recommend = is_recommended::whereHas('konser.tiket', function ($query) {
+            $query->where('jenis_tiket', 'Regular');
+        })->with([
+                    'konser' => function ($query) {
+                        $query->with([
+                            'tiket' => function ($query) {
+                                $query->where('jenis_tiket', 'Regular');
+                            }
+                        ]);
+                    }
+                ])->get();
+        return view('admin.recommend.index',compact('recommend'));
     }
 
     /**

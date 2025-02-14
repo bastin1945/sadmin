@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\views;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ViewsController extends Controller
 {
@@ -12,7 +13,18 @@ class ViewsController extends Controller
      */
     public function index()
     {
-        return view('admin.populer.index');
+        $populer = views::whereHas('konser.tiket', function ($query) {
+            $query->where('jenis_tiket', 'Regular');
+        })->with([
+                    'konser' => function ($query) {
+                        $query->with([
+                            'tiket' => function ($query) {
+                                $query->where('jenis_tiket', 'Regular');
+                            }
+                        ]);
+                    }
+                ])->get();
+        return view('admin.populer.index',compact('populer'));
     }
 
     /**
