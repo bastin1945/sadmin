@@ -40,17 +40,15 @@ class ProductController extends Controller
             'jumlah_tiket' => 'required|integer|min:1',
             'harga_total' => 'required|numeric',
             'promo_id' => 'nullable|exists:promos,code_promo',
-            'email' => 'required',
+            'email' => 'required|email',
             'contact' => 'required',
-            'alamat' =>  'required'// Validasi menggunakan kode promo
+            'alamat' => 'required',
         ]);
 
-        // Ambil harga tiket dari database
         $tiket = Tiket::find($request->tiket_id);
         $hargaTiket = $tiket->harga_tiket;
-
-        // Jika ada kode promo, cari ID promo dan hitung diskon
         $diskon = 0;
+
         if ($request->promo_id) {
             $promo = Promo::where('code_promo', $request->promo_id)
                 ->where('status_promo', 'aktif')
@@ -59,28 +57,35 @@ class ProductController extends Controller
                 ->first();
 
             if ($promo) {
-                // Hitung diskon berdasarkan nilai diskon promo (misal dalam persen)
                 $diskon = ($promo->nilai_diskon / 100) * ($hargaTiket * $request->jumlah_tiket);
             }
         }
 
-        // Hitung harga total setelah diskon
         $totalSetelahDiskon = ($hargaTiket * $request->jumlah_tiket) - $diskon;
 
         // Simpan data order
-        Order::create([
+        $order = Order::create([
             'user_id' => Auth::id(),
             'tiket_id' => $request->tiket_id,
             'jumlah_tiket' => $request->jumlah_tiket,
-            'harga_total' => $totalSetelahDiskon, // Simpan harga total setelah diskon
+            'harga_total' => $totalSetelahDiskon,
             'promo_id' => isset($promo) ? $promo->id : null,
             'email' => $request->email,
             'contact' => $request->contact,
-            'alamat' => $request->alamat // Simpan ID promo jika ada
+            'alamat' => $request->alamat,
         ]);
 
-        return redirect()->route('history.index')->with('success', 'Pemesanan berhasil!');
+        // Redirect dengan data order yang baru disimpan
+        return redirect()->route('history.index')->with('success', [
+            'total' => $order->harga_total,
+            'jumlah_tiket' => $order->jumlah_tiket,
+            'nama_tiket' => $tiket->nama_tiket,
+            'diskon' => $diskon,
+            'alamat' => $order->alamat,
+            'contact' => $order->contact,
+        ]);
     }
+
 
     /**
      * Display the specified resource.

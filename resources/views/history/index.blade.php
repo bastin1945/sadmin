@@ -1,6 +1,58 @@
 @include('layouts.app')
 <x-slot name="">
 </x-slot>
+@if(session('success'))
+<div id="popup-success" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+    <div class="relative bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
+        <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" onclick="closePopup()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <div class="flex flex-col items-center">
+            <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h2 class="text-xl font-bold text-gray-800 mb-2">Pemesanan Berhasil!</h2>
+            <p class="text-gray-600 text-sm mb-6 text-center">Detail pemesanan Anda:</p>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
+            <div class="flex justify-between mb-2">
+                <span class="text-sm text-gray-600">Total Harga</span>
+                <span class="text-lg font-semibold text-gray-800">Rp{{ number_format(session('success')['total'], 0, ',', '.') }}</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-sm text-gray-600">Jumlah Tiket</span>
+                <span class="text-sm font-medium text-gray-800">{{ session('success')['jumlah_tiket'] }}</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-sm text-gray-600">Diskon</span>
+                <span class="text-sm font-medium text-gray-800">Rp{{ number_format(session('success')['diskon'], 0, ',', '.') }}</span>
+            </div>
+            <div class="flex justify-between mb-2">
+                <span class="text-sm text-gray-600">Alamat</span>
+                <span class="text-sm font-medium text-gray-800">{{ session('success')['alamat'] }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-sm text-gray-600">Kontak</span>
+                <span class="text-sm font-medium text-gray-800">{{ session('success')['contact'] }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function closePopup() {
+        document.getElementById('popup-success').style.display = 'none';
+    }
+</script>
+@endif
+
+
 
 <div class="max-w-7xl mx-auto flex justify-between bg-white mt-[7rem] mb-6 gap-6">
     <!-- Sidebar -->
@@ -35,6 +87,8 @@
         </nav>
     </div>
     <!-- Content -->
+
+
     <div class="flex-1 p-8">
         <h1 class="text-xl font-bold mb-4">Transaksi</h1>
         <div class="border-b mb-4">

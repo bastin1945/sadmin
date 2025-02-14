@@ -71,6 +71,7 @@
                         <input id="jumlah" type="text" name="jumlah_tiket" value="1" readonly class="w-12 text-center text-gray-800 font-semibold border border-gray-300 rounded mx-2 shadow-sm">
                         <button id="increase" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">+</button>
                     </div>
+
                 </div>
                 <div class="w-full">
                     <div class="flex gap-2">
@@ -216,74 +217,70 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        function updateHarga() {
-            let category = document.getElementById("category");
-            let jumlahInput = document.getElementById("jumlah");
-            let hargaTiket = category.options[category.selectedIndex].getAttribute("data-harga");
-            let jumlahTiket = parseInt(jumlahInput.value) || 0;
-            let totalBayar = (parseInt(hargaTiket) || 0) * jumlahTiket;
+  $(document).ready(function () {
+    function updateHarga() {
+        let category = document.getElementById("category");
+        let jumlahInput = document.getElementById("jumlah");
+        let hargaTiket = category.options[category.selectedIndex].getAttribute("data-harga");
+        let jumlahTiket = parseInt(jumlahInput.value) || 0;
+        let totalBayar = (parseInt(hargaTiket) || 0) * jumlahTiket;
 
-            document.getElementById("harga-tiket").innerText = "Rp " + totalBayar.toLocaleString();
-            document.getElementById("total-pembayaran").innerText = "Rp " + totalBayar.toLocaleString();
-
-            // Update input harga_total
-            document.getElementById("harga_total").value = totalBayar;
-        }
-
-        $("#increase").click(function() {
-            let jumlahInput = document.getElementById("jumlah");
-            jumlahInput.value = parseInt(jumlahInput.value) + 1;
-            updateHarga();
-        });
-
-        $("#decrease").click(function() {
-            let jumlahInput = document.getElementById("jumlah");
-            if (jumlahInput.value > 1) {
-                jumlahInput.value = parseInt(jumlahInput.value) - 1;
-            }
-            updateHarga();
-        });
-
-        $("#apply-promo").click(function() {
-    let promoCode = $("#promo_code").val();
-    let hargaTiket = parseInt($("#harga-tiket").text().replace(/\D/g, ''));
-
-    if (promoCode === "") {
-        alert("Silakan masukkan kode promo!");
-        return;
+        document.getElementById("harga-tiket").innerText = "Rp " + totalBayar.toLocaleString();
+        document.getElementById("total-pembayaran").innerText = "Rp " + totalBayar.toLocaleString();
+        document.getElementById("harga_total").value = totalBayar;
     }
 
-    $.ajax({
-        url: "{{ route('apply.promo') }}",
-        type: "POST",
-        data: {
-            promo_code: promoCode,
-            harga_tiket: hargaTiket, // Tambahkan harga_tiket di sini
-            _token: "{{ csrf_token() }}"
-        },
-        success: function(response) {
-            if (response.success) {
-                // Update UI dengan diskon dan total setelah diskon
-                $("#total-pembayaran").text(`Rp ${response.total_setelah_diskon.toLocaleString()}`);
-                $("#potongan-diskon").text(`Rp ${response.diskon.toLocaleString()}`);
-
-                // Update input harga_total
-                $("#harga_total").val(response.total_setelah_diskon);
-
-                alert(response.message);
-            } else {
-                alert(response.message);
-            }
-        },
-        error: function(xhr) {
-            alert("Terjadi kesalahan, coba lagi.");
-        }
+    // Pastikan binding event hanya terjadi sekali
+    $(document).off('click', '#increase').on('click', '#increase', function () {
+        let jumlahInput = document.getElementById("jumlah");
+        jumlahInput.value = parseInt(jumlahInput.value) + 1;
+        updateHarga();
     });
+
+    $(document).off('click', '#decrease').on('click', '#decrease', function () {
+        let jumlahInput = document.getElementById("jumlah");
+        if (parseInt(jumlahInput.value) > 1) {
+            jumlahInput.value = parseInt(jumlahInput.value) - 1;
+        }
+        updateHarga();
+    });
+
+    $("#apply-promo").click(function () {
+        let promoCode = $("#promo_code").val();
+        let hargaTiket = parseInt($("#harga-tiket").text().replace(/\D/g, ''));
+
+        if (promoCode === "") {
+            alert("Silakan masukkan kode promo!");
+            return;
+        }
+
+        $.ajax({
+            url: "{{ route('apply.promo') }}",
+            type: "POST",
+            data: {
+                promo_code: promoCode,
+                harga_tiket: hargaTiket,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function (response) {
+                if (response.success) {
+                    $("#total-pembayaran").text(`Rp ${response.total_setelah_diskon.toLocaleString()}`);
+                    $("#potongan-diskon").text(`Rp ${response.diskon.toLocaleString()}`);
+                    $("#harga_total").val(response.total_setelah_diskon);
+                    alert(response.message);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function () {
+                alert("Terjadi kesalahan, coba lagi.");
+            }
+        });
+    });
+
+    updateHarga();
 });
 
-
-    });
 </script>
 
 

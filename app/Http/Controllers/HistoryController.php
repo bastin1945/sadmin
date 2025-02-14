@@ -15,12 +15,12 @@ class HistoryController extends Controller
     {
         $order = Order::with(['tiket', 'promo', 'user'])
             ->where('user_id', Auth::id()) // Filter data berdasarkan user login
+            ->orderBy('created_at', 'desc') // Mengurutkan data dari terbaru ke terlama
             ->get();
-
-
-
+        // dd($order->toArray());
         return view('history.index', compact('order'));
     }
+
 
     public function updateStatus(Request $request, $id)
     {
