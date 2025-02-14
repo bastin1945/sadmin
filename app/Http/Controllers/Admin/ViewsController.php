@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\views;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ViewsController extends Controller
@@ -12,7 +12,7 @@ class ViewsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.populer.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class ViewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(views $views)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +42,7 @@ class ViewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(views $views)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +50,7 @@ class ViewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, views $views)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class ViewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(views $views)
+    public function destroy(string $id)
     {
         //
     }

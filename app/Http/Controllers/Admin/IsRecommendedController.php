@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\is_recommended;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class IsRecommendedController extends Controller
@@ -12,7 +12,7 @@ class IsRecommendedController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.recommend.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class IsRecommendedController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(is_recommended $is_recommended)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +42,7 @@ class IsRecommendedController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(is_recommended $is_recommended)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +50,7 @@ class IsRecommendedController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, is_recommended $is_recommended)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class IsRecommendedController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(is_recommended $is_recommended)
+    public function destroy(string $id)
     {
         //
     }

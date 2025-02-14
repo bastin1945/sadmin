@@ -1,5 +1,6 @@
     <?php
 
+use App\Http\Controllers\Admin\ViewsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
@@ -9,9 +10,10 @@ use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\KonserController;
 use App\Http\Controllers\Admin\LokasiController;
 use App\Http\Controllers\Admin\HistoryController;
+use App\Http\Controllers\Admin\IsRecommendedController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PenggunaController;
-
+use App\Http\Controllers\Admin\SalesController;
 
 // Rute untuk admin
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -51,7 +53,9 @@ use App\Http\Controllers\Admin\PenggunaController;
     Route::resource('konser', KonserController::class)->except(['show']);
         Route::get('konser/{id}', [KonserController::class, 'detail'])->name('admin.konser.detail');
 
-
+    Route::resource('views',ViewsController::class);
+    Route::resource('sales',SalesController::class);
+    Route::resource('recommend',IsRecommendedController::class);
 
 
         // Route::resource('admin/konser', KonserController::class);

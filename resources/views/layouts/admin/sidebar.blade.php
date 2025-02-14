@@ -78,13 +78,13 @@
     </button>
 
     <div x-show="open" x-transition class="mt-2 space-y-2 bg-gray-50 py-2 pl-10">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-100 hover:text-blue-800 transition duration-300">
+        <a href="{{ route('admin.views.index') }}" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-blue-100 hover:text-blue-800 transition duration-300">
             <i class="fa-solid fa-star mr-2 text-yellow-500"></i> Atur Populer
         </a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-green-100 hover:text-green-800 transition duration-300">
+        <a href="{{ route('admin.sales.index') }}" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-green-100 hover:text-green-800 transition duration-300">
             <i class="fa-solid fa-fire mr-2 text-red-500"></i> Atur Paling Laris
         </a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-100 hover:text-purple-800 transition duration-300">
+        <a href="{{ route('admin.recommend.index') }}" class="block px-4 py-2 text-sm text-gray-700 rounded-lg hover:bg-purple-100 hover:text-purple-800 transition duration-300">
             <i class="fa-solid fa-thumbs-up mr-2 text-purple-500"></i> Atur Rekomendasi
         </a>
     </div>
