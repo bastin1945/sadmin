@@ -2,19 +2,39 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\order;
+use App\Models\konser;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class HistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $order = Order::with('tiket', 'promo', 'user')->orderBy('created_at','desc')->paginate('10'); // Ambil data order dengan pagination
-        return view('admin.history.index', compact('order'));
+        $konser = Konser::all(); // Ambil semua data konser
+
+        $query = Order::with('tiket', 'promo', 'user')->orderBy('created_at', 'desc');
+
+        // Filter berdasarkan konser yang dipilih
+        if ($request->has('konser') && $request->konser != '') {
+            $query->whereHas('tiket', function ($q) use ($request) {
+                $q->where('konser_id', $request->konser);
+            });
+        }
+
+        // Filter berdasarkan pencarian
+        if ($request->has('search') && $request->search != '') {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $order = $query->paginate(10);
+
+        return view('admin.history.index', compact('order', 'konser'));
     }
 
     /**

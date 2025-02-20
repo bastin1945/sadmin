@@ -87,4 +87,5 @@ use App\Http\Controllers\Admin\SalesController;
 
     Route::resource('pengguna', PenggunaController::class);
     Route::get('/admin/pengguna/index', [PenggunaController::class, 'index'])->name('admin.pengguna.index');
+    Route::get('/admin/pengguna/destroy', [PenggunaController::class, 'destroy'])->name('admin.pengguna.destroy');
 });

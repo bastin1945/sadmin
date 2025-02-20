@@ -63,6 +63,10 @@ class PenggunaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id); // Pastikan nama model dengan huruf besar
+        $user->delete();
+
+        // Redirect atau return response yang sesuai
+        return redirect()->route('admin.pengguna.index')->with('success', 'Pengguna berhasil dihapus.');
     }
 }
