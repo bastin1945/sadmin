@@ -102,6 +102,7 @@ class KonserController extends Controller
     {
         // return redirect()->route('admin.konser.edit');
         $konser = Konser::findOrFail($id);
+        // dd($konser->toArray());
         $lokasi = Lokasi::all();
         return view('admin.konser.edit', compact('konser', 'lokasi'));
     }

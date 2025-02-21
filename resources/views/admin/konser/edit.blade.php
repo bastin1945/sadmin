@@ -86,7 +86,7 @@
     <form action="{{ route('admin.konser.update', $konser->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        
+
         <div class="form-group">
             <div class="input-container">
                 <label for="nama">Nama Konser</label>
@@ -127,6 +127,24 @@
                 @enderror
             </div>
         </div>
+
+       <div class="form-group">
+    <div class="input-container">
+        <label for="tanggal_penukaran">Tanggal Penukaran Tiket</label>
+        <input type="date" id="tanggal_penukaran" name="tanggal_penukaran" value="{{ old('tanggal_penukaran', $konser->tanggal_penukaran) }}">
+        @error('tanggal_penukaran')
+            <div style="color: red;">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="input-container">
+        <label for="lokasi_penukaran">Lokasi Penukaran Tiket</label>
+        <input type="text" id="lokasi_penukaran" name="lokasi_penukaran" placeholder="Masukkan Lokasi Penukaran" value="{{ old('lokasi_penukaran', $konser->lokasi_penukaran) }}">
+        @error('lokasi_penukaran')
+            <div style="color: red;">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
 
         <div class="form-group">
             <div class="input-container">

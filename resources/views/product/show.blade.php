@@ -74,7 +74,6 @@
         <div class="p-6 md:w-1/2">
                 <div class="mb-4">
 
-
                     <!-- Reviews Section -->
 
                     <button class="flex mt-5   bg-blue-600 hover:bg-blue-700 text-white py-2 px-6  rounded-3xl shadow">

@@ -34,9 +34,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::resource('history',HistoryController::class);
     Route::get('/history/{id}', [HistoryController::class, 'show'])->name('history.show');
 
-
+    Route::get('/orders', [HistoryController::class, 'index'])->name('orders.all');
+    Route::get('/orders/pending', [HistoryController::class, 'pending'])->name('orders.pending');
+    Route::get('/orders/completed', [HistoryController::class, 'completed'])->name('orders.completed');
 
 
 Route::post('/review', [ReviewController::class, 'store'])->middleware('auth');

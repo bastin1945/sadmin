@@ -1,55 +1,59 @@
 @include('layouts.app')
 <x-slot name="">
 </x-slot>
-@if(session('success'))
-<div id="popup-success" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-    <div class="relative bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
-        <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" onclick="closePopup()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-
-        <div class="flex flex-col items-center">
-            <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+@if (session('success'))
+    <div id="popup-success" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+        <div class="relative bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
+            <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600" onclick="closePopup()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-            </div>
-            <h2 class="text-xl font-bold text-gray-800 mb-2">Pemesanan Berhasil!</h2>
-            <p class="text-gray-600 text-sm mb-6 text-center">Detail pemesanan Anda:</p>
-        </div>
+            </button>
 
-        <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
-            <div class="flex justify-between mb-2">
-                <span class="text-sm text-gray-600">Total Harga</span>
-                <span class="text-lg font-semibold text-gray-800">Rp{{ number_format(session('success')['total'], 0, ',', '.') }}</span>
+            <div class="flex flex-col items-center">
+                <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mb-2">Pemesanan Berhasil!</h2>
+                <p class="text-gray-600 text-sm mb-6 text-center">Detail pemesanan Anda:</p>
             </div>
-            <div class="flex justify-between mb-2">
-                <span class="text-sm text-gray-600">Jumlah Tiket</span>
-                <span class="text-sm font-medium text-gray-800">{{ session('success')['jumlah_tiket'] }}</span>
-            </div>
-            <div class="flex justify-between mb-2">
-                <span class="text-sm text-gray-600">Diskon</span>
-                <span class="text-sm font-medium text-gray-800">Rp{{ number_format(session('success')['diskon'], 0, ',', '.') }}</span>
-            </div>
-            <div class="flex justify-between mb-2">
-                <span class="text-sm text-gray-600">Alamat</span>
-                <span class="text-sm font-medium text-gray-800">{{ session('success')['alamat'] }}</span>
-            </div>
-            <div class="flex justify-between">
-                <span class="text-sm text-gray-600">Kontak</span>
-                <span class="text-sm font-medium text-gray-800">{{ session('success')['contact'] }}</span>
+
+            <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm text-gray-600">Total Harga</span>
+                    <span
+                        class="text-lg font-semibold text-gray-800">Rp{{ number_format(session('success')['total'], 0, ',', '.') }}</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm text-gray-600">Jumlah Tiket</span>
+                    <span class="text-sm font-medium text-gray-800">{{ session('success')['jumlah_tiket'] }}</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm text-gray-600">Diskon</span>
+                    <span
+                        class="text-sm font-medium text-gray-800">Rp{{ number_format(session('success')['diskon'], 0, ',', '.') }}</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm text-gray-600">Alamat</span>
+                    <span class="text-sm font-medium text-gray-800">{{ session('success')['alamat'] }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-sm text-gray-600">Kontak</span>
+                    <span class="text-sm font-medium text-gray-800">{{ session('success')['contact'] }}</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    function closePopup() {
-        document.getElementById('popup-success').style.display = 'none';
-    }
-</script>
+    <script>
+        function closePopup() {
+            document.getElementById('popup-success').style.display = 'none';
+        }
+    </script>
 @endif
 
 
@@ -91,11 +95,27 @@
 
     <div class="flex-1 p-8">
         <h1 class="text-xl font-bold mb-4">Transaksi</h1>
-        <div class="border-b mb-4">
-            <p class="text-blue-600 font-semibold border-b-2 border-blue-600 inline-block pb-1">
-                Pesanan Online
-            </p>
-        </div>
+       <form method="GET" action="{{ route('history.index') }}">
+    <div class="border-b mb-4 flex space-x-6">
+        <label class="flex items-center space-x-2 cursor-pointer">
+            <input type="radio" name="status" value="" {{ !request()->has('status') ? 'checked' : '' }} onchange="this.form.submit()" />
+            <span>Semua Pesanan</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+            <input type="radio" name="status" value="pending" {{ request('status') == 'pending' ? 'checked' : '' }} onchange="this.form.submit()" />
+            <span>Pesanan Pending</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+            <input type="radio" name="status" value="paid" {{ request('status') == 'paid' ? 'checked' : '' }} onchange="this.form.submit()" />
+            <span>Pesanan Selesai</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+            <input type="radio" name="status" value="cancelled" {{ request('status') == 'cancelled' ? 'checked' : '' }} onchange="this.form.submit()" />
+            <span>Pesanan Dibatalkan</span>
+        </label>
+    </div>
+</form>
+
         <!-- Order Card -->
         @foreach ($order as $orde)
             <div class="bg-white p-4 rounded-lg mb-4 flex items-start"
@@ -191,13 +211,15 @@
 
                                                 <!-- Detail Tiket -->
                                                 <div class="bg-gray-100 rounded-xl p-6 shadow-inner">
-                                                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 text-left">
+                                                    <div
+                                                        class="grid grid-cols-2 gap-4 text-sm text-gray-700 text-left">
                                                         <span class="text-gray-700">Total:</span>
                                                         <span class="text-lg font-bold text-gray-800">Rp
                                                             {{ number_format($orde->harga_total, 0, ',', '.') }}</span>
                                                     </div>
                                                     <hr class="my-2">
-                                                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 text-left">
+                                                    <div
+                                                        class="grid grid-cols-2 gap-4 text-sm text-gray-700 text-left">
 
                                                         <div>Kode E-Tiket: <strong
                                                                 class="text-gray-900">{{ $orde->kode_tiket }}</strong>
@@ -220,7 +242,8 @@
                                                     </div>
 
                                                     <hr class="my-2">
-                                                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 text-left">
+                                                    <div
+                                                        class="grid grid-cols-2 gap-4 text-sm text-gray-700 text-left">
                                                         <div>Customer: <strong
                                                                 class="text-gray-900">{{ $orde->user->name }}</strong>
                                                         </div>
@@ -288,167 +311,106 @@
 
                         </div>
 
+                        <div x-data="{ openReview: null }">
+                            <button @click="openReview = {{ $orde->id }}"
+                                class="bg-blue-800 text-xs text-white px-1 py-2 rounded-lg ml-2"
+                                style="width: 120px; height: 36px;">Riview</button>
+
+                            <!-- Overlay -->
+                            <div x-show="openReview !== null"
+                                class="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"></div>
+
+                            <!-- Modal Detail Tiket -->
+                            <!-- Modal Detail Tiket -->
+                            <template x-if="openReview === {{ $orde->id }}">
+                                <div
+                                    class="fixed inset-0 flex items-center justify-center p-4 bg-gray-900 bg-opacity-50">
+                                    <div class="bg-white rounded-lg p-6 w-[700px] h-[400px] overflow-y-auto shadow-lg"
+                                        x-transition:enter="scale-75 opacity-0"
+                                        x-transition:enter-end="scale-100 opacity-100"
+                                        x-transition:leave="scale-100 opacity-100"
+                                        x-transition:leave-end="scale-75 opacity-0">
 
 
-                        <button @click="openReview = true"
-                            class="bg-blue-800 text-xs text-white px-1 py-2 rounded-lg ml-2"
-                            style="width: 120px; height: 36px;">Review</button>
+
+                                        <div class="flex items-start space-x-4 mb-4">
+                                            <img src="{{ asset('storage/' . $orde->tiket->konser->image) }}"
+                                                alt="Gambar Konser" class="rounded-lg object-cover w-40 h-24">
+                                            <div class="flex flex-col items-start">
+                                                <p class="text-lg mb-1 font-semibold">{{ $orde->tiket->konser->nama }}
+                                                </p>
+                                                <p class="text-sm text-gray-500">Tanggal:
+                                                    <strong>{{ \Carbon\Carbon::parse($orde->tiket->konser->tanggal)->translatedFormat('d F Y') }}</strong>
+                                                </p>
+                                                <p class="text-sm text-gray-500">Jumlah:
+                                                    <strong>{{ $orde->jumlah_tiket }} Tiket</strong></p>
+                                            </div>
+                                        </div>
+
+                                        <form action="{{ route('history.store') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="order_id" value="{{ $orde->id }}">
+
+
+                                            <div class="mb-4">
+                                                <textarea name="comment" class="w-full border rounded-2xl p-2 mt-1 h-32 resize-none"
+                                                    placeholder="Tulis komentar Anda di sini..." required></textarea>
+                                            </div>
+
+                                            <div class="mb-4 flex items-center">
+                                                <input type="file" id="photoUpload" name="photo"
+                                                    accept="image/*" class="hidden" onchange="handleFileUpload()">
+                                                <button type="button"
+                                                    onclick="document.getElementById('photoUpload').click()"
+                                                    class="border border-gray-700 rounded-md p-2 mt-4 text-sm text-gray-700 flex items-center"
+                                                    style="width: 250px;" id="uploadButton">
+                                                    <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                    Tambah Foto
+                                                </button>
+                                            </div>
+
+                                            <script>
+                                                function handleFileUpload() {
+                                                    const fileInput = document.getElementById('photoUpload');
+                                                    const fileName = fileInput.files[0] ? fileInput.files[0].name : 'Tidak ada file yang dipilih';
+                                                    const uploadButton = document.getElementById('uploadButton');
+                                                    uploadButton.innerHTML = `
+            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
+                <path fill-rule="evenodd" d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+            </svg>
+            ${fileName}
+        `;
+                                                }
+                                            </script>
+
+                                            <div class="flex justify-end mt-6 space-x-2">
+                                                <button type="button" @click="openReview = null"
+                                                    class="border border-gray-400 px-4 py-2 rounded-lg text-gray-600 text-sm">Nanti
+                                                    saja</button>
+                                                <button type="submit"
+                                                    class="bg-blue-800 text-white px-4 py-2 rounded-lg text-sm">Kirim</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Pop-up Detail Tiket -->
-
-            <body class="flex items-center justify-center h-screen bg-gray-100" x-data="{ openDetail: false, openReview: false }">
-
-                <!-- Overlay -->
-                <div x-show="openDetail || openReview"
-                    class="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"
-                    x-transition:enter="opacity-0" x-transition:enter-end="opacity-100"
-                    x-transition:leave="opacity-100" x-transition:leave-end="opacity-0"></div>
-
-                <!-- Pop-up Detail Tiket -->
-                <div x-show="openDetail" class="fixed inset-0 flex items-center justify-center p-8">
-                    <div class="bg-white rounded-lg p-6 transform transition-all duration-300"
-                        style="width:700px; height: 500px;" x-transition:enter="scale-75 opacity-0"
-                        x-transition:enter-end="scale-100 opacity-100" x-transition:leave="scale-100 opacity-100"
-                        x-transition:leave-end="scale-75 opacity-0">
-
-
-                        <div class="flex items-start space-x-4 mb-4">
-                            <img src="{{ asset('storage/' . $orde->tiket->konser->image) }}" alt="Gambar HD"
-                                class="rounded-lg object-cover" style="width: 300px; height: 170px;">
-                            <div>
-                                <h2 class="text-lg font-semibold mb-1">{{ $orde->tiket->konser->nama }}</h2>
-                                <ul class="text-sm text-gray-600 space-y-2">
-                                    <div class="mb-1">
-                                        <div class=" mb-3">
-                                            <li>
-                                                <div>
-                                                    <i class="fa-solid fa-calendar-days text-blue-500 mt-1 mr-1"></i>
-                                                    <span class=" text-gray-800 pl-1">Tanggal</span><br>
-                                                </div>
-                                                <strong
-                                                    class="text-bold text-black pl-5 ml-1">{{ $orde->tiket->konser->tanggal }}</strong>
-                                            </li>
-                                        </div>
-
-                                        <div>
-                                            <li>
-                                                <div class="flex">
-                                                    <i class="fa-solid fa-clock text-blue-500 mt-1 mr-1"></i>
-                                                    <span class=" text-gray-800 pl-1">Waktu</span><br>
-                                                </div>
-                                                <strong
-                                                    class="text-black pl-5 ml-1">{{ $orde->tiket->konser->jam }}</strong>
-                                            </li>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4">
-                                        <li>
-                                            <div class="flex">
-                                                <i class="fa-solid fa-location-dot text-blue-500 mt-1 mr-1 "></i>
-
-                                                <span class=" text-gray-800 pl-2">Lokasi</span><br>
-                                            </div>
-                                            <strong
-                                                class=" text-black pl-5 ml-1">{{ $orde->tiket->konser->lokasi->location }}</strong>
-                                        </li>
-
-                                    </div>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="bg-gray-100 rounded-xl p-6 mt-4">
-                            <!-- Bagian Total -->
-                            <div class="text-popup flex justify-between items-center text-center mx-32">
-                                <span class="text-black-400 text-md">Total:</span>
-                                <span id="popup-total" class="text-xl font-bold">
-                                    Rp {{ number_format($orde->harga_total, 0, ',', '.') }}
-                                </span>
-
-                            </div>
-
-                            <hr class="my-4 border-gray-300">
-
-                            <!-- Detail Pembayaran -->
-
-                            <div class="flex justify-between my-2 text-popup mt-2 text-center">
-                                <span class="text-gray-700 text-sm">Nama Konser:</span>
-                                <strong class="text-black text-sm">{{ $orde->tiket->konser->nama }}</strong>
-                            </div>
-
-                            <div class="flex justify-between my-2 text-popup mt-2 text-center">
-                                <span class="text-gray-700 text-sm">Sub total pembelian:</span>
-                                <strong class="text-black text-sm">{{ $orde->jumlah_tiket }}</strong>
-                            </div>
-
-                            <div class="flex justify-between my-2 text-popup text-center">
-                                <span class="text-gray-700 text-sm">Tanggal Pembayaran:</span>
-                                <strong class="text-black text-sm">{{ $orde->created_at }}</strong>
-                            </div>
-
-                            <div class="flex justify-between my-2 text-popup text-center">
-                                <span class="text-gray-700 text-sm">Pembeli:</span>
-
-                                <strong class="text-black text-sm">{{ $orde->user->name }}</strong>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-end mt-4">
-                            <button @click="openDetail = false"
-                                class="border border-gray-400 px-4 py-2 rounded-lg text-gray-600 text-sm"
-                                style="width: 120px;">Kembali</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pop-up Review -->
-                <div x-show="openReview" class="fixed inset-0 flex items-center justify-center p-4">
-                    <div class="bg-white rounded-lg px-10 py-6 transform transition-all duration-300 w-[700px] h-[500px]"
-                        x-transition:enter="scale-75 opacity-0" x-transition:enter-end="scale-100 opacity-100"
-                        x-transition:leave="scale-100 opacity-100" x-transition:leave-end="scale-75 opacity-0">
-
-                        <h2 class="text-xl font-semibold mb-4">Review</h2>
-
-                        <div class="flex items-start space-x-4 mb-4">
-                            <img src="assets/hd1.png" alt="Tiket" class=" rounded-lg object-cover"
-                                style="width:100px; height: 100px;">
-                            <div>
-                                <p class="text-lg mb-3 font-semibold">Tiket Konser Sedjiwa</p>
-                                <p class="text-sm text-gray-500">Category: VIP</p>
-                                <p class="text-sm text-gray-500">Jumlah: 1 Tiket</p>
-                            </div>
-                        </div>
-
-                        <label class="text-sm text-gray-900">Komentar</label>
-                        <textarea class="w-full border rounded-2xl p-2 mt-1 h-32 resize-none"></textarea>
-
-                        <button
-                            class="flex items-center justify-start border border-gray-700 rounded-md p-3 mt-4 text-sm text-gray-700"
-                            style="width: 250px;">
-                            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-                                <path fill-rule="evenodd"
-                                    d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Tambah Foto
-                        </button>
-
-                        <div class="flex justify-end mt-10 space-x-2">
-                            <button @click="openReview = false"
-                                class="border border-gray-400 px-4 py-1 rounded-lg text-gray-600 text-sm"
-                                style="width: 150px; height: 40px;">Nanti saja</button>
-                            <button class="bg-blue-800 text-white px-4 py-1 rounded-lg text-sm ml-4"
-                                style="width: 150px; height: 40px;">Review</button>
-                        </div>
-                    </div>
-                </div>
-
             </body>
         @endforeach
+          <div class="mt-4">
+        {{ $order->links() }}
+    </div>
     </div>
 </div>

@@ -12,6 +12,7 @@ class CreateReviewsTable extends Migration
             $table->foreignId('order_id')->constrained()->onDelete('cascade'); // Foreign key ke tabel orders
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Foreign key ke tabel users
             $table->text('comment'); // Kolom untuk menyimpan komentar
+             $table->string('photo')->nullable();
             $table->timestamps(); // Kolom created_at dan updated_at
         });
     }
