@@ -40,6 +40,10 @@ class konser extends Model
     {
         return $this->hasMany(sales::class);
     }
+    public function review()
+    {
+        return $this->hasMany(Review::class);
+    }
 
     public function lokasi()
     {

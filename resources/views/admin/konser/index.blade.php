@@ -68,6 +68,7 @@
         </form>
 
         <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
+
             <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
                 <tr>
                     <th class="px-4 py-2 text-center">No</th>
@@ -80,6 +81,12 @@
             </thead>
 
             <tbody>
+                @if (session('error'))
+    <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
+        {{ session('error') }}
+    </div>
+@endif
+
                 @foreach ($konsers as $key => $konser)
                     <tr class="text-gray-700">
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $key + 1 }}</td>

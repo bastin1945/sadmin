@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\order;
+use App\Models\tiket;
 use App\Models\Konser;
+use App\Models\lokasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\lokasi;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -171,13 +173,23 @@ class KonserController extends Controller
     public function destroy($id)
     {
         $konser = Konser::findOrFail($id);
+
+        // Periksa jika ada pesanan terkait
+        $relatedOrders = order::whereIn('tiket_id', tiket::where('konser_id', $konser->id)->pluck('id'))->exists();
+
+        if ($relatedOrders) {
+            // Kirim notifikasi jika ada data yang terkait
+            return redirect()->route('admin.konser.index')->with('error', 'Tidak dapat menghapus konser, karena ada pesanan terkait.');
+        }
+
         // Hapus gambar jika ada
         if ($konser->image && Storage::disk('public')->exists($konser->image)) {
             Storage::disk('public')->delete($konser->image);
         }
+
+        // Hapus konser
         $konser->delete();
 
-
-        return redirect()->route('admin.konser.index')->with('success', 'konser sukses dihapus.');
+        return redirect()->route('admin.konser.index')->with('success', 'Konser berhasil dihapus.');
     }
 }

@@ -8,6 +8,14 @@
     transform: scale(1.1); /* Zoom sedikit saat hover */
 }
 
+.grayscale {
+    filter: grayscale(100%);
+}
+
+.opacity-50 {
+    opacity: 0.5; /* Menambahkan transparansi jika diinginkan */
+}
+
 @keyframes rotate {
     0% {
         transform: rotate(0deg);
@@ -59,9 +67,9 @@
                 <h3 class="text-lg font-semibold text-indigo-700 pt-1">Harga</h3>
                 <div class="flex space-x-2 mb-3">
                     <input type="text" name="min_price" placeholder="Min" value="{{ request()->get('min_price') }}"
-                        class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200" oninput="this.form.submit()">
+                        class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
                     <input type="text" name="max_price" placeholder="Max" value="{{ request()->get('max_price') }}"
-                        class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200" oninput="this.form.submit()">
+                        class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
                 </div>
 
                 <div class="mt-3 flex space-x-3">
@@ -141,41 +149,38 @@
             <p class="text-red-500 font-semibold text-center">Konser tidak ada pada lokasi ini.</p>
         @else
             @foreach ($konsers as $knsr)
-                <div class="m-4 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
-                    @if ($knsr->image)
-                        <img src="{{ asset('storage/' . $knsr->image) }}" alt="Gambar {{ $knsr->nama }}"
-                             class="w-full h-48 object-cover transition-transform duration-300 ease-in-out">
-                    @else
-                        <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
-                             class="w-full h-48 object-cover transition-transform duration-300 ease-in-out">
-                    @endif
+    <div class="m-4 border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ now()->isAfter(Carbon\Carbon::parse($knsr->tanggal)) ? 'grayscale' : '' }}">
+        @if ($knsr->image)
+            <img src="{{ asset('storage/' . $knsr->image) }}" alt="Gambar {{ $knsr->nama }}" class="w-full h-48 object-cover transition-transform duration-300 ease-in-out {{ now()->isAfter(Carbon\Carbon::parse($knsr->tanggal)) ? 'grayscale' : '' }}">
+        @else
+            <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar" class="w-full h-48 object-cover transition-transform duration-300 ease-in-out {{ now()->isAfter(Carbon\Carbon::parse($knsr->tanggal)) ? 'grayscale' : '' }}">
+        @endif
 
-                    <div class="p-4">
-                        <h3 class="text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200 mb-2">
-                            {{ $knsr->nama }}</h3>
-                        <ul class="event-details text-gray-600 mt-2 space-y-1">
-                            <li class="flex items-center text-sm">
-                                <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $knsr->tanggal }}</li>
-                            <li class="flex items-center text-sm">
-                                <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $knsr->lokasi->location }}</li>
-                        </ul>
+        <div class="p-4 {{ now()->isAfter(Carbon\Carbon::parse($knsr->tanggal)) ? 'opacity-50' : '' }}">
+            <h3 class="text-xl font-semibold text-gray-800 hover:text-blue-600 mb-2">{{ $knsr->nama }}</h3>
+            <ul class="event-details text-gray-600 mt-2 space-y-1">
+                <li class="flex items-center text-sm">
+                    <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $knsr->tanggal }}</li>
+                <li class="flex items-center text-sm">
+                    <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $knsr->lokasi->location }}</li>
+            </ul>
 
-                        <div class="flex items-center justify-between mt-4">
-                            @foreach ($knsr->tiket as $kt)
-                                <div class="flex flex-col justify-between">
-                                    <p class="text-sm font-bold text-orange-600 mb-1">Stok: {{ $kt->jumlah_tiket }} tiket</p>
-                                    <p class="text-xl font-bold text-orange-600 mb-2">Rp:{{ number_format($kt->harga_tiket, 0, ',', '.') }}</p>
-                                </div>
-                            @endforeach
-
-                            <a href="{{ route('product.show', $knsr->id) }}"
-                               class="mt-4 inline-block bg-blue-700 text-white text-center py-2 px-6 rounded-md text-sm hover:bg-blue-800 transition duration-200 h-full flex items-center justify-center">
-                                Detail
-                            </a>
-                        </div>
+            <div class="flex items-center justify-between mt-4">
+                @foreach ($knsr->tiket as $kt)
+                    <div class="flex flex-col">
+                        <p class="text-sm font-bold text-orange-600 mb-1">Stok: {{ $kt->jumlah_tiket }} tiket</p>
+                        <p class="text-xl font-bold text-orange-600 mb-2">Rp:{{ number_format($kt->harga_tiket, 0, ',', '.') }}</p>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+
+                <a href="{{ route('product.show', $knsr->id) }}"
+                   class="mt-4 inline-block bg-blue-700 text-white text-center py-2 px-6 rounded-md hover:bg-blue-800">
+                    Detail
+                </a>
+            </div>
+        </div>
+    </div>
+@endforeach
         @endif
     </div>
     <!-- Stylish Pagination Links -->

@@ -113,6 +113,16 @@
         </div>
     </form>
 </td>
+<td class="border-b border-gray-300 px-4 py-2 text-center">
+        <form action="{{ route('admin.admin.adminhistory.destroy', $orde->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus order ini?');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600 transition">
+                Delete
+            </button>
+        </form>
+    </td>
+
 
 
     </tr>

@@ -48,7 +48,7 @@
     <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
         <tr>
             <th class="px-4 py-2">No</th>
-            <th class="px-4 py-2">Nama user</th>
+            <th class="px-4 py-2">Nama konser</th>
             <th class="px-4 py-2 text-center">Aksi</th>
         </tr>
     </thead>

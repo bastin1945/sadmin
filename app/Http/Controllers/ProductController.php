@@ -45,7 +45,14 @@ class ProductController extends Controller
             'alamat' => 'required',
         ]);
 
+        // Temukan tiket berdasarkan tiket_id
         $tiket = Tiket::find($request->tiket_id);
+
+        // Validasi jumlah tiket yang tersedia
+        if ($tiket->jumlah_tiket < $request->jumlah_tiket) {
+            return redirect()->back()->with('error', 'Jumlah tiket tidak mencukupi!');
+        }
+
         $hargaTiket = $tiket->harga_tiket;
         $diskon = 0;
 
@@ -75,6 +82,10 @@ class ProductController extends Controller
             'alamat' => $request->alamat,
         ]);
 
+        // Kurangi jumlah tiket yang tersedia
+        $tiket->jumlah_tiket -= $request->jumlah_tiket;
+        $tiket->save();
+
         // Redirect dengan data order yang baru disimpan
         return redirect()->route('history.index')->with('success', [
             'total' => $order->harga_total,
@@ -85,7 +96,6 @@ class ProductController extends Controller
             'contact' => $order->contact,
         ]);
     }
-
 
     /**
      * Display the specified resource.

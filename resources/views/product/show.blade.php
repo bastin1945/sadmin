@@ -61,12 +61,14 @@
             <strong class="text-black pl-6 text-base">{{ $konser->lokasi->location }}</strong>
         </li>
     </ul>
-    <a href="{{ route('productbuy', $konser->id) }}" class="button">
-        <button
-            class="text-white bg-gradient-to-r from-blue-800 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-40 py-2.5 text-center mt-10 mb-2">
-            Pesan Tiket
-        </button>
-    </a>
+    <a href="{{ now()->isAfter(Carbon\Carbon::parse($konser->tanggal)) ? '#' : route('productbuy', $konser->id) }}"
+   class="button" onclick="event.preventDefault(); {{ now()->isAfter(Carbon\Carbon::parse($konser->tanggal)) ? 'alert(\'Tanggal konser sudah lewat, tidak dapat memesan tiket.\');' : 'this.closest(\'a\').href;' }}">
+    <button
+        class="text-white bg-gradient-to-r from-blue-800 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-40 py-2.5 text-center mt-10 mb-2 {{ now()->isAfter(Carbon\Carbon::parse($konser->tanggal)) ? 'opacity-50 cursor-not-allowed' : '' }}"
+        {{ now()->isAfter(Carbon\Carbon::parse($konser->tanggal)) ? 'disabled' : '' }}>
+        Pesan Tiket
+    </button>
+</a>
 </div>
             <!-- Description -->
 
