@@ -38,8 +38,10 @@
     </select>
 
     <input id="search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600"
-        type="text" placeholder="Search for something" name="search" value="{{ request()->get('search') }}">
+        type="text" placeholder="Cari nama Customer" name="search" value="{{ request()->get('search') }}">
 
+      <input id="ticket-search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600"
+        type="text" placeholder="Cari Kode Tiket" name="kode_tiket" value="{{ request()->get('kode_tiket') }}">
     <button type="submit" class="hidden"></button>
 </form>
 
@@ -66,13 +68,14 @@
 <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
     <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
         <tr>
-            <th class="px-4 py-2">No</th>
+            <th class="px-4 py-2">Kode Tiket</th>
             <th class="px-4 py-2">Nama user</th>
             <th class="px-4 py-2">Tiket</th>
             <th class="px-4 py-2">Jumlah</th>
             <th class="px-4 py-2">Harga Tiket</th>
             <th class="px-4 py-2">Jenis Tiket</th>
             <th class="px-4 py-2">Status Pembayaran</th>
+            <th class="px-4 py-2">hapus</th>
         </tr>
     </thead>
 
@@ -80,7 +83,7 @@
     @foreach ($order as $index => $orde)
 
     <tr class="text-gray-700">
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
+        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->kode_tiket }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->user->name }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->konser->nama }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->jumlah_tiket }}</td>
@@ -114,7 +117,7 @@
     </form>
 </td>
 <td class="border-b border-gray-300 px-4 py-2 text-center">
-        <form action="{{ route('admin.admin.adminhistory.destroy', $orde->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus order ini?');">
+        <form action="{{ route('admin.adminhistory.destroy', $orde->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus order ini?');">
             @csrf
             @method('DELETE')
             <button type="submit" class="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600 transition">

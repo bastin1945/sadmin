@@ -25,17 +25,23 @@ class HistoryController extends Controller
             });
         }
 
-        // Filter berdasarkan pencarian
+        // Filter berdasarkan pencarian nama user
         if ($request->has('search') && $request->search != '') {
             $query->whereHas('user', function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%');
             });
         }
 
+        // Filter berdasarkan kode tiket
+        if ($request->has('kode_tiket') && $request->kode_tiket != '') {
+            $query->where('kode_tiket', 'like', '%' . $request->kode_tiket . '%');
+        }
+
         $order = $query->paginate(10);
 
         return view('admin.history.index', compact('order', 'konser'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -97,6 +103,18 @@ class HistoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+//    public function destroy($id)
+        {
+            $order = Order::find($id);
+
+            if (!$order) {
+                return redirect()->route('admin.adminhistory.index')->with('error', 'Order tidak ditemukan.');
+            }
+
+            $order->delete();
+
+            return redirect()->route('admin.adminhistory.index')->with('success', 'Order berhasil dihapus.');
+        }
+
     }
 }

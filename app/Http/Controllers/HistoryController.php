@@ -116,6 +116,6 @@ class HistoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
     }
 }

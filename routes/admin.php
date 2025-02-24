@@ -74,8 +74,7 @@ use App\Http\Controllers\Admin\SalesController;
 
         Route::resource('adminhistory', HistoryController::class);
         Route::patch('/admin/adminhistory/{id}', [HistoryController::class, 'updateStatus'])->name('admin.adminhistory.updateStatus');
-
-        Route::get('/admin/adminhistory/destroy', [HistoryController::class, 'destroy'])->name('admin.adminhistory.destroy');
+        Route::delete('/admin/adminhistory/{id}', [HistoryController::class, 'destroy'])->name('admin.adminhistory.destroy');
         Route::get('/admin/adminhistory/index', [HistoryController::class, 'index'])->name('admin.adminhistory.index');
 
         //punyae lokasi
