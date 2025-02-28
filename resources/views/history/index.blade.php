@@ -296,7 +296,7 @@
                                                     <li>✔ Tiket tidak dapat dikembalikan.</li>
                                                     <li>✔ Tiket berlaku untuk satu orang.</li>
                                                     <li>✔ Maksimal pembelian 5 tiket per akun.</li>
-                                                    <li>✔ Usia minimal pembeli 15 tahun.</li>
+                                                    <li>✔ Usia minimal pembeli 17 tahun.</li>
                                                     <li>✔ Tiket tidak dapat dikembalikan.</li>
                                                     <li>✔ Tiket berlaku untuk satu orang.</li>
                                                     <li>✔ Maksimal pembelian 5 tiket per akun.</li>

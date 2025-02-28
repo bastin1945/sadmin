@@ -117,13 +117,37 @@
     </form>
 </td>
 <td class="border-b border-gray-300 px-4 py-2 text-center">
-        <form action="{{ route('admin.adminhistory.destroy', $orde->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus order ini?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600 transition">
-                Delete
-            </button>
-        </form>
+        <form action="{{ route('admin.adminhistory.destroy', $orde->id) }}" method="POST" class="delete-form">
+    @csrf
+    @method('DELETE')
+    <button type="button" class="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600 transition delete-btn">
+        Delete
+    </button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Order ini akan dihapus secara permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.closest('form').submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+
     </td>
 
 

@@ -180,33 +180,36 @@
             </div>
         </div>
     </div>
-@endforeach
-        @endif
-    </div>
+    @endforeach
+    @endif
+
+
     <!-- Stylish Pagination Links -->
-<!-- Simple and Stylish Pagination Links -->
-<div class="flex justify-center mt-6 ">
-    <nav class="flex items-center space-x-2">
-        @if ($konsers->onFirstPage())
-            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">« Prev</span>
-        @else
-            <a href="{{ $konsers->previousPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">« Prev</a>
-        @endif
-
-        @foreach ($konsers->getUrlRange(1, $konsers->lastPage()) as $page => $url)
-            @if ($page == $konsers->currentPage())
-                <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+    <!-- Simple and Stylish Pagination Links -->
+    <div>
+    <div class="flex justify-center mt-6 text-center pl-72">
+        <nav class="flex justify-center items-center space-x-2">
+            @if ($konsers->onFirstPage())
+                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Prev «</span>
             @else
-                <a href="{{ $url }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">{{ $page }}</a>
+                <a href="{{ $konsers->previousPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">« Prev</a>
             @endif
-        @endforeach
 
-        @if ($konsers->hasMorePages())
-            <a href="{{ $konsers->nextPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">Next »</a>
-        @else
-            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next »</span>
-        @endif
-    </nav>
+            @foreach ($konsers->getUrlRange(1, $konsers->lastPage()) as $page => $url)
+                @if ($page == $konsers->currentPage())
+                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+                @else
+                    <a href="{{ $url }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">{{ $page }}</a>
+                @endif
+            @endforeach
+
+            @if ($konsers->hasMorePages())
+                <a href="{{ $konsers->nextPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">Next »</a>
+            @else
+                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next »</span>
+            @endif
+        </nav>
+    </div>
 </div>
 </div>
 <style>
