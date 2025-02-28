@@ -391,12 +391,28 @@
 
 
                 <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
-                    <h2 class="text-2xl font-semibold mb-4">Populer</h2>
+                    <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
                         @foreach ($populer as $pop)
                             @if ($pop->konser)
+                                @php
+                                    $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
+                                    $hari_ini = \Carbon\Carbon::now();
+                                    $isExpired = $tanggal_konser->isPast();
+                                @endphp
+
                                 <div
-                                    class="bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
+                                    class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl
+            {{ $isExpired ? 'grayscale' : '' }}">
+
+                                    <!-- Label "Sudah Tayang" miring -->
+                                    @if ($isExpired)
+                                        <div
+                                            class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
+                                            Sudah Tayang
+                                        </div>
+                                    @endif
+
                                     <!-- Menampilkan gambar -->
                                     @if ($pop->konser->image)
                                         <img src="{{ asset('storage/' . $pop->konser->image) }}"
@@ -414,12 +430,12 @@
                                         </h3>
                                         <ul class="event-details text-gray-600 mt-1 space-y-1">
                                             <li class="flex items-center text-sm">
-                                                <i
-                                                    class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $pop->konser->tanggal }}
+                                                <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
+                                                {{ $pop->konser->tanggal }}
                                             </li>
                                             <li class="flex items-center text-sm">
-                                                <i
-                                                    class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $pop->konser->lokasi->location }}
+                                                <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
+                                                {{ $pop->konser->lokasi->location }}
                                             </li>
                                         </ul>
 
@@ -432,26 +448,45 @@
                                                 <p class="text-xl font-bold text-orange-600">
                                                     Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
                                                 </p>
+                                                <a href="{{ route('product.show', $pop->konser->id) }}"
+                                                    class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                                    Detail
+                                                </a>
+                                            </div>
                                         @endforeach
 
-                                        <a href="{{ route('product.show', $pop->konser->id) }}"
-                                            class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                            Detail
-                                        </a>
                                     </div>
                                 </div>
+                            @endif
+                        @endforeach
+
+
+
                     </div>
-                    @endif
-                    @endforeach
                 </div>
-            </div>
                 <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
                     <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
                         @foreach ($sales as $pop)
                             @if ($pop->konser)
+                                @php
+                                    $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
+                                    $hari_ini = \Carbon\Carbon::now();
+                                    $isExpired = $tanggal_konser->isPast();
+                                @endphp
+
                                 <div
-                                    class="bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
+                                    class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl
+            {{ $isExpired ? 'grayscale' : '' }}">
+
+                                    <!-- Label "Sudah Tayang" miring -->
+                                    @if ($isExpired)
+                                        <div
+                                            class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
+                                            Sudah Tayang
+                                        </div>
+                                    @endif
+
                                     <!-- Menampilkan gambar -->
                                     @if ($pop->konser->image)
                                         <img src="{{ asset('storage/' . $pop->konser->image) }}"
@@ -469,12 +504,12 @@
                                         </h3>
                                         <ul class="event-details text-gray-600 mt-1 space-y-1">
                                             <li class="flex items-center text-sm">
-                                                <i
-                                                    class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $pop->konser->tanggal }}
+                                                <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
+                                                {{ $pop->konser->tanggal }}
                                             </li>
                                             <li class="flex items-center text-sm">
-                                                <i
-                                                    class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $pop->konser->lokasi->location }}
+                                                <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
+                                                {{ $pop->konser->lokasi->location }}
                                             </li>
                                         </ul>
 
@@ -487,26 +522,43 @@
                                                 <p class="text-xl font-bold text-orange-600">
                                                     Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
                                                 </p>
+                                                <a href="{{ route('product.show', $pop->konser->id) }}"
+                                                    class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                                    Detail
+                                                </a>
+                                            </div>
                                         @endforeach
 
-                                        <a href="{{ route('product.show', $pop->konser->id) }}"
-                                            class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                            Detail
-                                        </a>
                                     </div>
                                 </div>
+                            @endif
+                        @endforeach
+
                     </div>
-                    @endif
-                    @endforeach
                 </div>
-            </div>
                 <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
-                    <h2 class="text-2xl font-semibold mb-4">Rekomendasi</h2>
+                    <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
                         @foreach ($rekomend as $pop)
                             @if ($pop->konser)
+                                @php
+                                    $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
+                                    $hari_ini = \Carbon\Carbon::now();
+                                    $isExpired = $tanggal_konser->isPast();
+                                @endphp
+
                                 <div
-                                    class="bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl">
+                                    class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl
+                                    {{ $isExpired ? 'grayscale' : '' }}">
+
+                                    <!-- Label "Sudah Tayang" miring -->
+                                    @if ($isExpired)
+                                        <div
+                                            class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
+                                            Sudah Tayang
+                                        </div>
+                                    @endif
+
                                     <!-- Menampilkan gambar -->
                                     @if ($pop->konser->image)
                                         <img src="{{ asset('storage/' . $pop->konser->image) }}"
@@ -524,12 +576,12 @@
                                         </h3>
                                         <ul class="event-details text-gray-600 mt-1 space-y-1">
                                             <li class="flex items-center text-sm">
-                                                <i
-                                                    class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $pop->konser->tanggal }}
+                                                <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
+                                                {{ $pop->konser->tanggal }}
                                             </li>
                                             <li class="flex items-center text-sm">
-                                                <i
-                                                    class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $pop->konser->lokasi->location }}
+                                                <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
+                                                {{ $pop->konser->lokasi->location }}
                                             </li>
                                         </ul>
 
@@ -542,222 +594,226 @@
                                                 <p class="text-xl font-bold text-orange-600">
                                                     Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
                                                 </p>
+                                                <a href="{{ route('product.show', $pop->konser->id) }}"
+                                                    class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                                    Detail
+                                                </a>
+                                            </div>
                                         @endforeach
 
-                                        <a href="{{ route('product.show', $pop->konser->id) }}"
-                                            class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                            Detail
-                                        </a>
                                     </div>
                                 </div>
+                            @endif
+                        @endforeach
+
+
+
                     </div>
-                    @endif
-                    @endforeach
                 </div>
-            </div>
-
-
-
-            <center class="flex justify-center">
-                <div>
-                    <a href="{{ route('lainya.index') }}" class="block">
-                        <button
-                            class="glass-effect w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-9 py-3 text-center mt-10 mb-10">
-                            Lihat lainnya
-                        </button>
-                    </a>
-                </div>
-            </center>
 
 
 
 
+                <center class="flex justify-center">
+                    <div>
+                        <a href="{{ route('lainya.index') }}" class="block">
+                            <button
+                                class="glass-effect w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-9 py-3 text-center mt-10 mb-10">
+                                Lihat lainnya
+                            </button>
+                        </a>
+                    </div>
+                </center>
 
 
-            @extends('layouts.footer')
 
 
-            <script>
-                const slider = document.getElementById('slider');
-                const prevBtn = document.getElementById('prevBtn');
-                const nextBtn = document.getElementById('nextBtn');
 
-                let currentIndex = 0;
 
-                function updateSlider(index) {
-                    slider.scrollTo({
-                        left: slider.offsetWidth * index,
-                        behavior: 'smooth'
+                @extends('layouts.footer')
+
+
+                <script>
+                    const slider = document.getElementById('slider');
+                    const prevBtn = document.getElementById('prevBtn');
+                    const nextBtn = document.getElementById('nextBtn');
+
+                    let currentIndex = 0;
+
+                    function updateSlider(index) {
+                        slider.scrollTo({
+                            left: slider.offsetWidth * index,
+                            behavior: 'smooth'
+                        });
+                    }
+
+                    prevBtn.addEventListener('click', () => {
+                        currentIndex = (currentIndex - 1 + slider.children.length) % slider.children.length;
+                        updateSlider(currentIndex);
                     });
-                }
 
-                prevBtn.addEventListener('click', () => {
-                    currentIndex = (currentIndex - 1 + slider.children.length) % slider.children.length;
-                    updateSlider(currentIndex);
-                });
+                    nextBtn.addEventListener('click', () => {
+                        currentIndex = (currentIndex + 1) % slider.children.length;
+                        updateSlider(currentIndex);
+                    });
+                </script>
 
-                nextBtn.addEventListener('click', () => {
-                    currentIndex = (currentIndex + 1) % slider.children.length;
-                    updateSlider(currentIndex);
-                });
-            </script>
-
-            <style>
-                .scroll-btn {
-                    position: absolute;
-                    /* Mengatur posisi tombol relatif ke container terdekat */
-                    bottom: -60px;
-                    /* Tombol berada 60px di bawah elemen pencarian */
-                    left: 50%;
-                    /* Pusatkan tombol secara horizontal */
-                    transform: translateX(-50%);
-                    /* Menyesuaikan posisi agar benar-benar di tengah */
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 70px;
-                    /* Lebar tombol */
-                    height: 70px;
-                    /* Tinggi tombol */
-                    border: 2px solid white;
-                    background-color: transparent;
-                    color: white;
-                    /* Warna teks di tombol */
-                    font-size: 24px;
-                    border-radius: 50%;
-                    /* Membuat tombol bundar */
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-                    /* Menambah bayangan */
-                    transition: transform 0.3s ease-in-out, background-color 0.3s;
-                    cursor: pointer;
-                    margin-top: 20px;
-                }
-
-                .scroll-btn:hover {
-                    background-color: rgba(13, 54, 165, 0.21);
-                    /* Biru lebih gelap saat hover */
-                    transform: translateX(-50%) scale(1.1);
-                    /* Menjaga posisi tengah saat diperbesar */
-                }
-
-                .scroll-btn i {
-                    animation: bounce 2s infinite;
-                    /* Menambahkan animasi melompat */
-                }
-
-                .ri-arrow-down-double-line {
-                    font-size: 2.5rem;
-                    /* Sesuaikan ukuran panah */
-                }
-
-                /* Animasi untuk ikon */
-                @keyframes bounce {
-
-                    0%,
-                    100% {
-                        transform: translateY(0);
+                <style>
+                    .scroll-btn {
+                        position: absolute;
+                        /* Mengatur posisi tombol relatif ke container terdekat */
+                        bottom: -60px;
+                        /* Tombol berada 60px di bawah elemen pencarian */
+                        left: 50%;
+                        /* Pusatkan tombol secara horizontal */
+                        transform: translateX(-50%);
+                        /* Menyesuaikan posisi agar benar-benar di tengah */
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 70px;
+                        /* Lebar tombol */
+                        height: 70px;
+                        /* Tinggi tombol */
+                        border: 2px solid white;
+                        background-color: transparent;
+                        color: white;
+                        /* Warna teks di tombol */
+                        font-size: 24px;
+                        border-radius: 50%;
+                        /* Membuat tombol bundar */
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                        /* Menambah bayangan */
+                        transition: transform 0.3s ease-in-out, background-color 0.3s;
+                        cursor: pointer;
+                        margin-top: 20px;
                     }
 
-                    50% {
-                        transform: translateY(-10px);
+                    .scroll-btn:hover {
+                        background-color: rgba(13, 54, 165, 0.21);
+                        /* Biru lebih gelap saat hover */
+                        transform: translateX(-50%) scale(1.1);
+                        /* Menjaga posisi tengah saat diperbesar */
                     }
-                }
 
-                .scrollbar-hide {
-                    -ms-overflow-style: none;
-                    /* IE and Edge */
-                    scrollbar-width: none;
-                    /* Firefox */
-                }
+                    .scroll-btn i {
+                        animation: bounce 2s infinite;
+                        /* Menambahkan animasi melompat */
+                    }
 
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                    /* Chrome, Safari, Opera */
-                }
+                    .ri-arrow-down-double-line {
+                        font-size: 2.5rem;
+                        /* Sesuaikan ukuran panah */
+                    }
 
-                .rounded-lg {
-                    border-radius: 0.5rem;
-                }
+                    /* Animasi untuk ikon */
+                    @keyframes bounce {
 
-                .shadow {
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                }
+                        0%,
+                        100% {
+                            transform: translateY(0);
+                        }
 
-                .bg-white {
-                    background-color: #ffffff;
-                }
+                        50% {
+                            transform: translateY(-10px);
+                        }
+                    }
 
-                .event-banner {
-                    position: relative;
-                    text-align: center;
-                    color: white;
-                }
+                    .scrollbar-hide {
+                        -ms-overflow-style: none;
+                        /* IE and Edge */
+                        scrollbar-width: none;
+                        /* Firefox */
+                    }
 
-                .event-photo {
-                    width: 100%;
-                    height: auto;
-                }
+                    .scrollbar-hide::-webkit-scrollbar {
+                        display: none;
+                        /* Chrome, Safari, Opera */
+                    }
 
-                .event-text {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-                }
+                    .rounded-lg {
+                        border-radius: 0.5rem;
+                    }
 
-                h1 {
-                    font-size: 2.5rem;
-                    font-weight: bold;
-                }
+                    .shadow {
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    }
 
-                .event-banner {
-                    position: relative;
-                    width: 100%;
-                    max-width: 800px;
-                    margin: auto;
-                    border-radius: 15px;
-                    overflow: hidden;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-                }
+                    .bg-white {
+                        background-color: #ffffff;
+                    }
 
-                .event-photo {
-                    width: 100%;
-                    height: auto;
-                    display: block;
-                }
+                    .event-banner {
+                        position: relative;
+                        text-align: center;
+                        color: white;
+                    }
 
-                .event-text {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    text-align: center;
-                    color: white;
-                    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-                }
+                    .event-photo {
+                        width: 100%;
+                        height: auto;
+                    }
 
-                .event-text h1 {
-                    font-size: 2.5rem;
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                }
+                    .event-text {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+                    }
 
-                .event-text p {
-                    font-size: 1.2rem;
-                    margin: 5px 0;
-                }
+                    h1 {
+                        font-size: 2.5rem;
+                        font-weight: bold;
+                    }
 
-                .flex.items-center.justify-between {
-                    margin-top: 15px;
-                    display: flex;
-                    justify-content: space-between;
-                }
+                    .event-banner {
+                        position: relative;
+                        width: 100%;
+                        max-width: 800px;
+                        margin: auto;
+                        border-radius: 15px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                    }
 
-                .gambartopevent {
+                    .event-photo {
+                        width: 100%;
+                        height: auto;
+                        display: block;
+                    }
 
-                    width: 300px;
-                    heigh: 100px;
-                }
-            </style>
+                    .event-text {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        text-align: center;
+                        color: white;
+                        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+                    }
+
+                    .event-text h1 {
+                        font-size: 2.5rem;
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }
+
+                    .event-text p {
+                        font-size: 1.2rem;
+                        margin: 5px 0;
+                    }
+
+                    .flex.items-center.justify-between {
+                        margin-top: 15px;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
+                    .gambartopevent {
+
+                        width: 300px;
+                        heigh: 100px;
+                    }
+                </style>
     </x-app-layout>
