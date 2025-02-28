@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -16,25 +17,51 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = Auth::user();
+        // dd($user);
+
+        return view('profile.edit', compact('user'));
+
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+    
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'photo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048' // Pastikan aturan validasi benar
+        ]);
+
+        // Update profil user
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        // Cek jika ada file foto diunggah
+        if ($request->hasFile('photo')) {
+            // Hapus foto lama jika ada
+            if ($user->photo) {
+                Storage::delete('public/profiles/' . $user->photo);
+            }
+
+            // Simpan foto baru
+            $file = $request->file('photo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/profiles', $filename); // Simpan ke folder storage/app/public/profiles
+            $user->photo = $filename; // Simpan nama file ke database
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
     }
 
     /**

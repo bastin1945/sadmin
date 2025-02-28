@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order;
 use App\Models\konser;
 use App\Models\lokasi;
 use Illuminate\Http\Request;
@@ -19,10 +20,16 @@ class LainyaController extends Controller
         $maxPrice = $request->input('max_price'); // Maximum price
 
         // Start building the query
-        $konsers = konser::with(['lokasi', 'tiket'])
-            ->whereHas('tiket', function ($query) {
-                $query->where('jenis_tiket', 'Regular');
-            });
+        $konsers = konser::with([
+            'lokasi',
+            'tiket' => function ($query) {
+                $query->where('jenis_tiket', 'Regular'); // Filter hanya tiket Regular
+            }
+        ])->whereHas('tiket', function ($query) {
+            $query->where('jenis_tiket', 'Regular'); // Pastikan hanya konser dengan tiket Regular yang diambil
+        });
+
+        // dd($order->toArray());
 
         if ($search) {
             $konsers->where('nama', 'like', '%' . $search . '%');

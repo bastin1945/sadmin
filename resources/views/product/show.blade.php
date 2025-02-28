@@ -12,7 +12,7 @@
         <div class="flex-shrink-0  ">
             <img src="{{ asset('storage/' . $konser->image) }}" alt="Event Image"
                 class="object-cover rounded-lg" style="width: 800px; height: 330px">
-                <div class="flex justify-between mt-6">
+                <div class="flex justify-between mt-6"> 
                 <div class="text-4xl font-bold mb-4">{{ $konser->nama }}</div>
 
         <ul class="text-sm text-gray-600 space-y-2">
@@ -61,14 +61,41 @@
             <strong class="text-black pl-6 text-base">{{ $konser->lokasi->location }}</strong>
         </li>
     </ul>
-    <a href="{{ now()->isAfter(Carbon\Carbon::parse($konser->tanggal)) ? '#' : route('productbuy', $konser->id) }}"
-   class="button" onclick="event.preventDefault(); {{ now()->isAfter(Carbon\Carbon::parse($konser->tanggal)) ? 'alert(\'Tanggal konser sudah lewat, tidak dapat memesan tiket.\');' : 'this.closest(\'a\').href;' }}">
-    <button
-        class="text-white bg-gradient-to-r from-blue-800 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-40 py-2.5 text-center mt-10 mb-2 {{ now()->isAfter(Carbon\Carbon::parse($konser->tanggal)) ? 'opacity-50 cursor-not-allowed' : '' }}"
-        {{ now()->isAfter(Carbon\Carbon::parse($konser->tanggal)) ? 'disabled' : '' }}>
-        Pesan Tiket
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@php
+    $isExpired = now()->isAfter(Carbon\Carbon::parse($konser->tanggal));
+@endphp
+
+@php
+    $isExpired = now()->isAfter(Carbon\Carbon::parse($konser->tanggal));
+@endphp
+
+<a href="{{ $isExpired ? '#' : route('productbuy', $konser->id) }}"
+   class="button"
+   @if($isExpired) onclick="showExpiredAlert(event)" @endif>
+    <button class="text-white bg-gradient-to-r from-blue-800 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-40 py-2.5 text-center mt-10 mb-2">
+        {{ $isExpired ? 'Tiket Tidak Tersedia' : 'Pesan Tiket' }}
     </button>
 </a>
+
+<script>
+    function showExpiredAlert(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: '⚠️ Tiket Tidak Tersedia!',
+            text: 'Tanggal konser sudah lewat, kamu tidak bisa memesan tiket.',
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3085d6',
+            background: '#ffffff',
+            color: '#333',
+            backdrop: 'rgba(0,0,0,0.2)'
+        });
+    }
+</script>
+
+
+
 </div>
             <!-- Description -->
 
@@ -90,22 +117,26 @@
 
 
                     <!-- Review Card -->
+                    @foreach ($review as $riv)
+
                     <div class="flex items-start space-x-4 mt-10">
                         <div class="bg-gray-300 rounded-full h-12 w-12 flex items-center justify-center">
                             <span class="text-gray-700 font-bold text-lg">S</span>
                         </div>
                         <div>
-                            <p class="font-medium text-gray-800">Sasti Juni</p>
-                            <p class="text-gray-600 text-sm mt-1">This icon pack is just what I need for my latest project.
-                                Love the playful look!</p>
+
+
+                            <p class="font-medium text-gray-800">{{ $riv->user->name }}</p>
+
+                            <p class="text-gray-600 text-sm mt-1">{{ $riv->comment }}</p>
                             <!-- Placeholder for thumbnails -->
                             <div class="mt-2 flex space-x-2">
-                                <div class="h-12 w-12 bg-gray-300 rounded-md"></div>
-                                <div class="h-12 w-12 bg-gray-300 rounded-md"></div>
-                                <div class="h-12 w-12 bg-gray-300 rounded-md"></div>
+                                <div class="h-12 w-12 bg-gray-300 rounded-md"><img src="{{ asset('storage/' . $riv['photo']) }}" class="h-12 w-12 rounded-md"></div>
+
                             </div>
                         </div>
                     </div>
+                    @endforeach
 
                     <!-- Repeat the review card -->
 

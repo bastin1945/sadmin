@@ -18,6 +18,12 @@
         transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
     }
 
+    nav {
+    max-width: 800px; /* Atur sesuai ukuran ideal */
+    width: 100%;
+}
+
+
     .hidden-header {
         transform: translateY(-135%);
         transition: transform 0.3s ease-in-out;
@@ -114,6 +120,7 @@
                 </div>
                 @else
                 <a href="{{ route('login') }}" class="text-sm font-medium text-gray-900">Login</a>
+
                 @endif
             </div>
         </div>

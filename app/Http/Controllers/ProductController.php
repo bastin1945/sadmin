@@ -6,6 +6,7 @@ use App\Models\order;
 use App\Models\Promo;
 use App\Models\tiket;
 use App\Models\konser;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -110,7 +111,16 @@ class ProductController extends Controller
                     }
                 ])->findOrFail($id);
         // dd($konser->toArray());
-        return view('product.show', compact('konser'));
+        // dd($id);
+        $review = Review::with('user')->whereHas('order', function ($query) use ($id) {
+            $query->whereHas('tiket', function ($query) use ($id) {
+                $query->where('konser_id', $id);
+            });
+        })->get();
+
+
+        // dd($review->toArray());
+        return view('product.show', compact('konser', 'review'));
     }
     public function buy($id)
     {

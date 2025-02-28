@@ -267,7 +267,20 @@
                     $("#total-pembayaran").text(`Rp ${response.total_setelah_diskon.toLocaleString()}`);
                     $("#potongan-diskon").text(`Rp ${response.diskon.toLocaleString()}`);
                     $("#harga_total").val(response.total_setelah_diskon);
-                    alert(response.message);
+                   Swal.fire({
+    icon: "success",
+    title: "Promo Sukses!",
+    html: `
+        <p>Promo berhasil di terapkan.</p>
+
+    `,
+    showConfirmButton: false,
+    timer: 4000, // Auto-close setelah 4 detik
+    customClass: {
+        popup: 'swal2-custom-popup'
+    }
+});
+
                 } else {
                     alert(response.message);
                 }
