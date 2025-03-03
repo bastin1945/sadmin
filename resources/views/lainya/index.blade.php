@@ -145,43 +145,62 @@
                 <!-- Main Content -->
 <div class="container w-full  px-6 3xl:px-8 py-8 pl-10 mt-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-        @if ($isEmpty)
+@if ($isEmpty)
             <p class="text-red-500 font-semibold text-center">Konser tidak ada pada lokasi ini.</p>
         @else
             @foreach ($konsers as $knsr)
-    <div class="m-4 border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ now()->isAfter(Carbon\Carbon::parse($knsr->tanggal)) ? 'grayscale' : '' }}">
-        @if ($knsr->image)
-            <img src="{{ asset('storage/' . $knsr->image) }}" alt="Gambar {{ $knsr->nama }}" class="w-full h-48 object-cover transition-transform duration-300 ease-in-out {{ now()->isAfter(Carbon\Carbon::parse($knsr->tanggal)) ? 'grayscale' : '' }}">
-        @else
-            <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar" class="w-full h-48 object-cover transition-transform duration-300 ease-in-out {{ now()->isAfter(Carbon\Carbon::parse($knsr->tanggal)) ? 'grayscale' : '' }}">
-        @endif
+                @php
+                    $tanggal_konser = \Carbon\Carbon::parse($knsr->tanggal);
+                    $isExpired = $tanggal_konser->isPast(); // Cek apakah tanggal sudah lewat
+                @endphp
 
-        <div class="p-4 {{ now()->isAfter(Carbon\Carbon::parse($knsr->tanggal)) ? 'opacity-50' : '' }}">
-            <h3 class="text-xl font-semibold text-gray-800 hover:text-blue-600 mb-2">{{ $knsr->nama }}</h3>
-            <ul class="event-details text-gray-600 mt-2 space-y-1">
-                <li class="flex items-center text-sm">
-                    <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>{{ $knsr->tanggal }}</li>
-                <li class="flex items-center text-sm">
-                    <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>{{ $knsr->lokasi->location }}</li>
-            </ul>
+                <div class="relative m-4 border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ $isExpired ? 'grayscale' : '' }}">
 
-            <div class="flex items-center justify-between mt-4">
-                @foreach ($knsr->tiket as $kt)
-                    <div class="flex flex-col">
-                        <p class="text-sm font-bold text-orange-600 mb-1">Stok: {{ $kt->jumlah_tiket }} tiket</p>
-                        <p class="text-xl font-bold text-orange-600 mb-2">Rp:{{ number_format($kt->harga_tiket, 0, ',', '.') }}</p>
+                    <!-- Label "Sudah Tayang" -->
+                    @if ($isExpired)
+                        <div class="absolute top-3 left-[-40px] w-[140px] bg-red-600 text-white text-xs font-bold py-2 text-center rotate-[-45deg]">
+                            Sudah Tayang
+                        </div>
+                    @endif
+
+                    <!-- Gambar Konser -->
+                    @if ($knsr->image)
+                        <img src="{{ asset('storage/' . $knsr->image) }}" alt="Gambar {{ $knsr->nama }}" class="w-full h-48 object-cover">
+                    @else
+                        <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar" class="w-full h-48 object-cover">
+                    @endif
+
+                    <!-- Detail Konser -->
+                    <div class="p-4 {{ $isExpired ? 'opacity-50' : '' }}">
+                        <h3 class="text-xl font-semibold text-gray-800 hover:text-blue-600 mb-2">{{ $knsr->nama }}</h3>
+                        <ul class="text-gray-600 mt-2 space-y-1">
+                            <li class="flex items-center text-sm">
+                                <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i> {{ $knsr->tanggal }}
+                            </li>
+                            <li class="flex items-center text-sm">
+                                <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i> {{ $knsr->lokasi->location }}
+                            </li>
+                        </ul>
+
+                        <!-- Informasi Tiket -->
+                        <div class="flex items-center justify-between mt-4">
+                            @foreach ($knsr->tiket as $kt)
+                                <div class="flex flex-col">
+                                    <p class="text-sm font-bold text-orange-600 mb-1">Stok: {{ $kt->jumlah_tiket }} tiket</p>
+                                    <p class="text-xl font-bold text-orange-600 mb-2">Rp{{ number_format($kt->harga_tiket, 0, ',', '.') }}</p>
+                                </div>
+                            @endforeach
+
+                            <!-- Tombol Detail -->
+                            <a href="{{ route('product.show', $knsr->id) }}"
+                               class="mt-4 inline-block bg-blue-700 text-white text-center py-2 px-6 rounded-md hover:bg-blue-800">
+                                Detail
+                            </a>
+                        </div>
                     </div>
-                @endforeach
-
-                <a href="{{ route('product.show', $knsr->id) }}"
-                   class="mt-4 inline-block bg-blue-700 text-white text-center py-2 px-6 rounded-md hover:bg-blue-800">
-                    Detail
-                </a>
-            </div>
-        </div>
-    </div>
-    @endforeach
-    @endif
+                </div>
+            @endforeach
+        @endif
 
 
     <!-- Stylish Pagination Links -->

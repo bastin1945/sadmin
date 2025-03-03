@@ -88,4 +88,13 @@ use App\Http\Controllers\Admin\SalesController;
     Route::resource('pengguna', PenggunaController::class);
     Route::get('/admin/pengguna/index', [PenggunaController::class, 'index'])->name('admin.pengguna.index');
     Route::get('/admin/pengguna/destroy', [PenggunaController::class, 'destroy'])->name('admin.pengguna.destroy');
+        Route::delete('populer/{id}', [ViewsController::class, 'populers'])->name('admin.populer.populers');
+        Route::delete('seles/{id}', [ViewsController::class, 'sales'])->name('admin.populer.sales');
+        Route::delete('rekomend/{id}', [ViewsController::class, 'rekomend'])->name('admin.populer.rekomend');
+
+        Route::get('populer/index', [ViewsController::class, 'index'])->name('populer.index');
+        Route::get('laris/index', [ViewsController::class, 'index'])->name('laris.index');
+        Route::get('populer/index', [ViewsController::class, 'index'])->name('populer.index');
+        Route::get('/admin/populer/create/{id}', [ViewsController::class, 'create'])->name('admin.populer.create');
+        Route::post('/admin/populer/{id}', [ViewsController::class, 'store'])->name('admin.populer.store');
 });

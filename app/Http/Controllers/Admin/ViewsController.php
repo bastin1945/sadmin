@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\views;
+use App\Models\konser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\is_recommended;
+use App\Models\sales;
+use GuzzleHttp\Promise\Create;
 
 class ViewsController extends Controller
 {
@@ -13,34 +17,72 @@ class ViewsController extends Controller
      */
     public function index()
     {
-        $populer = views::whereHas('konser.tiket', function ($query) {
-            $query->where('jenis_tiket', 'Regular');
-        })->with([
-                    'konser' => function ($query) {
-                        $query->with([
-                            'tiket' => function ($query) {
-                                $query->where('jenis_tiket', 'Regular');
-                            }
-                        ]);
-                    }
-                ])->get();
+        $populer = views::all();
+
+                // dd($populer->toArray());
         return view('admin.populer.index',compact('populer'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($web)
     {
-        //
+        if ($web == "populer") {
+            $dataKonser = konser::all();
+            return view('admin.populer.create',compact('dataKonser')); // Buat tampilan untuk form tambah
+        } else if ($web == "laris") {
+            $dataKonser = konser::all();
+            return view('admin.laris.create',compact('dataKonser'));
+        } else {
+            $dataKonser = konser::all();
+            return view('admin.recommend.create', compact('dataKonser'));
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request,$web)
     {
-        //
+        if($web == "populer"){
+
+
+            $request->validate([
+                'konser_id' => 'required|string|max:255|unique:views,konser_id',
+                // Tambahkan validasi lain sesuai kebutuhan
+            ]);
+
+            // Membuat entri baru untuk konser
+            views::create(['konser_id' => $request->konser_id
+
+            ]);
+
+            return redirect()->route('admin.populer.index')->with('success', 'Data konser berhasil ditambahkan.');
+        }else if($web == "laris"){
+            $request->validate([
+                'konser_id' => 'required|string|max:255|unique:sales,konser_id',
+                // Tambahkan validasi lain sesuai kebutuhan
+            ]);
+
+            // Membuat entri baru untuk konser
+            sales::create(['konser_id' => $request->konser_id
+
+            ]);
+
+            return redirect()->route('admin.laris.index')->with('success', 'Data konser berhasil ditambahkan.');
+
+        } else{
+            $request->validate([
+                'konser_id' => 'required|string|max:255|unique:is_recommendeds,konser_id',
+                // Tambahkan validasi lain sesuai kebutuhan
+            ]);
+
+            // Membuat entri baru untuk konser
+            is_recommended::create(['konser_id' => $request->konser_id
+
+            ]);
+
+            return redirect()->route('admin.recommend.index')->with('success', 'Data konser berhasil ditambahkan.');
+
+        }
     }
 
     /**
@@ -48,7 +90,7 @@ class ViewsController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -70,8 +112,29 @@ class ViewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function populers(string $id)
     {
-        //
+        $view = views::findOrFail($id);
+        $view->delete();
+
+        return redirect()->back()->with('success', 'Item berhasil dihapus.');
+    }
+    public function sales(string $id)
+    {
+        // dd($id);
+        $pop = sales::findOrFail($id);
+        $pop->delete();
+
+        return redirect()->back()->with('success', 'Item berhasil dihapus.');
+    }
+    public function rekomend(string $id)
+    {
+        $view = is_recommended::findOrFail($id);
+        $view->delete();
+
+        return redirect()->back()->with('success', 'Item berhasil dihapus.');
     }
 }

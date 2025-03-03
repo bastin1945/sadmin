@@ -391,7 +391,7 @@
 
 
                 <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
-                    <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
+                    <h2 class="text-2xl font-semibold mb-4">Populer</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
                         @foreach ($populer as $pop)
                             @if ($pop->konser)
@@ -537,7 +537,7 @@
                     </div>
                 </div>
                 <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
-                    <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
+                    <h2 class="text-2xl font-semibold mb-4">Rekomendasi</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
                         @foreach ($rekomend as $pop)
                             @if ($pop->konser)

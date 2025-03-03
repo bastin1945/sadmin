@@ -67,7 +67,7 @@ class FrontController extends Controller
                             }
                         ]);
                     }
-                ])->get();
+                ])->paginate('3');
 
         $sales = sales::whereHas('konser.tiket', function ($query) {
             $query->where('jenis_tiket', 'Regular');
@@ -79,7 +79,7 @@ class FrontController extends Controller
                             }
                         ]);
                     }
-                ])->get();
+                ])->paginate('3');
 
                 // dd($sales->toArray());
 
@@ -93,7 +93,7 @@ class FrontController extends Controller
                             }
                         ]);
                     }
-                ])->get();
+                ])->paginate('3');
 
 
         // dd($rekomend->toArray());

@@ -26,7 +26,7 @@ class HistoryController extends Controller
         if (!empty($status)) {
             $orders->where('status_pembayaran', $status);
         }
-
+        // dd($orders->toArray());
         // Ambil data pesanan dengan pagination
         $order = $orders->paginate(3); // Ganti 10 dengan jumlah yang diinginkan per halaman
 
