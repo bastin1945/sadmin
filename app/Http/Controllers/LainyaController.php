@@ -26,10 +26,13 @@ class LainyaController extends Controller
             'tiket' => function ($query) {
                 $query->where('jenis_tiket', 'Regular'); // Filter hanya tiket Regular
             }
-        ]);
+        ])->whereHas('tiket', function ($query) {
+            $query->where('jenis_tiket', 'Regular'); // Pastikan hanya konser dengan tiket Regular yang diambil
+        });
 
-        // Filter berdasarkan nama konser
-        if ($search) {
+        // dd($order->toArray());
+
+         if ($search) {
             $konsers->where('nama', 'like', '%' . $search . '%');
         }
 
@@ -70,7 +73,7 @@ class LainyaController extends Controller
 
         return view('lainya.index', compact('konsers', 'locations', 'city', 'isEmpty'));
     }
-
+   
 
 
 

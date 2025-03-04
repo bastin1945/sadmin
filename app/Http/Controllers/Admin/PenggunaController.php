@@ -11,11 +11,18 @@ class PenggunaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Mengambil nilai pencarian dari input
+        $searchTerm = $request->get('search');
 
-        $users = User::paginate(10); // Ambil semua data user
-        return view('admin.pengguna.index', compact('users'));
+        // Mencari pengguna berdasarkan nama atau email
+        $users = User::when($searchTerm, function ($query, $searchTerm) {
+            return $query->where('name', 'like', '%' . $searchTerm . '%')
+                ->orWhere('email', 'like', '%' . $searchTerm . '%');
+        })->paginate(10); // Ambil semua data user atau hasil pencarian
+
+        return view('admin.pengguna.index', compact('users', 'searchTerm'));
     }
 
     /**

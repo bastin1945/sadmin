@@ -200,7 +200,13 @@
                     </div>
                 </div>
             @empty
-                <p class="text-red-500 font-semibold text-center pb-80">Konser tidak ada pada lokasi ini.</p>
+              <div class="flex flex-col items-center justify-center  text-center">
+        <!-- SVG Icon Panggung Kosong -->
+
+        <p class="text-red-500 font-semibold text-2xl mt-4">
+            Konser tidak ada pada lokasi ini.
+        </p>
+    </div>
             @endforelse
         {{-- @endif --}}
 
