@@ -18,6 +18,7 @@ class LainyaController extends Controller
         $search = $request->input('search'); // Nama konser yang dicari
         $minPrice = $request->input('min_price'); // Minimum price
         $maxPrice = $request->input('max_price'); // Maximum price
+        $date = $request->input('date'); // Tanggal
 
         // Start building the query
         $konsers = konser::with([
@@ -25,23 +26,21 @@ class LainyaController extends Controller
             'tiket' => function ($query) {
                 $query->where('jenis_tiket', 'Regular'); // Filter hanya tiket Regular
             }
-        ])->whereHas('tiket', function ($query) {
-            $query->where('jenis_tiket', 'Regular'); // Pastikan hanya konser dengan tiket Regular yang diambil
-        });
+        ]);
 
-        // dd($order->toArray());
-
+        // Filter berdasarkan nama konser
         if ($search) {
             $konsers->where('nama', 'like', '%' . $search . '%');
         }
 
+        // Filter berdasarkan lokasi jika ada
         if ($city) {
-            $konsers = $konsers->whereHas('lokasi', function ($query) use ($city) {
+            $konsers->whereHas('lokasi', function ($query) use ($city) {
                 $query->where('location', $city);
             });
         }
 
-        // Apply price filters
+        // Filter berdasarkan harga jika ada
         if ($minPrice) {
             $konsers->whereHas('tiket', function ($query) use ($minPrice) {
                 $query->where('harga_tiket', '>=', $minPrice);
@@ -54,13 +53,19 @@ class LainyaController extends Controller
             });
         }
 
-        // Now paginate the results
-        $konsers = $konsers->paginate(6); // Adjust the number to your preference
+        // Filter berdasarkan tanggal jika ada
+        if ($date) {
+            $konsers->whereDate('tanggal', $date); // Pastikan 'tanggal' adalah nama kolom yang benar
+        }
 
-        $locations = Lokasi::whereHas('konser') // Assuming 'konsers' is the relationship method in Lokasi
+        // Sekarang paginate hasilnya
+        $konsers = $konsers->paginate(6); // Sesuaikan angka sesuai preferensi Anda
+
+        $locations = Lokasi::whereHas('konser')
             ->select('location')
             ->distinct()
             ->get();
+
         $isEmpty = $city && $konsers->isEmpty();
 
         return view('lainya.index', compact('konsers', 'locations', 'city', 'isEmpty'));
