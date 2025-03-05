@@ -12,7 +12,7 @@
         <div class="flex-shrink-0  ">
             <img src="{{ asset('storage/' . $konser->image) }}" alt="Event Image"
                 class="object-cover rounded-lg" style="width: 800px; height: 330px">
-                <div class="flex justify-between mt-6"> 
+                <div class="flex justify-between mt-6">
                 <div class="text-4xl font-bold mb-4">{{ $konser->nama }}</div>
 
         <ul class="text-sm text-gray-600 space-y-2">
@@ -118,25 +118,24 @@
 
                     <!-- Review Card -->
                     @foreach ($review as $riv)
-
-                    <div class="flex items-start space-x-4 mt-10">
-                        <div class="bg-gray-300 rounded-full h-12 w-12 flex items-center justify-center">
-                            <span class="text-gray-700 font-bold text-lg">S</span>
+                    <div class="flex items-start space-x-8 mt-14  rounded-xl ">
+                        <div class="bg-gray-300 rounded-full h-20 w-20 flex items-center justify-center">
+                            <span class="text-gray-700 font-bold text-2xl">S</span>
                         </div>
                         <div>
-
-
-                            <p class="font-medium text-gray-800">{{ $riv->user->name }}</p>
-
-                            <p class="text-gray-600 text-sm mt-1">{{ $riv->comment }}</p>
+                            <p class="font-semibold text-gray-900 text-xl">{{ $riv->user->name }}</p>
+                            <p class="text-gray-700 text-lg mt-3">{{ $riv->comment }}</p>
                             <!-- Placeholder for thumbnails -->
-                            <div class="mt-2 flex space-x-2">
-                                <div class="h-12 w-12 bg-gray-300 rounded-md"><img src="{{ asset('storage/' . $riv['photo']) }}" class="h-12 w-12 rounded-md"></div>
-
+                            <div class="mt-4 flex space-x-4">
+                                <div class="h-20 w-20 bg-gray-300 rounded-lg">
+                                    <img src="{{ asset('storage/' . $riv['photo']) }}" class="h-20 w-20 rounded-lg object-cover">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                @endforeach
+
+
 
                     <!-- Repeat the review card -->
 
