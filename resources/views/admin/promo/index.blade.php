@@ -86,7 +86,7 @@
             </thead>
 
             <tbody>
-                @foreach ($promo as $index => $p)
+                @forelse ($promo as $index => $p)
                     <tr class="text-gray-700">
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $p->code_promo }}</td>
@@ -124,7 +124,13 @@
                             </div>
                         </td>
                     </tr>
-                @endforeach
+                    @empty
+                    <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
+       <p class="">
+        promo tidak ada pada lokasi ini.
+        </p>
+    </div>
+                @endforelse
             </tbody>
         </table>
     </div>

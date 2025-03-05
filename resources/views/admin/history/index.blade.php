@@ -80,7 +80,7 @@
     </thead>
 
     <tbody>
-    @foreach ($order as $index => $orde)
+    @forelse ($order as $index => $orde)
 
     <tr class="text-gray-700">
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->kode_tiket }}</td>
@@ -153,7 +153,13 @@
 
 
     </tr>
-    @endforeach
+    @empty
+    <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
+       <p class="">
+        Konser tidak ada pada lokasi ini.
+        </p>
+    </div>
+    @endforelse
 
     </tbody>
 </table>

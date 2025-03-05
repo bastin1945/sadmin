@@ -36,11 +36,11 @@
                     <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </span>
-            <form action="" method="get">
-            <input id="search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600"
-            type="text" placeholder="Search for something" name="search" value="{{ request()->get('search') }}">
-
-            </form>
+<form action="{{ route('admin.populer.index') }}" method="get">
+    <input id="search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600"
+        type="text" placeholder="Search for konser" name="search" value="{{ request()->get('search') }}">
+    <button type="submit">Search</button>
+</form>
         </div>
         </div>
 
@@ -56,7 +56,7 @@
     </thead>
 
     <tbody>
-@foreach ($users as $index => $use)
+@forelse ($users as $index => $use)
 
 <tr class="text-gray-700">
     <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
@@ -99,8 +99,13 @@
 
     </td>
 </tr>
-
-@endforeach
+@empty
+    <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
+       <p class="">
+        Konser tidak ada pada lokasi ini.
+        </p>
+    </div>
+@endforelse
 
     </tbody>
 </table>

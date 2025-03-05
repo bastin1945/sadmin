@@ -51,33 +51,33 @@
     <div>
         <h3 class="text-lg font-semibold pt-3 text-indigo-700">Konser</h3>
         <ul class="space-y-2">
-            <form action="" method="get">
-                <li class="pt-2 pb-0">
-                    <input type="text" placeholder="Cari Dan Temukan Konser" name="search" value="{{ request()->get('search') }}"
-                        class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
-                </li>
+           <form action="" method="get">
+    <li class="pt-2 pb-0">
+        <input type="text" placeholder="Cari Dan Temukan Konser" name="search" value="{{ request()->get('search') }}"
+            class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
+    </li>
 
-                <h3 class="text-lg font-semibold text-indigo-700 pt-3">tanggal</h3>
-                <div class="flex space-x-2 mb-3">
-<li class="pt-2 pb-0">
-                    <input type="date" placeholder="Cari Dan Temukan Konser" name="search" value="{{ request()->get('search') }}"
-                        class="w-5xl px-20 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
-                </li>
-                </div>
-                <h3 class="text-lg font-semibold text-indigo-700 pt-1">Harga</h3>
-                <div class="flex space-x-2 mb-3">
-                    <input type="text" name="min_price" placeholder="Min" value="{{ request()->get('min_price') }}"
-                        class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
-                    <input type="text" name="max_price" placeholder="Max" value="{{ request()->get('max_price') }}"
-                        class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
-                </div>
+    <h3 class="text-lg font-semibold text-indigo-700 pt-3">Tanggal</h3>
+    <div class="flex space-x-2 mb-3">
+        <li class="pt-2 pb-0">
+            <input type="date" name="date" value="{{ request()->get('date') }}"
+                class="w-5xl px-20 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
+        </li>
+    </div>
+    <h3 class="text-lg font-semibold text-indigo-700 pt-1">Harga</h3>
+    <div class="flex space-x-2 mb-3">
+        <input type="text" name="min_price" placeholder="Min" value="{{ request()->get('min_price') }}"
+            class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
+        <input type="text" name="max_price" placeholder="Max" value="{{ request()->get('max_price') }}"
+            class="flex-1 w-24 pl-2 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
+    </div>
 
-                <div class="mt-3 flex space-x-3">
-                    <button type="submit" class="py-1 w-full bg-blue-500 text-white rounded hover:bg-blue-600">
-                        Filter
-                    </button>
-                </div>
-            </form>
+    <div class="mt-3 flex space-x-3">
+        <button type="submit" class="py-1 w-full bg-blue-500 text-white rounded hover:bg-blue-600">
+            Filter
+        </button>
+    </div>
+</form>
 
             <div class="max-w-md mx-auto">
                 <h2 class="text-lg font-semibold mb-4 text-indigo-700 pt-3">Pilih Kota</h2>
@@ -145,15 +145,15 @@
                 <!-- Main Content -->
 <div class="container w-full  px-6 3xl:px-8 py-8 pl-10 mt-6">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
-@if ($isEmpty)
+{{-- @if ($isEmpty)
             <p class="text-red-500 font-semibold text-center">Konser tidak ada pada lokasi ini.</p>
-        @else
-            @foreach ($konsers as $knsr)
+        @else --}}
+
+            @forelse ($konsers as $knsr)
                 @php
                     $tanggal_konser = \Carbon\Carbon::parse($knsr->tanggal);
                     $isExpired = $tanggal_konser->isPast(); // Cek apakah tanggal sudah lewat
                 @endphp
-
                 <div class="relative m-4 border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ $isExpired ? 'grayscale' : '' }}">
 
                     <!-- Label "Sudah Tayang" -->
@@ -199,36 +199,50 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-        @endif
+            @empty
+              <div class="flex flex-col items-center justify-center  text-center">
+        <!-- SVG Icon Panggung Kosong -->
+
+        <p class="text-red-500 font-semibold text-2xl mt-4">
+            Konser tidak ada pada lokasi ini.
+        </p>
+    </div>
+            @endforelse
+        {{-- @endif --}}
+
+
 
 
     <!-- Stylish Pagination Links -->
     <!-- Simple and Stylish Pagination Links -->
-    <div>
-    <div class="flex justify-center mt-6 text-center pl-72">
-        <nav class="flex justify-center items-center space-x-2">
-            @if ($konsers->onFirstPage())
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Prev «</span>
-            @else
-                <a href="{{ $konsers->previousPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">« Prev</a>
-            @endif
-
-            @foreach ($konsers->getUrlRange(1, $konsers->lastPage()) as $page => $url)
-                @if ($page == $konsers->currentPage())
-                    <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+</div>
+<div>
+<div>
+    @if ($konsers->count() > 0) <!-- Check if there are any concerts -->
+        <div class="flex justify-center mt-6 text-center ">
+            <nav class="flex justify-center items-center space-x-2">
+                @if ($konsers->onFirstPage())
+                    <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Prev «</span>
                 @else
-                    <a href="{{ $url }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">{{ $page }}</a>
+                    <a href="{{ $konsers->previousPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">« Prev</a>
                 @endif
-            @endforeach
 
-            @if ($konsers->hasMorePages())
-                <a href="{{ $konsers->nextPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">Next »</a>
-            @else
-                <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next »</span>
-            @endif
-        </nav>
-    </div>
+                @foreach ($konsers->getUrlRange(1, $konsers->lastPage()) as $page => $url)
+                    @if ($page == $konsers->currentPage())
+                        <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+                    @else
+                        <a href="{{ $url }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">{{ $page }}</a>
+                    @endif
+                @endforeach
+
+                @if ($konsers->hasMorePages())
+                    <a href="{{ $konsers->nextPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">Next »</a>
+                @else
+                    <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next »</span>
+                @endif
+            </nav>
+        </div>
+    @endif
 </div>
 </div>
 <style>

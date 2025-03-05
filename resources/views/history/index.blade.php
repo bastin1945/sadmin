@@ -117,7 +117,7 @@
 </form>
 
         <!-- Order Card -->
-        @foreach ($order as $orde)
+        @forelse ($order as $orde)
             <div class="bg-white p-4 rounded-lg mb-4 flex items-start"
                 style="box-shadow: -2px 0 5px rgba(0, 0, 0, 0.03),
                      2px 0 5px rgba(0, 0, 0, 0.03),
@@ -407,8 +407,22 @@
                 </div>
             </div>
 
+            @empty
+            <div class="flex flex-col items-center justify-center pt-44 text-center">
+                <!-- SVG Icon Panggung Kosong -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-20 h-20 text-red-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+
+                <p class="text-red-500 font-semibold text-2xl mt-4">
+                    Konser tidak ada pada lokasi ini.
+                </p>
+            </div>
             </body>
-        @endforeach
+
+@endforelse
+
+
           <div class="mt-4">
         {{ $order->links() }}
     </div>

@@ -13,17 +13,17 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $sales = sales::whereHas('konser.tiket', function ($query) {
-            $query->where('jenis_tiket', 'Regular');
-        })->with([
-                    'konser' => function ($query) {
-                        $query->with([
-                            'tiket' => function ($query) {
-                                $query->where('jenis_tiket', 'Regular');
-                            }
-                        ]);
-                    }
-                ])->get();
+        $search = request()->input('search');
+
+        if ($search) {
+            // Mengambil data dari tabel views dan mencari nama konser yang berelasi
+            $sales = sales::whereHas('konser', function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%'); // Ganti 'name' sesuai dengan kolom di tabel konser
+            })->get();
+        } else {
+            // Ambil semua data views jika tidak ada pencarian
+            $sales = sales::all();
+        }
         return view('admin.laris.index',compact('sales'));
     }
 
