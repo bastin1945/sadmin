@@ -68,7 +68,7 @@
             <tbody>
 
 
-                @foreach ($sales as $index => $pop)
+                @forelse ($sales as $index => $pop)
                     <tr class="text-gray-700">
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $pop->konser->nama }}</td>
@@ -85,7 +85,13 @@
             </form>
                         </td>
                     </tr>
-                @endforeach
+                    @empty
+                     <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
+       <p class="">
+        data tidak ada pada lokasi ini.
+        </p>
+    </div>
+                @endforelse
                        <script>
 function confirmDelete(id) {
     Swal.fire({

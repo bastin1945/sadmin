@@ -17,10 +17,19 @@ class ViewsController extends Controller
      */
     public function index()
     {
-        $populer = views::all();
+        $search = request()->input('search');
 
-                // dd($populer->toArray());
-        return view('admin.populer.index',compact('populer'));
+        if ($search) {
+            // Mengambil data dari tabel views dan mencari nama konser yang berelasi
+            $populer = Views::whereHas('konser', function ($query) use ($search) {
+                $query->where('nama', 'like', '%' . $search . '%'); // Ganti 'name' sesuai dengan kolom di tabel konser
+            })->get();
+        } else {
+            // Ambil semua data views jika tidak ada pencarian
+            $populer = Views::all();
+        }
+
+        return view('admin.populer.index', compact('populer'));
     }
 
     /**
