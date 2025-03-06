@@ -199,17 +199,17 @@
                         </div>
                     </div>
                 </div>
-            @empty
-              <div class="flex flex-col items-center justify-center  text-center">
-        <!-- SVG Icon Panggung Kosong -->
+                {{-- @endif --}}
 
-        <p class="text-red-500 font-semibold text-2xl mt-4">
-            Konser tidak ada pada lokasi ini.
-        </p>
-    </div>
-            @endforelse
-        {{-- @endif --}}
+                @empty
+                  <div class="flex flex-col items-center justify-center  text-center">
+            <!-- SVG Icon Panggung Kosong -->
 
+            <p class="text-red-500 font-semibold text-2xl mt-4">
+                Konser tidak ada pada lokasi ini.
+            </p>
+        </div>
+                @endforelse
 
 
 

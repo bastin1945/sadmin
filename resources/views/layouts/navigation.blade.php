@@ -85,12 +85,11 @@
             </div>
 
             <!-- Navigation Links -->
-            <nav class="hidden md:flex md:items-center md:gap-5 mr-14 pl-96">
+            <nav class="hidden md:flex md:items-center md:gap-5 mr-14 pl-96 py-0">
 
                 <a href="{{ route('dashboard') }}" class="nav-link  {{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('lainya.index') }}" class="nav-link {{ request()->routeIs('lainya.index') ? 'active' : '' }}">Jelajahi</a>
                 <a href="{{ route('hubungi.index') }}"  class="nav-link {{ request()->routeIs('hubungi.index') ? 'active' : '' }}">Hubungi Kami</a>
-
             </nav>
 
             <!-- User Section -->

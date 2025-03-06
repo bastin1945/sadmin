@@ -80,7 +80,7 @@ class FrontController extends Controller
                         ]);
                     }
                 ])->paginate('3');
- 
+
                 // dd($sales->toArray());
 
         $rekomend = is_recommended::whereHas('konser.tiket', function ($query) {

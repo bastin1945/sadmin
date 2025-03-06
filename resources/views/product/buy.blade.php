@@ -104,9 +104,27 @@
                 <input id="address" type="text" name="alamat" required class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Isikan Alamat Anda">
             </div>
 
-            <button type="submit" id="bayar-btn" class="mt-5 w-full px-5 py-4 text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-md hover:from-blue-600 hover:to-indigo-700 transition">
-                <i class="fas fa-credit-card"></i> Pesan Sekarang
-            </button>
+             <button type="submit" id="bayar-btn" class="mt-5 w-full px-5 py-4 text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-md hover:from-blue-600 hover:to-indigo-700 transition">
+    <i class="fas fa-credit-card"></i> Pesan Sekarang
+</button>
+
+<script>
+    document.getElementById('bayar-btn').addEventListener('click', function(event) {
+        event.preventDefault(); // Mencegah pengiriman form jika ada
+
+        // Cek status login pengguna (misal menggunakan localStorage)
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+        if (!isLoggedIn) {
+            // Jika belum login, arahkan ke halaman login
+            window.location.href = '../login'; // Ganti dengan URL halaman login yang sesuai
+        } else {
+            // Jika sudah login, lanjutkan dengan proses pemesanan
+            console.log('Proses pemesanan...');
+            // Tambahkan logika pemesanan di sini, misalnya mengirim form atau melakukan AJAX request
+        }
+    });
+</script>
         </form>
     </div>
 

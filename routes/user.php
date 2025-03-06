@@ -1,25 +1,24 @@
 <?php
 
 use App\Models\Promo;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\KonserController;
 use App\Http\Controllers\LainyaController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\HubungiController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\JelajahiController;
-use App\Http\Controllers\HistoryController;
-use Illuminate\Http\Request;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\HubungiController;
 
 
 // Rute yang dapat diakses oleh semua user (guest dan login)
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [WelcomeController::class, 'index'])->name('/');
 
 Route::get('/jelajahi', [JelajahiController::class, 'index'])->name('jelajahi');
 

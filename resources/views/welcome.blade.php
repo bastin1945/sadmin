@@ -41,6 +41,7 @@
   margin-bottom: 1rem;
   font-size: 2.5rem;
   font-weight: 700;
+
   font-family: var(--header-font);
   color: var(--text-dark);
 }
@@ -49,6 +50,7 @@
   margin-bottom: 1rem;
   font-size: 2rem;
   font-weight: 700;
+  position: relative;
   font-family: var(--header-font);
   color: var(--text-dark);
 }
@@ -345,9 +347,10 @@ nav {
 .offer__grid__bottom {
   grid-column: 2/4; /* Sesuai struktur grid utama */
   display: grid;
+  padding: 10px;
   grid-template-columns: repeat(4, 1fr); /* 4 kolom */
   gap: 2rem; /* Jarak antar elemen */
-  overflow-x: auto; /* Scroll horizontal jika konten melebihi lebar */
+   /* Scroll horizontal jika konten melebihi lebar */
 }
 
 .offer__grid__bottom img {
@@ -2241,10 +2244,11 @@ font-size: var(--normal-font-size);
 
     <section class="offer__container" id="offer">
       <div class="offer__grid__top">
-        <img src="assets/konser7.jpg" alt="offer" />
-        <img src="assets/konser5.jpg" alt="offer" />
-        <img src="assets/konser6.jpg" alt="offer" />
-
+         @foreach ($populer as $knsr)
+            <a href="{{ route('product.show', $knsr->konser->id) }}">
+                <img src="{{ asset('storage/' . $knsr->konser->image) }}" alt="{{ $knsr->konser->nama }}">
+            </a>
+        @endforeach
         <div class="offer__content">
           <h2 class="section__headeri">Jelajahi Konser</h2>
           <p class="section__subheader">
@@ -2254,13 +2258,13 @@ font-size: var(--normal-font-size);
 
         </div>
       </div>
-      <div class="offer__grid__bottom">
-        <img src="assets/konser1.jpg" alt="offer" />
-        <img src="assets/konser3.jpg" alt="offer" />
-        <img src="assets/konser2.jpg" alt="offer" />
-        <img src="assets/konser4.jpg" alt="offer" />
 
-      </div>
+      <div class="offer__grid__bottom">
+          @foreach ( $konser as $knsr)
+          <img src="{{ asset('storage/' . $knsr->image) }}">
+
+          @endforeach
+        </div>
     </section>
     <div class="background-container">
     <img src="assets/bgpoly.png" alt="" class="bg-image">

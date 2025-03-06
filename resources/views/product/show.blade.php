@@ -71,7 +71,7 @@
 @endphp
 
 <a href="{{ $isExpired ? '#' : route('productbuy', $konser->id) }}"
-   class="button"
+   class="h-fit w-fit"
    @if($isExpired) onclick="showExpiredAlert(event)" @endif>
     <button class="text-white bg-gradient-to-r from-blue-800 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-40 py-2.5 text-center mt-10 mb-2">
         {{ $isExpired ? 'Tiket Tidak Tersedia' : 'Pesan Tiket' }}

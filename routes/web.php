@@ -1,11 +1,9 @@
 <?php
 
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
+Route::get('/',[WelcomeController::class,'index'])->name('/');
 // Import rute untuk user
 require __DIR__.'/user.php';
 
