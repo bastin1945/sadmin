@@ -68,7 +68,7 @@ class FrontController extends Controller
                         ]);
                     }
                 ])->paginate('3');
-
+                
         $sales = sales::whereHas('konser.tiket', function ($query) {
             $query->where('jenis_tiket', 'Regular');
         })->with([

@@ -15,9 +15,9 @@ class WelcomeController extends Controller
     public function index()
     {
         $populer = views::paginate(3);
-        $konser = Konser::paginate(4); // Menampilkan 10 data per halaman
+        $konserr = Konser::paginate(4); // Menampilkan 10 data per halaman
 
-        return view('welcome',compact('konser','populer'));
+        return view('welcome',compact('konserr','populer'));
     }
 
     /**

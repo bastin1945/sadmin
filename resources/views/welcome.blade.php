@@ -257,6 +257,28 @@ nav {
   border: 1px solid var(--white);
   border-radius: 100%;
 }
+@keyframes slideInUp {
+        0% {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutDown {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+    }
+
 /* Styling untuk container utama */
 .choose__container {
   position: relative;
@@ -264,7 +286,13 @@ nav {
   grid-template-columns: 1fr 1fr; /* Membagi menjadi dua kolom, satu untuk gambar dan satu untuk konten */
   gap: 3rem; /* Memberikan jarak antar kolom */
   align-items: center;
+   opacity: 0; /* Mulai dengan tidak terlihat */
+        transition: opacity 0.5s ease-in-out;
 }
+ .choose__container.visible {
+        opacity: 1; /* Tampilkan elemen */
+        animation: slideInUp 1s ease-in-out forwards; /* Terapkan animasi masuk */
+    }
 
 /* Gambar bagian choose */
 .choose__image {
@@ -292,8 +320,19 @@ nav {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem 1rem;
+   display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
 }
+.choose__card {
+        opacity: 0; /* Mulai dengan tidak terlihat */
+        transition: opacity 0.5s ease-in-out;
+    }
 
+      .choose__card.visible {
+        opacity: 1; /* Tampilkan elemen */
+        animation: slideInUp 0.5s ease-in-out forwards; /* Terapkan animasi masuk */
+    }
 /* Styling untuk kartu */
 .choose__card span {
   display: inline-block;
@@ -302,6 +341,7 @@ nav {
   font-size: 1.25rem;
   background-color: #cad8d8;
   border-radius: 100%;
+
 }
 
 .choose__card h4 {
@@ -324,6 +364,26 @@ nav {
     minmax(0, var(--max-width))
     minmax(0, 1fr);
   row-gap: 2rem;
+
+    opacity: 0; /* Mulai dengan tidak terlihat */
+    transition: opacity 0.5s ease-in-out;
+
+}
+
+.offer__container.visible {
+    opacity: 1; /* Tampilkan elemen */
+    animation: fadeIn 1s ease-in-out; /* Terapkan animasi */
+}
+
+@keyframes fadeIn {
+   0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .offer__grid__top {
@@ -335,19 +395,22 @@ nav {
 .offer__grid__top img {
   width: 100%; /* Gambar menyesuaikan grid */
   height: auto; /* Pertahankan proporsi gambar */
+  margin-left: 10px;
   border-radius: 8px; /* Opsional: Estetika */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi halus */
 }
 
 .offer__grid__top img:hover {
   transform: scale(1.05) translateY(-10px); /* Perbesar sedikit dan naik */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+   /* Tambahkan bayangan */
 }
 
 .offer__grid__bottom {
   grid-column: 2/4; /* Sesuai struktur grid utama */
   display: grid;
   padding: 10px;
+
   grid-template-columns: repeat(4, 1fr); /* 4 kolom */
   gap: 2rem; /* Jarak antar elemen */
    /* Scroll horizontal jika konten melebihi lebar */
@@ -357,6 +420,7 @@ nav {
   width: 100%; /* Gambar menyesuaikan grid */
   height: auto; /* Pertahankan proporsi gambar */
   border-radius: 8px; /* Opsional: Estetika */
+
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi halus */
 }
 
@@ -463,6 +527,7 @@ nav {
   grid-template-columns: repeat(2, 1fr);
   gap: 10rem;
 }
+
 
 .ticket-section {
   display: flex;
@@ -714,9 +779,38 @@ nav {
     display: none;
   }
 
+   @keyframes slideInUp {
+        0% {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOutDown {
+        0% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+    }
+
   .choose__container {
     grid-template-columns: repeat(1, 1fr);
+     opacity: 0; /* Mulai dengan tidak terlihat */
+        transition: opacity 0.5s ease-in-out;
   }
+   .choose__container.visible {
+        opacity: 1; /* Tampilkan elemen */
+        animation: slideInUp 1s ease-in-out forwards; /* Terapkan animasi masuk */
+    }
+
 
   .choose__container .choose__bg {
     left: 0;
@@ -2260,10 +2354,11 @@ font-size: var(--normal-font-size);
       </div>
 
       <div class="offer__grid__bottom">
-          @foreach ( $konser as $knsr)
-          <img src="{{ asset('storage/' . $knsr->image) }}">
-
-          @endforeach
+   @foreach ($konserr as $knsr)
+            <a href="{{ route('product.show', $knsr->id) }}">
+                <img src="{{ asset('storage/' . $knsr->image) }}" alt="{{ $knsr->nama }}">
+            </a>
+        @endforeach
         </div>
     </section>
     <div class="background-container">
@@ -2314,7 +2409,88 @@ font-size: var(--normal-font-size);
       </div>
     </section>
 
-    <section class="ticket-section">
+    <style>
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ticket-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            opacity: 0; /* Mulai dengan tidak terlihat */
+            transition: opacity 0.5s ease-in-out;
+            padding: 40px;
+            background-color: #f9f9f9; /* Latar belakang */
+        }
+
+        .ticket-section.visible {
+            opacity: 1; /* Tampilkan elemen */
+            animation: fadeIn 1s ease-in-out forwards; /* Terapkan animasi masuk */
+        }
+
+        .ticket-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .ticket-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .ticket-highlight {
+            color: #ff6347; /* Warna highlight */
+        }
+
+        .ticket-features {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+
+
+        .ticket-feature-left .ticket-feature,
+        .ticket-feature-right .ticket-feature {
+            animation-delay: 0.2s; /* Delay untuk fitur kiri */
+        }
+
+        .ticket-feature-right .ticket-feature {
+            animation-delay: 0.4s; /* Delay untuk fitur kanan */
+        }
+
+        .ticket-checkmark {
+            margin-right: 10px;
+            color: green;
+            font-size: 1.5rem;
+        }
+
+        .ticket-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ticket-img {
+            max-width: 100%;
+            height: auto;
+            opacity: 0; /* Mulai dengan tidak terlihat */
+            animation: fadeIn 1s ease-in-out forwards; /* Terapkan animasi gambar */
+        }
+    </style>
+</head>
+<body>
+
+ <section class="ticket-section">
   <div class="ticket-content">
     <h2 class="ticket-title">
       Aplikasi Pembelian Tiket <br><span class="ticket-highlight">Terbaik !</span>
@@ -2350,6 +2526,27 @@ font-size: var(--normal-font-size);
     <img src="assets/komputer.png" alt="modern" class="ticket-img" />
   </div>
 </section>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ticketSection = document.querySelector('.ticket-section');
+
+        // Buat instance Intersection Observer untuk section
+        const sectionObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    ticketSection.classList.add('visible'); // Tambahkan kelas saat terlihat
+                } else {
+                    ticketSection.classList.remove('visible'); // Hapus kelas saat tidak terlihat
+                }
+            });
+        });
+
+        // Mulai mengamati elemen section
+        sectionObserver.observe(ticketSection);
+    });
+</script>
 
 </div>
 
@@ -2396,3 +2593,61 @@ font-size: var(--normal-font-size);
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 @extends('layouts.footer')
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const offerContainer = document.querySelector('.offer__container');
+
+        // Buat instance Intersection Observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Tambahkan kelas saat terlihat
+                    offerContainer.classList.add('visible');
+                } else {
+                    // Hapus kelas saat tidak terlihat
+                    offerContainer.classList.remove('visible');
+                }
+            });
+        });
+
+        // Mulai mengamati elemen
+        observer.observe(offerContainer);
+    });
+     document.addEventListener("DOMContentLoaded", function() {
+        const chooseContainer = document.querySelector('.choose__container');
+        const chooseCards = document.querySelectorAll('.choose__card');
+
+        // Buat instance Intersection Observer untuk container
+        const containerObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    chooseContainer.classList.add('visible'); // Tambahkan kelas saat terlihat
+                } else {
+                    chooseContainer.classList.remove('visible'); // Hapus kelas saat tidak terlihat
+                }
+            });
+        });
+
+        // Mulai mengamati elemen container
+        containerObserver.observe(chooseContainer);
+
+        // Buat instance Intersection Observer untuk cards
+        const cardObserver = new IntersectionObserver(entries => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible'); // Tambahkan kelas saat terlihat
+                } else {
+                    entry.target.classList.remove('visible'); // Hapus kelas saat tidak terlihat
+                }
+            });
+        });
+
+        // Mulai mengamati setiap card dengan delay
+        chooseCards.forEach((card, index) => {
+            cardObserver.observe(card);
+            card.style.animationDelay = `${index * 0.1}s`; // Delay animasi berdasarkan urutan
+        });
+    });
+</script>

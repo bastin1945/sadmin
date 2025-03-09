@@ -138,7 +138,7 @@
     </script>
 </div>
 
-    <div class="ml-7 mt-0 w-full max-w-[1210px] bg-gray-100 rounded-md">
+    <div class=" mt-0 w-full max-w-[1210px] bg-gray-100 rounded-md">
         <canvas id="myChart" width="1170" height="400" class="mx-auto"></canvas>
     </div>
 
