@@ -19,7 +19,7 @@ class LokasiController extends Controller
             // Menggunakan paginate untuk hasil pencarian
             $lokasi = Lokasi::where('location', 'like', '%' . $search . '%')
                 ->orderBy('location', 'asc') // Pastikan hasil terurut
-                ->paginate(10); // Pagination dengan 10 item per halaman
+                ->paginate(10)->withQueryString(); // Pagination dengan 10 item per halaman
         } else {
             // Menggunakan paginate untuk semua lokasi
             $lokasi = Lokasi::with('konser')

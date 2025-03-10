@@ -62,7 +62,7 @@ class LainyaController extends Controller
         }
 
         // Sekarang paginate hasilnya
-        $konsers = $konsers->paginate(6); // Sesuaikan angka sesuai preferensi Anda
+        $konsers = $konsers->paginate(6)->withQueryString(); // Sesuaikan angka sesuai preferensi Anda
 
         $locations = Lokasi::whereHas('konser')
             ->select('location')
@@ -73,7 +73,7 @@ class LainyaController extends Controller
 
         return view('lainya.index', compact('konsers', 'locations', 'city', 'isEmpty'));
     }
-   
+
 
 
 

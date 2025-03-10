@@ -68,6 +68,7 @@
 <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
     <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
         <tr>
+            <th class="px-4 py-2">No</th>
             <th class="px-4 py-2">Kode Tiket</th>
             <th class="px-4 py-2">Nama user</th>
             <th class="px-4 py-2">Tiket</th>
@@ -83,6 +84,7 @@
     @forelse ($order as $index => $orde)
 
     <tr class="text-gray-700">
+        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->kode_tiket }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->user->name }}</td>
         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->konser->nama }}</td>

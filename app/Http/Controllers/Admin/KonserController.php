@@ -43,7 +43,7 @@ class KonserController extends Controller
         }
 
         // Ambil data konser yang sudah difilter
-        $konsers = $konsers->paginate(10);
+        $konsers = $konsers->paginate(10)->withQueryString();
 
 
 

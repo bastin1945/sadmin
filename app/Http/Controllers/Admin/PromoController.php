@@ -46,7 +46,7 @@ class PromoController extends Controller
         }
 
         // Ambil promo yang sudah difilter
-        $promo = $query->paginate(10);
+        $promo = $query->paginate(10)->withQueryString();
 
         return view('admin.promo.index', compact('promo'));
     }

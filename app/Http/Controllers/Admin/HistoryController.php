@@ -37,7 +37,7 @@ class HistoryController extends Controller
             $query->where('kode_tiket', 'like', '%' . $request->kode_tiket . '%');
         }
 
-        $order = $query->paginate(10);
+        $order = $query->paginate(10)->withQueryString();
 
         return view('admin.history.index', compact('order', 'konser'));
     }

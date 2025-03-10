@@ -28,7 +28,7 @@ class HistoryController extends Controller
         }
         // dd($orders->toArray());
         // Ambil data pesanan dengan pagination
-        $order = $orders->paginate(3); // Ganti 10 dengan jumlah yang diinginkan per halaman
+        $order = $orders->paginate(3)->withQueryString(); // Ganti 10 dengan jumlah yang diinginkan per halaman
 
         return view('history.index', compact('order'));
     }

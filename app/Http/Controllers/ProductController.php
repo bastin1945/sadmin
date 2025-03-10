@@ -35,6 +35,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'tiket_id' => 'required|exists:tikets,id',

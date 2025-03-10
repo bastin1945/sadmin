@@ -40,7 +40,7 @@ class TiketController extends Controller
         }
 
         // Ambil tiket yang sudah difilter
-        $tiket = $query->paginate(10);
+        $tiket = $query->paginate(10)->withQueryString();
 
         // Ambil data unik untuk dropdown
         $jenisTikets = Tiket::select('jenis_tiket')->distinct()->pluck('jenis_tiket');
