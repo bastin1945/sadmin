@@ -143,8 +143,8 @@
 </script>
 
                 <!-- Main Content -->
-<div class="container w-full  px-6 3xl:px-8 py-8 pl-10 mt-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+<div class="container w-full pl-5 mt-14">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 w-full">
 {{-- @if ($isEmpty)
             <p class="text-red-500 font-semibold text-center">Konser tidak ada pada lokasi ini.</p>
         @else --}}
@@ -154,7 +154,7 @@
                     $tanggal_konser = \Carbon\Carbon::parse($knsr->tanggal);
                     $isExpired = $tanggal_konser->isPast(); // Cek apakah tanggal sudah lewat
                 @endphp
-                <div class="relative m-4 border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ $isExpired ? 'grayscale' : '' }}">
+                <div class="relative m-2 border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ $isExpired ? 'grayscale' : '' }}">
 
                     <!-- Label "Sudah Tayang" -->
                     @if ($isExpired)

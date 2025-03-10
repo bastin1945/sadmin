@@ -19,87 +19,103 @@ class FrontController extends Controller
 
     public function index(Request $request)
     {
-        $query = $request->input('query'); // Get the search query
-        $location = $request->input('location'); // Get the selected location
-        $startDate = $request->input('start'); // Get the start date
-        $endDate = $request->input('end'); // Get the end date
+        // Ambil semua lokasi untuk dropdown
+        $locations = lokasi::all();
 
-        // Fetch locations for the dropdown
-        $locations = lokasi::all(); // Fetch all locations
-
-        // Start the query for konsers
-        $konsers = konser::whereHas('tiket', function ($query) {
-            $query->where('jenis_tiket', 'Regular');
-        })->with([
-                    'tiket' => function ($query) {
-                        $query->where('jenis_tiket', 'Regular');
-                    }
-                ]);
-
-        // Apply filters based on user input
-        if ($query) {
-            $konsers->where('nama', 'like', '%' . $query . '%');
-        }
-
-        if ($location && $location !== 'Pilih Lokasi') {
-            $konsers->whereHas('lokasi', function ($q) use ($location) {
-                $q->where('location', $location);
-            });
-        }
-
-        if ($startDate) {
-            $konsers->where('tanggal', '>=', $startDate);
-        }
-
-        if ($endDate) {
-            $konsers->where('tanggal', '<=', $endDate);
-        }
-
-        $konsers = $konsers->paginate(3);
-
+        // Query filter berdasarkan input
         $populer = views::whereHas('konser.tiket', function ($query) {
             $query->where('jenis_tiket', 'Regular');
-        })->with([
-                    'konser' => function ($query) {
-                        $query->with([
-                            'tiket' => function ($query) {
-                                $query->where('jenis_tiket', 'Regular');
-                            }
-                        ]);
-                    }
-                ])->paginate('3');
-                
+        })
+            ->when($request->name_konser, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->where('nama', 'like', '%' . $request->name_konser . '%');
+                });
+            })
+            ->when($request->location_id, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->where('lokasi_id', $request->location_id);
+                });
+            })
+            ->when($request->start && $request->end, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->whereBetween('tanggal', [$request->start, $request->end]);
+                });
+            })
+            ->with([
+                'konser' => function ($query) {
+                    $query->with([
+                        'tiket' => function ($query) {
+                            $query->where('jenis_tiket', 'Regular');
+                        }
+                    ]);
+                }
+            ])
+            ->paginate(3);
+
         $sales = sales::whereHas('konser.tiket', function ($query) {
             $query->where('jenis_tiket', 'Regular');
-        })->with([
-                    'konser' => function ($query) {
-                        $query->with([
-                            'tiket' => function ($query) {
-                                $query->where('jenis_tiket', 'Regular');
-                            }
-                        ]);
-                    }
-                ])->paginate('3');
-
-                // dd($sales->toArray());
+        })
+            ->when($request->name_konser, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->where('nama', 'like', '%' . $request->name_konser . '%');
+                });
+            })
+            ->when($request->location_id, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->where('lokasi_id', $request->location_id);
+                });
+            })
+            ->when($request->start && $request->end, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->whereBetween('tanggal', [$request->start, $request->end]);
+                });
+            })
+            ->with([
+                'konser' => function ($query) {
+                    $query->with([
+                        'tiket' => function ($query) {
+                            $query->where('jenis_tiket', 'Regular');
+                        }
+                    ]);
+                }
+            ])
+            ->paginate(3);
 
         $rekomend = is_recommended::whereHas('konser.tiket', function ($query) {
             $query->where('jenis_tiket', 'Regular');
-        })->with([
-                    'konser' => function ($query) {
-                        $query->with([
-                            'tiket' => function ($query) {
-                                $query->where('jenis_tiket', 'Regular');
-                            }
-                        ]);
-                    }
-                ])->paginate('3');
+        })
+            ->when($request->name_konser, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->where('nama', 'like', '%' . $request->name_konser . '%');
+                });
+            })
+            ->when($request->location_id, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->where('lokasi_id', $request->location_id);
+                });
+            })
+            ->when($request->start && $request->end, function ($query) use ($request) {
+                $query->whereHas('konser', function ($q) use ($request) {
+                    $q->whereBetween('tanggal', [$request->start, $request->end]);
+                });
+            })
+            ->with([
+                'konser' => function ($query) {
+                    $query->with([
+                        'tiket' => function ($query) {
+                            $query->where('jenis_tiket', 'Regular');
+                        }
+                    ]);
+                }
+            ])
+            ->paginate(3);
 
 
-        // dd($rekomend->toArray());
 
-        return view('dashboard', compact('konsers', 'locations','populer','sales','rekomend')); // Pass locations to the view
+
+        return view('dashboard', compact('locations', 'populer', 'sales', 'rekomend'));
     }
+
     /**
      * Show the form for creating a new resource.
      */

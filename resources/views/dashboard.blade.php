@@ -334,7 +334,7 @@
                         method="GET" action="{{ route('dashboard') }}">
                         <label for="voice-search" class="sr-only">Search</label>
 
-
+                        <!-- Input Pencarian -->
                         <div class="relative pr-3 flex-grow">
                             <div
                                 class="text-gray-500 absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -344,30 +344,36 @@
                                         stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
-                            <input type="text" id="voice-search" name="query"
+                            <input type="text" id="voice-search" name="name_konser"
                                 class="bg-gray-100 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3 shimmering-effect"
-                                placeholder="Search Konsers....." oninput="this.form.submit()" />
+                                placeholder="Search Konsers....." value="{{ request('name_konser') }}"
+                                oninput="this.form.submit()" />
                         </div>
 
+                        <!-- Dropdown Lokasi -->
                         <div class="flex-shrink-0">
                             <div class="pr-3 relative">
-                                <select id="countries" name="location"
+                                <select id="countries" name="location_id"
                                     class="bg-gray-100 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 px-3 py-3 shimmering-effect"
                                     onchange="this.form.submit()">
-                                    <option selected>Pilih Lokasi</option>
+                                    <option value="">Pilih Lokasi</option>
                                     @foreach ($locations as $loc)
-                                        <!-- Loop through locations -->
-                                        <option value="{{ $loc->location }}">{{ $loc->location }}</option>
+                                        <option value="{{ $loc->id }}"
+                                            {{ request('location_id') == $loc->id ? 'selected' : '' }}>
+                                            {{ $loc->location }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
 
+                        <!-- Date Range Picker -->
                         <div id="date-range-picker" class="flex items-center space-x-4">
                             <div class="relative">
                                 <input id="datepicker-range-start" name="start" type="text"
                                     class="bg-gray-100 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3 shimmering-effect"
-                                    placeholder="Select date start" onfocus="(this.type='date')"
+                                    placeholder="Select date start" value="{{ request('start') }}"
+                                    onfocus="(this.type='date')"
                                     onblur="(this.type='text' && !this.value && (this.placeholder='Select date start'))"
                                     oninput="this.form.submit()">
                             </div>
@@ -375,16 +381,20 @@
                             <div class="relative">
                                 <input id="datepicker-range-end" name="end" type="text"
                                     class="bg-gray-100 border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-3 shimmering-effect"
-                                    placeholder="Select date end" onfocus="(this.type='date')"
+                                    placeholder="Select date end" value="{{ request('end') }}"
+                                    onfocus="(this.type='date')"
                                     onblur="(this.type='text' && !this.value && (this.placeholder='Select date end'))"
                                     oninput="this.form.submit()">
                             </div>
                         </div>
+
+                        <!-- Reset Button -->
                         <a href="{{ route('dashboard') }}" class="ml-auto flex items-center">
                             <i class="fas fa-sync-alt mr-2 spin heartbeat pl-3"></i>
                         </a>
 
                     </form>
+
                 </div>
 
 

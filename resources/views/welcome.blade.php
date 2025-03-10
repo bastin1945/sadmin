@@ -358,32 +358,28 @@ nav {
 
 .offer__container {
   padding-block: 5rem;
+  padding-bottom: 3rem; /* Add extra padding at the bottom */
   display: grid;
-  grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, var(--max-width))
-    minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--max-width)) minmax(0, 1fr);
   row-gap: 2rem;
-
-    opacity: 0; /* Mulai dengan tidak terlihat */
-    transition: opacity 0.5s ease-in-out;
-
+  opacity: 0; /* Mulai dengan tidak terlihat */
+  transition: opacity 0.5s ease-in-out;
 }
 
 .offer__container.visible {
-    opacity: 1; /* Tampilkan elemen */
-    animation: fadeIn 1s ease-in-out; /* Terapkan animasi */
+  opacity: 1; /* Tampilkan elemen */
+  animation: fadeIn 1s ease-in-out; /* Terapkan animasi */
 }
 
 @keyframes fadeIn {
-   0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .offer__grid__top {
@@ -391,36 +387,61 @@ nav {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
+  animation: swipeInRight 0.5s ease forwards; /* Animation for swipe in from right */
+  opacity: 0; /* Mulai dengan tidak terlihat */
 }
+
+@keyframes swipeInRight {
+  0% {
+    transform: translateX(100%); /* Mulai di luar layar kanan */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0); /* Pindahkan ke posisi normal */
+    opacity: 1;
+  }
+}
+
 .offer__grid__top img {
   width: 100%; /* Gambar menyesuaikan grid */
   height: auto; /* Pertahankan proporsi gambar */
   margin-left: 10px;
+  margin-bottom: 20px; /* Add margin-bottom for spacing */
   border-radius: 8px; /* Opsional: Estetika */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi halus */
 }
 
 .offer__grid__top img:hover {
   transform: scale(1.05) translateY(-10px); /* Perbesar sedikit dan naik */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-   /* Tambahkan bayangan */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Tambahkan bayangan */
 }
 
 .offer__grid__bottom {
   grid-column: 2/4; /* Sesuai struktur grid utama */
   display: grid;
   padding: 10px;
-
   grid-template-columns: repeat(4, 1fr); /* 4 kolom */
   gap: 2rem; /* Jarak antar elemen */
-   /* Scroll horizontal jika konten melebihi lebar */
+  animation: swipeInLeft 0.5s ease forwards; /* Animation for swipe in from left */
+  opacity: 0; /* Mulai dengan tidak terlihat */
+}
+
+@keyframes swipeInLeft {
+  0% {
+    transform: translateX(-100%); /* Mulai di luar layar kiri */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0); /* Pindahkan ke posisi normal */
+    opacity: 1;
+  }
 }
 
 .offer__grid__bottom img {
   width: 100%; /* Gambar menyesuaikan grid */
   height: auto; /* Pertahankan proporsi gambar */
   border-radius: 8px; /* Opsional: Estetika */
-
+  margin-bottom: 20px; /* Add margin-bottom for spacing */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi halus */
 }
 
@@ -441,7 +462,6 @@ nav {
 .offer__content .section__subheader {
   margin-bottom: 2rem;
 }
-
 .craft__container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2596,25 +2616,12 @@ font-size: var(--normal-font-size);
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const offerContainer = document.querySelector('.offer__container');
-
-        // Buat instance Intersection Observer
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Tambahkan kelas saat terlihat
-                    offerContainer.classList.add('visible');
-                } else {
-                    // Hapus kelas saat tidak terlihat
-                    offerContainer.classList.remove('visible');
-                }
-            });
-        });
-
-        // Mulai mengamati elemen
-        observer.observe(offerContainer);
-    });
+  document.addEventListener("DOMContentLoaded", function() {
+  const offerContainer = document.getElementById('offer');
+  setTimeout(() => {
+    offerContainer.classList.add('visible');
+  }, 100); // Delay to ensure styles are applied
+});
      document.addEventListener("DOMContentLoaded", function() {
         const chooseContainer = document.querySelector('.choose__container');
         const chooseCards = document.querySelectorAll('.choose__card');
