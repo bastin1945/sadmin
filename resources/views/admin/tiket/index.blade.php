@@ -58,65 +58,90 @@
     </select>
 </form>
 </div>
-        <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
-            <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
-                <tr>
-                    <th class="px-4 py-2">Nama Konser</th>
-                    <th class="px-4 py-2">Jenis Tiket</th>
-                    <th class="px-4 py-2">Harga Tiket</th>
-                    <th class="px-4 py-2">Jumlah Tiket</th>
-                    <th class="px-4 py-2">Status</th>
-                    <th class="px-4 py-2 text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($tiket as $t)
-                    <tr class="text-gray-700">
-                        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $t->konser->nama ?? '-' }}</td>
-                        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $t->jenis_tiket }}</td>
-                        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ number_format($t->harga_tiket, 0, ',', '.') }}</td>
-                        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $t->jumlah_tiket }}</td>
-                        <td class="border-b border-gray-300 px-4 py-2 text-center">
-                            <button class="w-full h-8 flex items-center justify-center px-4 py-2 rounded text-white {{ $t->status_tiket == 'Aktif' ? 'bg-yellow-500' : 'bg-red-500' }} hover:opacity-80 focus:outline-none">
-                                {{ $t->status_tiket }}
+<table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
+    <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
+        <tr>
+            <th class="px-4 py-2">Nama Konser</th>
+            <th class="px-4 py-2">Jenis Tiket</th>
+            <th class="px-4 py-2">Harga Tiket</th>
+            <th class="px-4 py-2">Jumlah Tiket</th>
+            <th class="px-4 py-2">Status</th>
+            <th class="px-4 py-2 text-center">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse ($tiket as $t)
+            <tr class="text-gray-700">
+                <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $t->konser->nama ?? '-' }}</td>
+                <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $t->jenis_tiket }}</td>
+                <td class="border-b border-gray-300 px-4 py-2 text-center">{{ number_format($t->harga_tiket, 0, ',', '.') }}</td>
+                <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $t->jumlah_tiket }}</td>
+                <td class="border-b border-gray-300 px-4 py-2 text-center">
+                    <button class="w-full h-8 flex items-center justify-center px-4 py-2 rounded text-white {{ $t->status_tiket == 'Aktif' ? 'bg-yellow-500' : 'bg-red-500' }} hover:opacity-80 focus:outline-none">
+                        {{ $t->status_tiket }}
+                    </button>
+                </td>
+                <td class="border-b border-gray-300 px-4 py-2 text-center">
+                    <div class="flex justify-center gap-2">
+                        <!-- Tombol Edit -->
+                        <a href="{{ route('admin.tiket.edit', $t->id) }}">
+                            <button class="border px-3 py-2 rounded hover:bg-green-600 hover:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 7.125l-2.625-2.625M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>
                             </button>
-                        </td>
-                        <td class="border-b border-gray-300 px-4 py-2 text-center">
-                            <div class="flex justify-center gap-2">
-                                <!-- Tombol Edit -->
-                                <a href="{{ route('admin.tiket.edit', $t->id) }}">
-                                    <button class="border px-3 py-2 rounded hover:bg-green-600 hover:text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 7.125l-2.625-2.625M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </button>
-                                </a>
-                                <!-- Tombol Delete -->
-                                <form id="delete-form-{{ $t->id }}" action="{{ route('admin.tiket.destroy', $t->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
+                        </a>
+                        <!-- Tombol Delete -->
+                        <form id="delete-form-{{ $t->id }}" action="{{ route('admin.tiket.destroy', $t->id) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
 
-                                <button type="button" class="border text-red-700 px-3 py-2 rounded hover:bg-red-600 hover:text-white" onclick="confirmDelete({{ $t->id }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                    </svg>
-                                </button>
+                        <button type="button" class="border text-red-700 px-3 py-2 rounded hover:bg-red-600 hover:text-white" onclick="confirmDelete({{ $t->id }})">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                            </svg>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        @empty
+        <tr>
+    <td colspan="6" class="py-8">
+        <div class="flex flex-col items-center justify-center py-8">
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none" class="mb-5">
+  
+    <rect x="40" y="60" width="120" height="80" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="4"/>
 
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                                      <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
-       <p class="">
-        tiket tidak ada pada lokasi ini.
-        </p>
-    </div>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
+    <g transform="translate(55, 70)">
+    
+        <rect x="0" y="10" width="90" height="40" rx="5" fill="#9CA3AF"/>
+        
+        <line x1="0" y1="30" x2="90" y2="30" stroke="white" stroke-width="2" stroke-dasharray="4 4"/>
+      
+        <circle cx="0" cy="30" r="4" fill="white"/>
+        
+        <circle cx="90" cy="30" r="4" fill="white"/>
+    </g>
+
+    <line x1="60" y1="75" x2="140" y2="125" stroke="#9CA3AF" stroke-width="4" stroke-linecap="round"/>
+    <line x1="140" y1="75" x2="60" y2="125" stroke="#9CA3AF" stroke-width="4" stroke-linecap="round"/>
+</svg>
+            <h3 class="text-xl font-semibold text-gray-700 mb-2">Data Tiket Kosong</h3>
+            <p class="text-gray-500 text-center mb-6 max-w-md">Tidak ada data tiket yang tersedia</p>
+            <a href="{{ route('admin.tiket.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+                </svg>
+                Reset Filter
+            </a>
+        </div>
+    </td>
+</tr>
+        @endforelse
+    </tbody>
+</table>
 
 <!-- Pagination Links -->
 <div class="flex justify-center mt-4">

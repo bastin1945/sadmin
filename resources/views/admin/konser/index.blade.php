@@ -68,7 +68,6 @@
         </form>
 
         <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
-
             <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
                 <tr>
                     <th class="px-4 py-2 text-center">No</th>
@@ -81,11 +80,7 @@
             </thead>
 
             <tbody>
-                @if (session('error'))
-    <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
-        {{ session('error') }}
-    </div>
-@endif
+               
 
                 @forelse ($konsers as $key => $konser)
                     <tr class="text-gray-700">
@@ -94,7 +89,6 @@
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $konser->tanggal }}</td>
                         <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $konser->lokasi->location }}</td>
                         <td class="border-b border-gray-300 px-4 py-2 text-center">
-
                             <a href="{{ route('admin.admin.konser.detail', $konser->id) }}">
                                 <button
                                     class="w-full h-8 flex items-center justify-center px-4 py-2 rounded text-gray-600 bg-indigo-200 hover:opacity-80 focus:outline-none">
@@ -132,17 +126,40 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
                 @empty
-                 <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
-       <p class="">
-        Konser tidak ada pada lokasi ini.
-        </p>
-    </div>
-
-        @endforelse
-            </table>
-        </div>
+                    <!-- data kosong -->
+                    <tr>
+                        <td colspan="6" class="py-8">
+                            <div class="rounded-lg p-8 my-4 flex flex-col items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none" class="mb-5">
+    <rect x="40" y="60" width="120" height="80" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="4"/>
+    <g transform="translate(65, 65)">
+        <rect x="32" y="10" width="6" height="50" fill="#9CA3AF"/>
+        <rect x="25" y="10" width="20" height="10" rx="5" fill="#9CA3AF"/>
+        <rect x="25" y="55" width="20" height="5" fill="#9CA3AF"/>
+        <path d="M20,60 L50,60 L45,70 L25,70 Z" fill="#9CA3AF"/>
+        <path d="M15,30 C5,20 5,40 15,30" stroke="#9CA3AF" stroke-width="3" fill="none"/>
+        <path d="M55,30 C65,20 65,40 55,30" stroke="#9CA3AF" stroke-width="3" fill="none"/>
+    </g>
+    <line x1="60" y1="75" x2="140" y2="125" stroke="#9CA3AF" stroke-width="4" stroke-linecap="round"/>
+    <line x1="140" y1="75" x2="60" y2="125" stroke="#9CA3AF" stroke-width="4" stroke-linecap="round"/>
+</svg>
+                                
+                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Data konser kosong</h3>
+                                <p class="text-gray-500 text-center mb-4">Tidak ada data konser yang tersedia</p>
+                                
+                                <a href="{{ route('admin.konsers.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+                                    </svg>
+                                    Reset Filter
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
 
 <!-- Pagination Links -->
 <div class="flex justify-center mt-4">

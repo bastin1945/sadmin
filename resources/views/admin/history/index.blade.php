@@ -65,7 +65,7 @@
 
         </div>
 
-<table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
+        <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
     <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
         <tr>
             <th class="px-4 py-2">No</th>
@@ -82,50 +82,77 @@
 
     <tbody>
     @forelse ($order as $index => $orde)
+        <tr class="text-gray-700">
+            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->kode_tiket }}</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->user->name }}</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->konser->nama }}</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->jumlah_tiket }}</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->harga_total }}</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->jenis_tiket }}</td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">
+                <form action="{{ route('admin.admin.adminhistory.updateStatus', $orde->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <div class="flex justify-center items-center space-x-2">
+                        <select name="status_pembayaran"
+                            class="border rounded px-2 w-28 py-1 text-sm focus:outline-none focus:ring
+                            {{ $orde->status_pembayaran == 'pending' ? ' text-yellow-700' : '' }}
+                            {{ $orde->status_pembayaran == 'paid' ? ' text-green-700' : '' }}
+                            {{ $orde->status_pembayaran == 'cancelled' ? ' text-red-700' : '' }}">
+                            <option value="pending" style="color: orange;" {{ $orde->status_pembayaran == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="paid" style="color: green;" {{ $orde->status_pembayaran == 'paid' ? 'selected' : '' }}>Paid</option>
+                            <option value="cancelled" style="color: red;" {{ $orde->status_pembayaran == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                        </select>
+                        <button type="submit" class="bg-blue-500 text-white px-3 py-1 text-sm rounded hover:bg-blue-600 transition">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </td>
+            <td class="border-b border-gray-300 px-4 py-2 text-center">
+                <form action="{{ route('admin.adminhistory.destroy', $orde->id) }}" method="POST" class="delete-form">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button" class="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600 transition delete-btn">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="9" class="py-8">
+                <div class="flex flex-col items-center justify-center py-8">        
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none" class="mb-5">
+                    <rect x="40" y="60" width="120" height="80" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="4"/>
+                    <g transform="translate(75, 70)">
+                        <circle cx="25" cy="30" r="25" fill="#9CA3AF" stroke="#9CA3AF" stroke-width="2"/>
+                        <circle cx="25" cy="30" r="20" fill="#F3F4F6"/>
+                        <circle cx="25" cy="5" r="5" fill="#9CA3AF"/>
+                        <line x1="25" y1="30" x2="25" y2="15" stroke="#9CA3AF" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="25" y1="30" x2="38" y2="30" stroke="#9CA3AF" stroke-width="3" stroke-linecap="round"/>
+                    </g>
+                    <line x1="60" y1="75" x2="140" y2="125" stroke="#9CA3AF" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="140" y1="75" x2="60" y2="125" stroke="#9CA3AF" stroke-width="4" stroke-linecap="round"/>
+                </svg>
 
-    <tr class="text-gray-700">
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->kode_tiket }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->user->name }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->konser->nama }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->jumlah_tiket }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->harga_total }}</td>
-        <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->jenis_tiket }}</td>
-      <td class="border-b border-gray-300 px-4 py-2 text-center">
-    <form action="{{ route('admin.admin.adminhistory.updateStatus', $orde->id) }}" method="POST">
-        @csrf
-        @method('PATCH')
-        <div class="flex justify-center items-center space-x-2">
-            <select name="status_pembayaran"
-                class="border rounded px-2 w-28 py-1 text-sm focus:outline-none focus:ring
-                {{ $orde->status_pembayaran == 'pending' ? ' text-yellow-700' : '' }}
-                {{ $orde->status_pembayaran == 'paid' ? ' text-green-700' : '' }}
-                {{ $orde->status_pembayaran == 'cancelled' ? ' text-red-700' : '' }}">
-                <option value="pending" style="color: orange;" {{ $orde->status_pembayaran == 'pending' ? 'selected' : '' }}>Pending</option>
-                <option value="paid" style="color: green;" {{ $orde->status_pembayaran == 'paid' ? 'selected' : '' }}>Paid</option>
-                <option value="cancelled" style="color: red;" {{ $orde->status_pembayaran == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-            </select>
-            <script>
-    document.getElementById('dropdownButton').addEventListener('click', function () {
-        const dropdown = document.getElementById('dropdownMenu');
-        dropdown.classList.toggle('hidden');
-    });
-</script>
-
-            <button type="submit" class="bg-blue-500 text-white px-3 py-1 text-sm rounded hover:bg-blue-600 transition">
-                Update
-            </button>
-        </div>
-    </form>
-</td>
-<td class="border-b border-gray-300 px-4 py-2 text-center">
-        <form action="{{ route('admin.adminhistory.destroy', $orde->id) }}" method="POST" class="delete-form">
-    @csrf
-    @method('DELETE')
-    <button type="button" class="bg-red-500 text-white px-3 py-1 text-sm rounded hover:bg-red-600 transition delete-btn">
-        Delete
-    </button>
-</form>
+ 
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Data Pesanan Kosong</h3>
+                    <p class="text-gray-500 text-center mb-6 max-w-md">Tidak ada data pesanan yang tersedia</p>
+                    
+                    <a href="{{ route('admin.adminhistory.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+                        </svg>
+                        Reset Filter
+                    </a>
+                </div>
+            </td>
+        </tr>
+    @endforelse
+    </tbody>
+</table>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -149,22 +176,6 @@
         });
     });
 </script>
-
-    </td>
-
-
-
-    </tr>
-    @empty
-    <div class="bg-red-500 text-white p-4 rounded-lg mb-4">
-       <p class="">
-        Konser tidak ada pada lokasi ini.
-        </p>
-    </div>
-    @endforelse
-
-    </tbody>
-</table>
 
         </div>
 
