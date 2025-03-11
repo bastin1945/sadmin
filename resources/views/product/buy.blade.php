@@ -228,6 +228,10 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+     if (!sessionStorage.getItem("reloaded")) {
+        sessionStorage.setItem("reloaded", "true");
+        location.reload();
+    }
     $(document).ready(function() {
         // Function to update prices based on selected category and quantity
         function updateHarga() {

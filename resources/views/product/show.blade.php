@@ -99,9 +99,12 @@
             icon: 'warning',
             confirmButtonText: 'OK',
             confirmButtonColor: '#3085d6',
-            background: '#ffffff',
+            background: '#f8f9fa', // Warna latar belakang yang lebih lembut
             color: '#333',
-            backdrop: 'rgba(0,0,0,0.2)'
+            backdrop: 'rgba(0,0,0,0.5)', // Backdrop yang lebih gelap
+            customClass: {
+                popup: 'alert-popup', // Kelas CSS untuk popup
+            }
         });
     }
 
@@ -113,9 +116,12 @@
             icon: 'warning',
             confirmButtonText: 'Login',
             confirmButtonColor: '#3085d6',
-            background: '#ffffff',
+            background: '#f8f9fa', // Warna latar belakang yang lebih lembut
             color: '#333',
-            backdrop: 'rgba(0,0,0,0.2)'
+            backdrop: 'rgba(0,0,0,0.5)', // Backdrop yang lebih gelap
+            customClass: {
+                popup: 'alert-popup', // Kelas CSS untuk popup
+            }
         }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = '{{ route('login') }}'; // Ganti dengan URL login Anda
@@ -123,6 +129,13 @@
         });
     }
 </script>
+
+<style>
+    .alert-popup {
+        border-radius: 10px; /* Sudut yang lebih bulat */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Bayangan yang lebih halus */
+    }
+</style>
 
 
 </div>
