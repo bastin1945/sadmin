@@ -11,6 +11,12 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     </noscript>
     <style>
+        .active {
+
+    color: #3b82f6; /* Make the text bold */
+    border-bottom: 2px solid blue;
+    text- /* Add a blue underline */
+}
         input::placeholder {
             color: #a1a1aa;
             font-size: 14px;
@@ -93,11 +99,11 @@
                     </a>
                 </div>
                 <!-- Navigation Links -->
-                <nav class="flex items-center justify-start gap-5 mr-14 my-0 pl-96 py-0">
-                    <a href="{{ route('dashboard') }}" class="m-0 text-gray-700 font-semibold text-base transition-all duration-300 hover:text-blue-700 hover:scale-110 {{ request()->routeIs('dashboard') ? 'text-blue-700 scale-110' : '' }}">Home</a>
-                    <a href="{{ route('lainya.index') }}" class="m-0 text-gray-700 font-semibold text-base transition-all duration-300 hover:text-blue-700 hover:scale-110 {{ request()->routeIs('lainya.index') ? 'text-blue-700 scale-110' : '' }}">Jelajahi</a>
-                    <a href="{{ route('hubungi.index') }}" class="m-0 text-gray-700 font-semibold text-base transition-all duration-300 hover:text-blue-700 hover:scale-110 {{ request()->routeIs('hubungi.index') ? 'text-blue-700 scale-110' : '' }}">Hubungi Kami</a>
-                </nav>
+              <nav class="flex items-center justify-start gap-5 mr-14 my-0 pl-96 py-0">
+    <a href="{{ route('dashboard') }}" class="m-3 font-semibold text-base transition-all duration-300 hover:text-blue-700 hover:scale-110 {{ request()->routeIs('dashboard') ? 'text-blue-700 scale-110' : 'text-gray-700' }}">Home</a>
+    <a href="{{ route('lainya.index') }}" class="m-3 font-semibold text-base transition-all duration-300 hover:text-blue-700 hover:scale-110 {{ request()->routeIs('lainya.index') ? 'text-blue-700 scale-110' : 'text-gray-700' }}">Jelajahi</a>
+    <a href="{{ route('hubungi.index') }}" class="m-3 font-semibold text-base transition-all duration-300 hover:text-blue-700 hover:scale-110 {{ request()->routeIs('hubungi.index') ? 'text-blue-700 scale-110' : 'text-gray-700' }}">Hubungi Kami</a>
+</nav>
                 <!-- User Section -->
                 <div x-data="{ open: false }" class="relative flex items-center gap-4">
                     @if(Auth::check())
