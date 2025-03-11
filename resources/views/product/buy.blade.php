@@ -1,12 +1,16 @@
 @include('layouts.app')
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css?v={{ time() }}" media="print" onload="this.media='all'">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     body {
         font-family: 'Poppins', sans-serif;
     }
+
+    #jumlah {
+    text-align: center; /* Center text inside the input */
+    width: 48px; /* Adjust width if needed */
+}
 
     .popup-container {
         display: none;
@@ -46,7 +50,7 @@
             </div>
         @endif
 
-        <form action="{{ route('product.store') }}" method="POST">
+        <form action="{{ route('product.store') }}" method="POST" id="ticket-form">
             @csrf
             <input type="hidden" name="user_id" value="{{ auth()->id() }}">
             <input type="hidden" id="harga_total" name="harga_total" value="0">
@@ -55,8 +59,7 @@
                 <label for="category" class="block mb-2 text-lg font-medium text-gray-700">
                     <i class="fas fa-tags"></i> Pilih Kategori Konser
                 </label>
-                <select name="tiket_id" id="category" required
-                    class="w-full px-4 py-3 text-sm font-medium text-gray-600 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out">
+                <select name="tiket_id" id="category" required class="w-full px-4 py-3 text-sm font-medium text-gray-600 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out">
                     <option value="" class="text-gray-300">Kategori Konser</option>
                     @foreach ($konser->tiket as $kt)
                         <option value="{{ $kt->id }}" data-harga="{{ $kt->harga_tiket }}">{{ $kt->jenis_tiket }} | Rp:{{ number_format($kt->harga_tiket) }}</option>
@@ -70,10 +73,13 @@
                         <i class="fas fa-percent"></i> Jumlah Tiket
                     </label>
                     <div class="flex items-center">
-                        <button id="decrease" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">-</button>
-                        <input id="jumlah" type="text" name="jumlah" value="1" readonly class="w-12 text-center text-gray-800 font-semibold border border-gray-300 rounded mx-2 shadow-sm">
-                        <button id="increase" type="button" class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">+</button>
-                    </div>
+                <button id="decrease" type="button"
+                    class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">-</button>
+                <input id="jumlah" type="text" name="jumlah_tiket" value="1" readonly
+                    class="w-12 text-center text-gray-800 font-semibold border border-gray-300 rounded mx-2 shadow-sm">
+                <button id="increase" type="button"
+                    class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">+</button>
+            </div>
                 </div>
                 <div class="w-full">
                     <div class="flex gap-2">
@@ -107,18 +113,6 @@
             <button type="submit" id="bayar-btn" class="mt-5 w-full px-5 py-4 text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-md hover:from-blue-600 hover:to-indigo-700 transition">
                 <i class="fas fa-credit-card"></i> Pesan Sekarang
             </button>
-
-            <script>
-                document.getElementById('bayar-btn').addEventListener('click', function(event) {
-                    const isLoggedIn = localStorage.getItem('isLoggedIn');
-
-                    if (!isLoggedIn) {
-                        window.location.href = '../login'; // Adjust this path as needed
-                    } else {
-                        this.form.submit(); // Submit the form
-                    }
-                });
-            </script>
         </form>
     </div>
 
@@ -152,7 +146,6 @@
             </div>
         </div>
         <hr class="border-t-2 border-gray-300 my-2">
-
         <div class="mb-2">
             <div class="flex justify-between">
                 <span class="text-md text-black-600">Harga tiket</span>
@@ -172,18 +165,6 @@
                 <span>Total Pembayaran</span>
                 <span id="total-pembayaran">Rp 0</span>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Popup -->
-<div id="modal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-600 bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-lg font-semibold mb-4">Konfirmasi Pembayaran</h2>
-        <p>Apakah Anda yakin ingin melakukan pembayaran?</p>
-        <div class="mt-4 flex justify-end space-x-3">
-            <button id="batal-btn" class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
-            <button id="konfirmasi-btn" class="px-4 py-2 bg-blue-500 text-white rounded">Bayar</button>
         </div>
     </div>
 </div>
@@ -228,12 +209,18 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-     if (!sessionStorage.getItem("reloaded")) {
+    // Session storage for auto-refresh
+    if (!sessionStorage.getItem("reloaded")) {
         sessionStorage.setItem("reloaded", "true");
-        location.reload();
+        location.reload(); // Reload the page
+    } else {
+        sessionStorage.removeItem("reloaded"); // Clear the session storage item after reloading
     }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
     $(document).ready(function() {
-        // Function to update prices based on selected category and quantity
         function updateHarga() {
             let category = document.getElementById("category");
             let jumlahInput = document.getElementById("jumlah");
@@ -246,7 +233,7 @@
             document.getElementById("harga_total").value = totalBayar;
         }
 
-        // Event listeners for quantity buttons
+        // Quantity adjustment
         $(document).on('click', '#increase', function() {
             let jumlahInput = document.getElementById("jumlah");
             jumlahInput.value = parseInt(jumlahInput.value) + 1;
@@ -259,11 +246,6 @@
                 jumlahInput.value = parseInt(jumlahInput.value) - 1;
             }
             updateHarga();
-        });
-
-        // Event listener for category change
-        $('#category').change(function() {
-            updateHarga(); // Update price when category changes
         });
 
         // Promo code application
@@ -295,9 +277,6 @@
                             html: `<p>Promo berhasil diterapkan.</p>`,
                             showConfirmButton: false,
                             timer: 4000,
-                            customClass: {
-                                popup: 'swal2-custom-popup'
-                            }
                         });
                     } else {
                         alert(response.message);
@@ -309,7 +288,18 @@
             });
         });
 
-        // Initial price update for the selected category
+        // Validate and submit the form
+        $("#ticket-form").on('submit', function(event) {
+            const jumlahInput = document.getElementById('jumlah');
+            const jumlahValue = parseInt(jumlahInput.value);
+
+            if (jumlahValue < 1) {
+                alert("Jumlah tiket harus lebih dari 0.");
+                event.preventDefault(); // Prevent form submission
+                return;
+            }
+        });
+
         updateHarga();
     });
 </script>
