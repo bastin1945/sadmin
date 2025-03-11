@@ -77,10 +77,31 @@
             Filter
         </button>
     </div>
+  <div class="flex items-center space-x-4 mb-3 pt-4">
+    <label class="flex items-center">
+        <input type="checkbox" id="active" name="active" value="1" {{ request()->get('active') ? 'checked' : '' }} class="mr-2" onclick="toggleCheckbox(this, 'non_active')">
+        <span class="font-bold">Aktif</span>
+    </label>
+    <label class="flex items-center">
+        <input type="checkbox" id="non_active" name="non_active" value="1" {{ request()->get('non_active') ? 'checked' : '' }} class="mr-2" onclick="toggleCheckbox(this, 'active')">
+        <span class="font-bold">Non-Aktif</span>
+    </label>
+</div>
+
+<script>
+    function toggleCheckbox(checkbox, otherCheckboxId) {
+        // If the current checkbox is checked, uncheck the other checkbox
+        if (checkbox.checked) {
+            var otherCheckbox = document.getElementById(otherCheckboxId);
+            otherCheckbox.checked = false;
+        }
+    }
+</script>
 </form>
 
+
             <div class="max-w-md mx-auto">
-                <h2 class="text-lg font-semibold mb-4 text-indigo-700 pt-3">Pilih Kota</h2>
+                <h2 class="text-lg font-semibold mb-4 text-indigo-700 pt-0">Pilih Kota</h2>
                 <div class="space-y-2">
                     <form method="GET" action="{{ route('lainya.index') }}" class="mb-5">
                         <div class="space-y-3">
@@ -117,6 +138,7 @@
                                 </label>
                             @endforeach
                         </div>
+
 
                         <!-- Button to see more locations -->
                         <button type="button" id="see-more" class="text-blue-500 hover:underline mt-2">

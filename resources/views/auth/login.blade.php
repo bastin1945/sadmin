@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Ke Vibestic</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -156,7 +158,7 @@
     </div>
 
     <img src="./assets/samping kanan luar body.png" alt="vector" class="kanan_luar" />
-    
+
     <script>
         // Menambahkan kelas fade-in ke elemen dengan kelas welcome-text setelah beberapa detik
         document.addEventListener("DOMContentLoaded", function() {

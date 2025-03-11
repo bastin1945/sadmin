@@ -20,7 +20,7 @@ class PenggunaController extends Controller
         $users = User::when($searchTerm, function ($query, $searchTerm) {
             return $query->where('name', 'like', '%' . $searchTerm . '%')
                 ->orWhere('email', 'like', '%' . $searchTerm . '%');
-        })->paginate(10); // Ambil semua data user atau hasil pencarian
+        })->paginate(10)->withQueryString(); // Ambil semua data user atau hasil pencarian
 
         return view('admin.pengguna.index', compact('users', 'searchTerm'));
     }

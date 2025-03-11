@@ -10,8 +10,9 @@
         <meta name="description" content="{{ $page->description }}">
 
         <title>{{ $page->title }}</title>
-        
-        <link rel="stylesheet" href="{{ mix('css/main.css', 'assets/build') }}">
+
+        <link rel="stylesheet" href="{{ mix('css/main.css', 'assets/build') }}?v={{ time() }}" media="print" onload="this.media='all'">
+    <script src="{{ mix('js/main.js', 'assets/build') }}"></script>
 
         <script src="{{ mix('js/main.js', 'assets/build') }}"></script>
     </head>
@@ -44,7 +45,7 @@
                                 <span class="mx-2 text-gray-600 text-sm">Remember me</span>
                             </label>
                         </div>
-                        
+
                         <div>
                             <a class="block text-sm fontme text-indigo-700 hover:underline" href="#">Forgot your password?</a>
                         </div>

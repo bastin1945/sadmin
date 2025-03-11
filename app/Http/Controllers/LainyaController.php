@@ -18,7 +18,8 @@ class LainyaController extends Controller
         $search = $request->input('search'); // Nama konser yang dicari
         $minPrice = $request->input('min_price'); // Minimum price
         $maxPrice = $request->input('max_price'); // Maximum price
-        $date = $request->input('date'); // Tanggal
+        $date = $request->input('date');
+        $currentDate = now(); // Tanggal
 
         // Start building the query
         $konsers = konser::with([
@@ -59,6 +60,15 @@ class LainyaController extends Controller
         // Filter berdasarkan tanggal jika ada
         if ($date) {
             $konsers->whereDate('tanggal', $date); // Pastikan 'tanggal' adalah nama kolom yang benar
+        }
+        $currentDate = now();
+
+        if ($request->has('active')) {
+            // Filter for active concerts (today or in the future)
+            $konsers->whereDate('tanggal', '>=', $currentDate);
+        } elseif ($request->has('non_active')) {
+            // Filter for non-active concerts (past dates)
+            $konsers->whereDate('tanggal', '<', $currentDate);
         }
 
         // Sekarang paginate hasilnya

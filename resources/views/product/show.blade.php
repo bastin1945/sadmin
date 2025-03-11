@@ -2,10 +2,23 @@
 
 @extends('layouts.footer')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 <!-- Container -->
 <div class="max-w-7xl mx-auto bg-white rounded-lg overflow-hidden mb-40 justify-center" style="margin-top:150px;">
+    <nav aria-label="Breadcrumb" class="p-4">
+    <ol class="breadcrumb flex space-x-2">
+        <li class="breadcrumb-item">
+            <a href="javascript:void(0);" onclick="history.back()" class="text-blue-600 hover:underline">Jelajahi</a>
+        </li>
 
+        <li class="breadcrumb-item active" aria-current="page">
+            <span class="text-gray-500">-></span>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <span class="text-gray-500">{{ $konser->nama }}</span>
+        </li>
+    </ol>
+</nav>
     <!-- Event Content -->
     <div class="flex flex-col md:flex-row pl-5 ">
         <!-- Image Section -->
