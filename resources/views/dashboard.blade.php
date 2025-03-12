@@ -222,6 +222,45 @@
                         box-shadow: 0 0 15px rgba(0, 0, 255, 0.7), 0 0 30px rgba(0, 0, 255, 0.5);
                     }
                 </style>
+
+                <!-- Tambahkan di bagian head atau di akhir file sebelum </body> -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cek masing-masing kategori dan sembunyikan jika tidak ada hasil
+        const populerSection = document.getElementById('populer-section');
+        const larisSection = document.getElementById('laris-section');
+        const rekomendasiSection = document.getElementById('rekomendasi-section');
+        const emptyStateSection = document.getElementById('empty-state');
+        
+        const populerItems = populerSection ? populerSection.querySelectorAll('.item-card').length : 0;
+        const larisItems = larisSection ? larisSection.querySelectorAll('.item-card').length : 0;
+        const rekomendasiItems = rekomendasiSection ? rekomendasiSection.querySelectorAll('.item-card').length : 0;
+        
+        // Sembunyikan kategori yang tidak memiliki hasil
+        if (populerItems === 0) {
+            if (populerSection) populerSection.style.display = 'none';
+        }
+        
+        if (larisItems === 0) {
+            if (larisSection) larisSection.style.display = 'none';
+        }
+        
+        if (rekomendasiItems === 0) {
+            if (rekomendasiSection) rekomendasiSection.style.display = 'none';
+        }
+        
+        // Jika semua kategori kosong, tampilkan visualisasi data kosong
+        const isSearching = window.location.search.includes('name_konser=') || 
+                          window.location.search.includes('location_id=') || 
+                          window.location.search.includes('start=');
+                          
+        if (isSearching && populerItems === 0 && larisItems === 0 && rekomendasiItems === 0) {
+            if (emptyStateSection) emptyStateSection.style.display = 'block';
+        } else {
+            if (emptyStateSection) emptyStateSection.style.display = 'none';
+        }
+    });
+</script>
             </head>
 
             <body>
@@ -399,227 +438,233 @@
 
 
 
+                <!-- Tambahkan ini sebelum menampilkan kategori-kategori -->
+@php
+    // Cek apakah sedang melakukan pencarian
+    $isSearching = request()->has('name_konser') || request()->has('location_id') || 
+                  (request()->has('start') && request()->has('end'));
+    
+    // Cek jika tidak ada hasil dari pencarian
+    $noResults = ($populer->count() == 0 && $sales->count() == 0 && $rekomend->count() == 0);
+@endphp
 
-                <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
-                    <h2 class="text-2xl font-semibold mb-4">Populer</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                        @foreach ($populer as $pop)
-                            @if ($pop->konser)
-                                @php
-                                    $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
-                                    $hari_ini = \Carbon\Carbon::now();
-                                    $isExpired = $tanggal_konser->isPast();
-                                @endphp
-
-                                <div
-                                    class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl
-            {{ $isExpired ? 'grayscale' : '' }}">
-
-                                    <!-- Label "Sudah Tayang" miring -->
-                                    @if ($isExpired)
-                                        <div
-                                            class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
-                                            Sudah Tayang
-                                        </div>
-                                    @endif
-
-                                    <!-- Menampilkan gambar -->
-                                    @if ($pop->konser->image)
-                                        <img src="{{ asset('storage/' . $pop->konser->image) }}"
-                                            alt="Gambar {{ $pop->konser->nama }}"
-                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                                    @else
-                                        <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
-                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                                    @endif
-
-                                    <div class="p-3">
-                                        <h3
-                                            class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-                                            {{ $pop->konser->nama }}
-                                        </h3>
-                                        <ul class="event-details text-gray-600 mt-1 space-y-1">
-                                            <li class="flex items-center text-sm">
-                                                <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
-                                                {{ $pop->konser->tanggal }}
-                                            </li>
-                                            <li class="flex items-center text-sm">
-                                                <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
-                                                {{ $pop->konser->lokasi->location }}
-                                            </li>
-                                        </ul>
-
-                                        @foreach ($pop->konser->tiket as $tiket)
-                                            <div class="flex flex-col">
-                                                <p class="text-sm font-bold text-orange-600">Stok:
-                                                    {{ $tiket->jumlah_tiket }} tiket</p>
-                                            </div>
-                                            <div class="flex items-center justify-between pt-1">
-                                                <p class="text-xl font-bold text-orange-600">
-                                                    Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
-                                                </p>
-                                                <a href="{{ route('product.show', $pop->konser->id) }}"
-                                                    class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                                    Detail
-                                                </a>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-
-
-
-                    </div>
+<!-- Tambahkan visualisasi data kosong -->
+@if($isSearching && $noResults)
+    <div class="container mx-auto 3xl:px-8 py-8 mt-2">
+        <div class="w-full p-10 border border-gray-400 rounded-lg bg-white">
+            <div class="flex flex-col items-center justify-center text-center">
+                <!-- Ikon pencarian -->
+                <div class="mb-6 text-gray-400">
+                    <svg class="w-20 h-20" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
                 </div>
-                <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
-                    <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                        @foreach ($sales as $pop)
-                            @if ($pop->konser)
-                                @php
-                                    $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
-                                    $hari_ini = \Carbon\Carbon::now();
-                                    $isExpired = $tanggal_konser->isPast();
-                                @endphp
+                
+                <!-- Pesan tidak ada hasil -->
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                    Tidak ada hasil ditemukan
+                </h3>
+                
+                <!-- Deskripsi -->
+                <p class="text-base text-gray-600 mb-8">
+                    Silakan coba dengan kata kunci lain atau ubah filter pencarian Anda
+                </p>
+                
+                <!-- Tombol reset -->
+                <a href="{{ route('dashboard') }}" class="flex items-center justify-center bg-blue-700 text-white px-6 py-3 rounded-md hover:bg-blue-800 transition duration-200">
+                    <i class="fas fa-sync-alt mr-2"></i>
+                    Reset Pencarian
+                </a>
+            </div>
+        </div>
+    </div>@else
+    <!-- Kategori Populer -->
+    @if($populer->count() > 0)
+    <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
+        <h2 class="text-2xl font-semibold mb-4">Populer</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+            @foreach ($populer as $pop)
+                @if ($pop->konser)
+                    @php
+                        $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
+                        $hari_ini = \Carbon\Carbon::now();
+                        $isExpired = $tanggal_konser->isPast();
+                    @endphp
 
-                                <div
-                                    class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl
-            {{ $isExpired ? 'grayscale' : '' }}">
+                    <div class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ $isExpired ? 'grayscale' : '' }}">
+                        @if ($isExpired)
+                            <div class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
+                                Sudah Tayang
+                            </div>
+                        @endif
 
-                                    <!-- Label "Sudah Tayang" miring -->
-                                    @if ($isExpired)
-                                        <div
-                                            class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
-                                            Sudah Tayang
-                                        </div>
-                                    @endif
+                        @if ($pop->konser->image)
+                            <img src="{{ asset('storage/' . $pop->konser->image) }}" alt="Gambar {{ $pop->konser->nama }}" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                        @else
+                            <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                        @endif
 
-                                    <!-- Menampilkan gambar -->
-                                    @if ($pop->konser->image)
-                                        <img src="{{ asset('storage/' . $pop->konser->image) }}"
-                                            alt="Gambar {{ $pop->konser->nama }}"
-                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                                    @else
-                                        <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
-                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                                    @endif
+                        <div class="p-3">
+                            <h3 class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+                                {{ $pop->konser->nama }}
+                            </h3>
+                            <ul class="event-details text-gray-600 mt-1 space-y-1">
+                                <li class="flex items-center text-sm">
+                                    <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
+                                    {{ $pop->konser->tanggal }}
+                                </li>
+                                <li class="flex items-center text-sm">
+                                    <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
+                                    {{ $pop->konser->lokasi->location }}
+                                </li>
+                            </ul>
 
-                                    <div class="p-3">
-                                        <h3
-                                            class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-                                            {{ $pop->konser->nama }}
-                                        </h3>
-                                        <ul class="event-details text-gray-600 mt-1 space-y-1">
-                                            <li class="flex items-center text-sm">
-                                                <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
-                                                {{ $pop->konser->tanggal }}
-                                            </li>
-                                            <li class="flex items-center text-sm">
-                                                <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
-                                                {{ $pop->konser->lokasi->location }}
-                                            </li>
-                                        </ul>
-
-                                        @foreach ($pop->konser->tiket as $tiket)
-                                            <div class="flex flex-col">
-                                                <p class="text-sm font-bold text-orange-600">Stok:
-                                                    {{ $tiket->jumlah_tiket }} tiket</p>
-                                            </div>
-                                            <div class="flex items-center justify-between pt-1">
-                                                <p class="text-xl font-bold text-orange-600">
-                                                    Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
-                                                </p>
-                                                <a href="{{ route('product.show', $pop->konser->id) }}"
-                                                    class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                                    Detail
-                                                </a>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
+                            @foreach ($pop->konser->tiket as $tiket)
+                                <div class="flex flex-col">
+                                    <p class="text-sm font-bold text-orange-600">Stok: {{ $tiket->jumlah_tiket }} tiket</p>
                                 </div>
-                            @endif
-                        @endforeach
-
-                    </div>
-                </div>
-                <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
-                    <h2 class="text-2xl font-semibold mb-4">Rekomendasi</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                        @foreach ($rekomend as $pop)
-                            @if ($pop->konser)
-                                @php
-                                    $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
-                                    $hari_ini = \Carbon\Carbon::now();
-                                    $isExpired = $tanggal_konser->isPast();
-                                @endphp
-
-                                <div
-                                    class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl
-                                    {{ $isExpired ? 'grayscale' : '' }}">
-
-                                    <!-- Label "Sudah Tayang" miring -->
-                                    @if ($isExpired)
-                                        <div
-                                            class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
-                                            Sudah Tayang
-                                        </div>
-                                    @endif
-
-                                    <!-- Menampilkan gambar -->
-                                    @if ($pop->konser->image)
-                                        <img src="{{ asset('storage/' . $pop->konser->image) }}"
-                                            alt="Gambar {{ $pop->konser->nama }}"
-                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                                    @else
-                                        <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar"
-                                            class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
-                                    @endif
-
-                                    <div class="p-3">
-                                        <h3
-                                            class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
-                                            {{ $pop->konser->nama }}
-                                        </h3>
-                                        <ul class="event-details text-gray-600 mt-1 space-y-1">
-                                            <li class="flex items-center text-sm">
-                                                <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
-                                                {{ $pop->konser->tanggal }}
-                                            </li>
-                                            <li class="flex items-center text-sm">
-                                                <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
-                                                {{ $pop->konser->lokasi->location }}
-                                            </li>
-                                        </ul>
-
-                                        @foreach ($pop->konser->tiket as $tiket)
-                                            <div class="flex flex-col">
-                                                <p class="text-sm font-bold text-orange-600">Stok:
-                                                    {{ $tiket->jumlah_tiket }} tiket</p>
-                                            </div>
-                                            <div class="flex items-center justify-between pt-1">
-                                                <p class="text-xl font-bold text-orange-600">
-                                                    Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
-                                                </p>
-                                                <a href="{{ route('product.show', $pop->konser->id) }}"
-                                                    class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
-                                                    Detail
-                                                </a>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
+                                <div class="flex items-center justify-between pt-1">
+                                    <p class="text-xl font-bold text-orange-600">
+                                        Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
+                                    </p>
+                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                        Detail
+                                    </a>
                                 </div>
-                            @endif
-                        @endforeach
-
-
-
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
+            @endforeach
+        </div>
+    </div>
+    @endif
+
+    <!-- Kategori Paling Laris -->
+    @if($sales->count() > 0)
+    <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
+        <h2 class="text-2xl font-semibold mb-4">Paling Laris</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+            @foreach ($sales as $pop)
+                @if ($pop->konser)
+                    @php
+                        $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
+                        $hari_ini = \Carbon\Carbon::now();
+                        $isExpired = $tanggal_konser->isPast();
+                    @endphp
+
+                    <div class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ $isExpired ? 'grayscale' : '' }}">
+                        @if ($isExpired)
+                            <div class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
+                                Sudah Tayang
+                            </div>
+                        @endif
+
+                        @if ($pop->konser->image)
+                            <img src="{{ asset('storage/' . $pop->konser->image) }}" alt="Gambar {{ $pop->konser->nama }}" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                        @else
+                            <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                        @endif
+
+                        <div class="p-3">
+                            <h3 class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+                                {{ $pop->konser->nama }}
+                            </h3>
+                            <ul class="event-details text-gray-600 mt-1 space-y-1">
+                                <li class="flex items-center text-sm">
+                                    <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
+                                    {{ $pop->konser->tanggal }}
+                                </li>
+                                <li class="flex items-center text-sm">
+                                    <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
+                                    {{ $pop->konser->lokasi->location }}
+                                </li>
+                            </ul>
+
+                            @foreach ($pop->konser->tiket as $tiket)
+                                <div class="flex flex-col">
+                                    <p class="text-sm font-bold text-orange-600">Stok: {{ $tiket->jumlah_tiket }} tiket</p>
+                                </div>
+                                <div class="flex items-center justify-between pt-1">
+                                    <p class="text-xl font-bold text-orange-600">
+                                        Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
+                                    </p>
+                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                        Detail
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    </div>
+    @endif
+
+    <!-- Kategori Rekomendasi -->
+    @if($rekomend->count() > 0)
+    <div class="container mx-auto 3xl:px-8 py-8 mt-2 pt-0 pb-0">
+        <h2 class="text-2xl font-semibold mb-4">Rekomendasi</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+            @foreach ($rekomend as $pop)
+                @if ($pop->konser)
+                    @php
+                        $tanggal_konser = \Carbon\Carbon::parse($pop->konser->tanggal);
+                        $hari_ini = \Carbon\Carbon::now();
+                        $isExpired = $tanggal_konser->isPast();
+                    @endphp
+
+                    <div class="relative bg-white border border-gray-400 rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl {{ $isExpired ? 'grayscale' : '' }}">
+                        @if ($isExpired)
+                            <div class="absolute top-5 left-[-40px] w-[150px] bg-red-600 text-white text-xs font-bold py-3 text-center rotate-[-45deg]">
+                                Sudah Tayang
+                            </div>
+                        @endif
+
+                        @if ($pop->konser->image)
+                            <img src="{{ asset('storage/' . $pop->konser->image) }}" alt="Gambar {{ $pop->konser->nama }}" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                        @else
+                            <img src="{{ asset('images/default.jpg') }}" alt="Default Gambar" class="w-full h-40 object-cover transition-transform duration-300 ease-in-out">
+                        @endif
+
+                        <div class="p-3">
+                            <h3 class="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+                                {{ $pop->konser->nama }}
+                            </h3>
+                            <ul class="event-details text-gray-600 mt-1 space-y-1">
+                                <li class="flex items-center text-sm">
+                                    <i class="fa-solid fa-calendar-days mr-2 text-gray-500"></i>
+                                    {{ $pop->konser->tanggal }}
+                                </li>
+                                <li class="flex items-center text-sm">
+                                    <i class="fa-solid fa-map-marker-alt mr-2 text-gray-500"></i>
+                                    {{ $pop->konser->lokasi->location }}
+                                </li>
+                            </ul>
+
+                            @foreach ($pop->konser->tiket as $tiket)
+                                <div class="flex flex-col">
+                                    <p class="text-sm font-bold text-orange-600">Stok: {{ $tiket->jumlah_tiket }} tiket</p>
+                                </div>
+                                <div class="flex items-center justify-between pt-1">
+                                    <p class="text-xl font-bold text-orange-600">
+                                        Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
+                                    </p>
+                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                        Detail
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    </div>
+    @endif
+@endif
+           
 
 
 
