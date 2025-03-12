@@ -87,7 +87,7 @@ class HistoryController extends Controller
             'photo' => $photoPath,
         ]);
 
-        return redirect()->route('history.index');
+        return redirect()->route('history.index')->with('suss','Review berhasil ditambahkan');
     }
 
     /**

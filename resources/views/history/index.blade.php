@@ -1,4 +1,7 @@
 @include('layouts.app')
+<!-- Include SweetAlert CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <x-slot name="">
 </x-slot>
 @if (session('success'))
@@ -115,6 +118,20 @@
         </label>
     </div>
 </form>
+@if (session('suss'))
+    <script>
+        // Show SweetAlert when the page loads
+        window.onload = function() {
+            Swal.fire({
+                title: 'Success!',
+                text: "{{ session('suss') }}",
+                icon: 'success',
+                confirmButtonText: 'Close'
+            });
+        };
+    </script>
+@endif
+
 
         <!-- Order Card -->
         @forelse ($order as $orde)
@@ -354,50 +371,43 @@
 
 
                                             <div class="mb-4">
-                                                <textarea name="comment" class="w-full border rounded-2xl p-2 mt-1 h-32 resize-none"
+                                                <textarea name="comment" class="w-full border rounded-2xl p-2 mt-1 h-36 resize-none"
                                                     placeholder="Tulis komentar Anda di sini..." required></textarea>
                                             </div>
-
-                                            <div class="mb-4 flex items-center">
-                                                <input type="file" id="photoUpload" name="photo"
-                                                    accept="image/*" class="hidden" onchange="handleFileUpload()">
-                                                <button type="button"
-                                                    onclick="document.getElementById('photoUpload').click()"
-                                                    class="border border-gray-700 rounded-md p-2 mt-4 text-sm text-gray-700 flex items-center"
-                                                    style="width: 250px;" id="uploadButton">
-                                                    <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 24 24" fill="currentColor">
-                                                        <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-                                                        <path fill-rule="evenodd"
-                                                            d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                    Tambah Foto
-                                                </button>
-                                            </div>
-
-                                            <script>
-                                                function handleFileUpload() {
-                                                    const fileInput = document.getElementById('photoUpload');
-                                                    const fileName = fileInput.files[0] ? fileInput.files[0].name : 'Tidak ada file yang dipilih';
-                                                    const uploadButton = document.getElementById('uploadButton');
-                                                    uploadButton.innerHTML = `
-            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+<div class="mb-4 flex items-center justify-between">
+    <div class="flex items-center">
+        <input type="file" id="photoUpload" name="photo" accept="image/*" class="hidden" onchange="handleFileUpload()">
+        <button type="button"
+            onclick="document.getElementById('photoUpload').click()"
+            class="border border-gray-700 rounded-md p-2 mt-4 text-sm text-gray-700 flex items-center"
+            style="width: 250px;" id="uploadButton">
+            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-                <path fill-rule="evenodd" d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                    d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                    clip-rule="evenodd" />
             </svg>
-            ${fileName}
-        `;
-                                                }
-                                            </script>
+            <span id="fileName">Tambah Foto</span>
+        </button>
+    </div>
 
-                                            <div class="flex justify-end mt-6 space-x-2">
-                                                <button type="button" @click="openReview = null"
-                                                    class="border border-gray-400 px-4 py-2 rounded-lg text-gray-600 text-sm">Nanti
-                                                    saja</button>
-                                                <button type="submit"
-                                                    class="bg-blue-800 text-white px-4 py-2 rounded-lg text-sm">Kirim</button>
-                                            </div>
+    <div class="flex space-x-2">
+        <button type="button" @click="openReview = null"
+            class="border border-gray-400 px-4 py-2 rounded-lg text-gray-600 text-sm">Nanti saja</button>
+        <button type="submit"
+            class="bg-blue-800 text-white px-4 py-2 rounded-lg text-sm">Kirim</button>
+    </div>
+</div>
+
+<script>
+    function handleFileUpload() {
+        const fileInput = document.getElementById('photoUpload');
+        const fileName = fileInput.files[0] ? fileInput.files[0].name : 'Tidak ada file yang dipilih';
+        const fileNameElement = document.getElementById('fileName');
+        fileNameElement.textContent = fileName; // Update only the text content
+    }
+</script>
                                         </form>
                                     </div>
                                 </div>
@@ -423,50 +433,40 @@
 @endforelse
 
 
-          <div class="mt-4 flex justify-end"">
+        <div class="">
     @if ($order->hasPages())
-        <div class="flex justify-end">
-            <nav>
-                <ul class="flex space-x-2">
-                    {{-- Previous Page Link --}}
-                    @if ($order->onFirstPage())
-                        <li>
-                            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Prev</span>
-                        </li>
-                    @else
-                        <li>
-                            <a href="{{ $order->previousPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">« Prev</a>
-                        </li>
-                    @endif
+        <div class="flex justify-between mt-6 text-center">
+            <div class="text-left">
+                <span class="text-gray-600 p-2">Pagination: </span>
+            </div>
+            <nav class="justify-end flex space-x-2">
+                {{-- Previous Page Link --}}
+                @if ($order->onFirstPage())
+                    <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Prev</span>
+                @else
+                    <a href="{{ $order->previousPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">« Prev</a>
+                @endif
 
-                    {{-- Pagination Elements --}}
-                    @foreach ($order->getUrlRange(1, $order->lastPage()) as $page => $url)
-                        @if ($page == $order->currentPage())
-                            <li>
-                                <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
-                            </li>
-                        @else
-                            <li>
-                                <a href="{{ $url }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">{{ $page }}</a>
-                            </li>
-                        @endif
-                    @endforeach
-
-                    {{-- Next Page Link --}}
-                    @if ($order->hasMorePages())
-                        <li>
-                            <a href="{{ $order->nextPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">Next »</a>
-                        </li>
+                {{-- Pagination Elements --}}
+                @foreach ($order->getUrlRange(1, $order->lastPage()) as $page => $url)
+                    @if ($page == $order->currentPage())
+                        <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
                     @else
-                        <li>
-                            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
-                        </li>
+                        <a href="{{ $url }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">{{ $page }}</a>
                     @endif
-                </ul>
+                @endforeach
+
+                {{-- Next Page Link --}}
+                @if ($order->hasMorePages())
+                    <a href="{{ $order->nextPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">Next »</a>
+                @else
+                    <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+                @endif
             </nav>
         </div>
     @endif
 </div>
+    </div>
 
     </div>
 </div>
