@@ -45,7 +45,7 @@ class KonserController extends Controller
         // Ambil data konser yang sudah difilter
         $konsers = $konsers->paginate(10)->withQueryString();
 
-
+        // dd($konsers->toArray());
 
         return view('admin.konser.index', compact('konsers', 'lokasis')); // Kirimkan $lokasis ke view
     }

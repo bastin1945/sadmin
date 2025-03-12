@@ -61,6 +61,7 @@
 <table class="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden">
     <thead class="bg-gray-100 text-gray-700 font-bold rounded-md">
         <tr>
+            <th class="px-4 py-2">No</th>
             <th class="px-4 py-2">Nama Konser</th>
             <th class="px-4 py-2">Jenis Tiket</th>
             <th class="px-4 py-2">Harga Tiket</th>
@@ -70,8 +71,9 @@
         </tr>
     </thead>
     <tbody>
-        @forelse ($tiket as $t)
+        @forelse ($tiket as $key => $t)
             <tr class="text-gray-700">
+                <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $key + 1}}</td>
                 <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $t->konser->nama ?? '-' }}</td>
                 <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $t->jenis_tiket }}</td>
                 <td class="border-b border-gray-300 px-4 py-2 text-center">{{ number_format($t->harga_tiket, 0, ',', '.') }}</td>
@@ -111,17 +113,17 @@
     <td colspan="6" class="py-8">
         <div class="flex flex-col items-center justify-center py-8">
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none" class="mb-5">
-  
+
     <rect x="40" y="60" width="120" height="80" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="4"/>
 
     <g transform="translate(55, 70)">
-    
+
         <rect x="0" y="10" width="90" height="40" rx="5" fill="#9CA3AF"/>
-        
+
         <line x1="0" y1="30" x2="90" y2="30" stroke="white" stroke-width="2" stroke-dasharray="4 4"/>
-      
+
         <circle cx="0" cy="30" r="4" fill="white"/>
-        
+
         <circle cx="90" cy="30" r="4" fill="white"/>
     </g>
 
