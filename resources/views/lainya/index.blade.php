@@ -53,15 +53,17 @@
         <ul class="space-y-2">
            <form action="" method="get">
     <li class="pt-2 pb-0">
-    <input type="text" placeholder="Cari Dan Temukan Konser" name="search" 
-    class="w-full min-w-[200px] px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
+        <input type="text" placeholder="Cari Dan Temukan Konser" name="search" value="{{ request()->get('search') }}"
+            class="w-full px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
     </li>
 
     <h3 class="text-lg font-semibold text-indigo-700 pt-3">Tanggal</h3>
-<li class="pt-2 pb-0">
-<input type="date" name="date" value="{{ request()->get('date') }}"
-    class="w-full min-w-[200px] px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
-</li>
+    <div class="flex space-x-2 mb-3">
+        <li class="pt-2 pb-0">
+            <input type="date" name="date" value="{{ request()->get('date') }}"
+                class="w-5xl px-20 py-2 text-sm border rounded-lg focus:outline-none focus:ring focus:ring-blue-200 bg-gray-200">
+        </li>
+    </div>
     <h3 class="text-lg font-semibold text-indigo-700 pt-1">Harga</h3>
     <div class="flex space-x-2 mb-3">
         <input type="text" name="min_price" placeholder="Min" value="{{ request()->get('min_price') }}"
@@ -222,7 +224,7 @@
                 {{-- @endif --}}
 
                 @empty
-<div class="col-span-1 md:col-span-2 lg:col-span-3 flex justify-center items-center w-full" style="min-height: 50vh; margin-left: 100px;">
+                <div class="ml-20 pl-8 flex justify-center items-center w-full h-full" style="min-height: 50vh;">
     <div class="text-center">
         <!-- Ikon pencarian -->
         <div class="mb-4">
@@ -252,7 +254,8 @@
         </a>
     </div>
 </div>
-@endforelse
+                @endforelse
+
 
 
     <!-- Stylish Pagination Links -->
