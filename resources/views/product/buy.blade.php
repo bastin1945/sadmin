@@ -1,11 +1,16 @@
 @include('layouts.app')
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css?v={{ time() }}" media="print" onload="this.media='all'">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <style>
     body {
         font-family: 'Poppins', sans-serif;
     }
+
+    #jumlah {
+    text-align: center; /* Center text inside the input */
+    width: 48px; /* Adjust width if needed */
+}
 
     .popup-container {
         display: none;
@@ -30,17 +35,13 @@
         transform: scale(1);
         transition: transform 0.3s ease-in-out;
     }
-
-    /* Add other styles here... */
 </style>
 
-<div
-    class="max-w-7xl mx-auto flex justify-between bg-white mt-[9rem] mb-0 gap-3 border border-gray-300 rounded-lg shadow-lg">
+<div class="max-w-7xl mx-auto flex justify-between bg-white mt-[9rem] mb-0 gap-3 border border-gray-300 rounded-lg shadow-lg">
     <!-- Bagian Kiri -->
-    <div class="w-1/2 p-6 bg-white rounded-l-lg shadow-md  hover:shadow-xl">
+    <div class="w-1/2 p-6 bg-white rounded-l-lg shadow-md hover:shadow-xl">
         @if ($errors->any())
-            <div class="alert alert-danger mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-                role="alert">
+            <div class="alert alert-danger mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -49,31 +50,29 @@
             </div>
         @endif
 
-        <form action="{{ route('product.store') }}" method="POST">
-    @csrf
-    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
-    <input type="hidden" id="harga_total" name="harga_total" value="0">
+        <form action="{{ route('product.store') }}" method="POST" id="ticket-form">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+            <input type="hidden" id="harga_total" name="harga_total" value="0">
 
-    <div class="mb-4">
-        <label for="category" class="block mb-2 text-lg font-medium text-gray-700">
-            <i class="fas fa-tags"></i> Pilih Kategori Konser
-        </label>
-        <select name="tiket_id" id="category" required
-            class="w-full px-4 py-3 text-sm font-medium text-gray-600 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out">
-            <option value="" class="text-gray-300">Kategori Konser</option>
-            @foreach ($konser->tiket as $kt)
-                <option value="{{ $kt->id }}" data-harga="{{ $kt->harga_tiket }}">{{ $kt->jenis_tiket }} |
-                    Rp:{{ number_format($kt->harga_tiket) }}</option>
-            @endforeach
-        </select>
-    </div>
+            <div class="mb-4">
+                <label for="category" class="block mb-2 text-lg font-medium text-gray-700">
+                    <i class="fas fa-tags"></i> Pilih Kategori Konser
+                </label>
+                <select name="tiket_id" id="category" required class="w-full px-4 py-3 text-sm font-medium text-gray-600 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out">
+                    <option value="" class="text-gray-300">Kategori Konser</option>
+                    @foreach ($konser->tiket as $kt)
+                        <option value="{{ $kt->id }}" data-harga="{{ $kt->harga_tiket }}">{{ $kt->jenis_tiket }} | Rp:{{ number_format($kt->harga_tiket) }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-    <div class="flex items-center justify-between mb-4 gap-4 border border-gray-300 p-3 rounded-md shadow-sm">
-        <div class="w-full">
-            <label for="jumlah" class="block mb-1 text-sm font-semibold text-gray-700">
-                <i class="fas fa-percent"></i> Jumlah Tiket
-            </label>
-            <div class="flex items-center">
+            <div class="flex items-center justify-between mb-4 gap-4 border border-gray-300 p-3 rounded-md shadow-sm">
+                <div class="w-full">
+                    <label for="jumlah" class="block mb-1 text-sm font-semibold text-gray-700">
+                        <i class="fas fa-percent"></i> Jumlah Tiket
+                    </label>
+                    <div class="flex items-center">
                 <button id="decrease" type="button"
                     class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">-</button>
                 <input id="jumlah" type="text" name="jumlah_tiket" value="1" readonly
@@ -81,71 +80,46 @@
                 <button id="increase" type="button"
                     class="text-lg font-bold text-gray-600 border border-gray-600 rounded px-3 hover:bg-gray-200 transition">+</button>
             </div>
-        </div>
-        <div class="w-full">
-            <div class="flex gap-2">
-                <input id="promo_code" type="text" name="promo_id"
-                    class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Kode Promo">
-                <button id="apply-promo" type="button"
-                    class="px-4 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">
-                    Gunakan Promo
-                </button>
+                </div>
+                <div class="w-full">
+                    <div class="flex gap-2">
+                        <input id="promo_code" type="text" name="promo_id" class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Kode Promo">
+                        <button id="apply-promo" type="button" class="px-4 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition">Gunakan Promo</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="mb-4">
-        <label for="email" class="block mb-2 text-sm font-semibold text-gray-700">
-            <i class="fas fa-envelope"></i> Isikan Gmail Anda
-        </label>
-        <input id="email" type="text" name="email" required
-            class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Isikan Gmail Anda">
-    </div>
+            <div class="mb-4">
+                <label for="email" class="block mb-2 text-sm font-semibold text-gray-700">
+                    <i class="fas fa-envelope"></i> Isikan Gmail Anda
+                </label>
+                <input id="email" type="text" name="email" required class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Isikan Gmail Anda">
+            </div>
 
-    <div class="mb-4">
-        <label for="contact" class="block mb-2 text-sm font-semibold text-gray-700">
-            <i class="fas fa-phone"></i> Isikan Nomer Anda
-        </label>
-        <input id="contact" type="number" name="contact" required
-            class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Isikan Nomer">
-    </div>
+            <div class="mb-4">
+                <label for="contact" class="block mb-2 text-sm font-semibold text-gray-700">
+                    <i class="fas fa-phone"></i> Isikan Nomer Anda
+                </label>
+                <input id="contact" type="number" name="contact" required class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Isikan Nomer">
+            </div>
 
-    <div class="mb-4">
-        <label for="address" class="block mb-2 text-sm font-semibold text-gray-700">
-            <i class="fas fa-map-marker-alt"></i> Isikan Alamat Anda
-        </label>
-        <input id="address" type="text" name="alamat" required
-            class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Isikan Alamat Anda">
-    </div>
+            <div class="mb-4">
+                <label for="address" class="block mb-2 text-sm font-semibold text-gray-700">
+                    <i class="fas fa-map-marker-alt"></i> Isikan Alamat Anda
+                </label>
+                <input id="address" type="text" name="alamat" required class="w-full px-4 py-3 text-sm font-medium text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Isikan Alamat Anda">
+            </div>
 
-    <button type="submit" id="bayar-btn"
-        class="mt-5 w-full px-5 py-4 text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-md hover:from-blue-600 hover:to-indigo-700 transition">
-        <i class="fas fa-credit-card"></i> Pesan Sekarang
-    </button>
-
-    <script>
-        document.getElementById('bayar-btn').addEventListener('click', function(event) {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-
-            if (!isLoggedIn) {
-                window.location.href = '../login'; // Adjust this path as needed
-            } else {
-                this.form.submit(); // Submit the form
-            }
-        });
-    </script>
-</form>
+            <button type="submit" id="bayar-btn" class="mt-5 w-full px-5 py-4 text-white bg-gradient-to-r from-blue-500 to-indigo-600 rounded-md hover:from-blue-600 hover:to-indigo-700 transition">
+                <i class="fas fa-credit-card"></i> Pesan Sekarang
+            </button>
+        </form>
     </div>
 
     <!-- Bagian Kanan -->
-    <div class="w-1/2 p-6 bg-white rounded-r-lg shadow-md  hover:shadow-xl">
+    <div class="w-1/2 p-6 bg-white rounded-r-lg shadow-md hover:shadow-xl">
         <div class="w-auto h-60 border border-gray-300 rounded-md overflow-hidden shadow-sm">
-            <img src="{{ asset('storage/' . $konser->image) }}" alt="Gambar HD"
-                class="rounded-md w-full h-full object-cover transition-transform duration-300 hover:scale-110">
+            <img src="{{ asset('storage/' . $konser->image) }}" alt="Gambar HD" class="rounded-md w-full h-full object-cover transition-transform duration-300 hover:scale-110">
         </div>
         <h2 class="mb-6 mt-4 text-xl font-semibold text-gray-800">Tiket Konser {{ $konser->nama }}</h2>
         <div class="flex items-start mb-0 space-x-4">
@@ -172,7 +146,6 @@
             </div>
         </div>
         <hr class="border-t-2 border-gray-300 my-2">
-
         <div class="mb-2">
             <div class="flex justify-between">
                 <span class="text-md text-black-600">Harga tiket</span>
@@ -196,26 +169,13 @@
     </div>
 </div>
 
-<!-- Modal Popup -->
-<div id="modal" class="fixed inset-0 flex items-center justify-center hidden bg-gray-600 bg-opacity-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-lg font-semibold mb-4">Konfirmasi Pembayaran</h2>
-        <p>Apakah Anda yakin ingin melakukan pembayaran?</p>
-        <div class="mt-4 flex justify-end space-x-3">
-            <button id="batal-btn" class="px-4 py-2 bg-gray-400 text-white rounded">Batal</button>
-            <button id="konfirmasi-btn" class="px-4 py-2 bg-blue-500 text-white rounded">Bayar</button>
-        </div>
-    </div>
-</div>
-
 <!-- Popup Pembayaran Sukses -->
 <div class="popup-container" id="popupContainer">
     <div class="popup">
         <div class="success-icon flex items-center justify-center">
             <div class="bg-green-500 rounded-full p-1 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8 text-white">
-                    <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                    <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>
         </div>
@@ -241,12 +201,22 @@
                 <span class="text-gray-700">Pembeli:</span>
                 <strong>
                     <p>Halo, {{ optional(Auth::user())->name ?? 'Pengunjung' }}</p>
-
                 </strong>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Session storage for auto-refresh
+    if (!sessionStorage.getItem("reloaded")) {
+        sessionStorage.setItem("reloaded", "true");
+        location.reload(); // Reload the page
+    } else {
+        sessionStorage.removeItem("reloaded"); // Clear the session storage item after reloading
+    }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -263,14 +233,14 @@
             document.getElementById("harga_total").value = totalBayar;
         }
 
-        // Pastikan binding event hanya terjadi sekali
-        $(document).off('click', '#increase').on('click', '#increase', function() {
+        // Quantity adjustment
+        $(document).on('click', '#increase', function() {
             let jumlahInput = document.getElementById("jumlah");
             jumlahInput.value = parseInt(jumlahInput.value) + 1;
             updateHarga();
         });
 
-        $(document).off('click', '#decrease').on('click', '#decrease', function() {
+        $(document).on('click', '#decrease', function() {
             let jumlahInput = document.getElementById("jumlah");
             if (parseInt(jumlahInput.value) > 1) {
                 jumlahInput.value = parseInt(jumlahInput.value) - 1;
@@ -278,6 +248,7 @@
             updateHarga();
         });
 
+        // Promo code application
         $("#apply-promo").click(function() {
             let promoCode = $("#promo_code").val();
             let hargaTiket = parseInt($("#harga-tiket").text().replace(/\D/g, ''));
@@ -297,25 +268,16 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        $("#total-pembayaran").text(
-                            `Rp ${response.total_setelah_diskon.toLocaleString()}`);
-                        $("#potongan-diskon").text(
-                        `Rp ${response.diskon.toLocaleString()}`);
+                        $("#total-pembayaran").text(`Rp ${response.total_setelah_diskon.toLocaleString()}`);
+                        $("#potongan-diskon").text(`Rp ${response.diskon.toLocaleString()}`);
                         $("#harga_total").val(response.total_setelah_diskon);
                         Swal.fire({
                             icon: "success",
                             title: "Promo Sukses!",
-                            html: `
-        <p>Promo berhasil di terapkan.</p>
-
-    `,
+                            html: `<p>Promo berhasil diterapkan.</p>`,
                             showConfirmButton: false,
-                            timer: 4000, // Auto-close setelah 4 detik
-                            customClass: {
-                                popup: 'swal2-custom-popup'
-                            }
+                            timer: 4000,
                         });
-
                     } else {
                         alert(response.message);
                     }
@@ -324,6 +286,18 @@
                     alert("Terjadi kesalahan, coba lagi.");
                 }
             });
+        });
+
+        // Validate and submit the form
+        $("#ticket-form").on('submit', function(event) {
+            const jumlahInput = document.getElementById('jumlah');
+            const jumlahValue = parseInt(jumlahInput.value);
+
+            if (jumlahValue < 1) {
+                alert("Jumlah tiket harus lebih dari 0.");
+                event.preventDefault(); // Prevent form submission
+                return;
+            }
         });
 
         updateHarga();

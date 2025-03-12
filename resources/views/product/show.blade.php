@@ -2,10 +2,10 @@
 
 @extends('layouts.footer')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+<script src="https://cdn.tailwindcss.com"></script>
 <!-- Container -->
 <div class="max-w-7xl mx-auto bg-white rounded-lg overflow-hidden mb-40 justify-center" style="margin-top:150px;">
-    <nav aria-label="Breadcrumb" class="p-4">
+    <nav aria-label="Breadcrumb" class="p-4 m-0">
     <ol class="breadcrumb flex space-x-2">
         <li class="breadcrumb-item">
             <a href="javascript:void(0);" onclick="history.back()" class="text-blue-600 hover:underline">Jelajahi</a>
@@ -26,9 +26,8 @@
             <img src="{{ asset('storage/' . $konser->image) }}" alt="Event Image"
                 class="object-cover rounded-lg" style="width: 800px; height: 330px">
                 <div class="flex justify-between mt-6">
-                <div class="text-4xl font-bold mb-4">{{ $konser->nama }}</div>
+                <div class="text-4xl font-bold mb-4 text-[#000]">{{ $konser->nama }}</div>
 
-        <ul class="text-sm text-gray-600 space-y-2">
         <div class="flex justify-end">
     <div class="text-right">
         @foreach ($konser->tiket as $kt)
@@ -83,9 +82,9 @@
     $isExpired = now()->isAfter(Carbon\Carbon::parse($konser->tanggal));
 @endphp
 
-<a href="{{ $isExpired ? '#' : route('productbuy', $konser->id) }}"
+<a href="{{ !$isExpired && Auth::check() ? route('productbuy', $konser->id) : '#' }}"
    class="h-fit w-fit"
-   @if($isExpired) onclick="showExpiredAlert(event)" @endif>
+   @if($isExpired) onclick="showExpiredAlert(event)" @elseif(!Auth::check()) onclick="redirectToLogin(event)" @endif>
     <button class="text-white bg-gradient-to-r from-blue-800 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-40 py-2.5 text-center mt-10 mb-2">
         {{ $isExpired ? 'Tiket Tidak Tersedia' : 'Pesan Tiket' }}
     </button>
@@ -100,13 +99,43 @@
             icon: 'warning',
             confirmButtonText: 'OK',
             confirmButtonColor: '#3085d6',
-            background: '#ffffff',
+            background: '#f8f9fa', // Warna latar belakang yang lebih lembut
             color: '#333',
-            backdrop: 'rgba(0,0,0,0.2)'
+            backdrop: 'rgba(0,0,0,0.5)', // Backdrop yang lebih gelap
+            customClass: {
+                popup: 'alert-popup', // Kelas CSS untuk popup
+            }
+        });
+    }
+
+    function redirectToLogin(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: '⚠️ Harap Login!',
+            text: 'Kamu harus login untuk memesan tiket.',
+            icon: 'warning',
+            confirmButtonText: 'Login',
+            confirmButtonColor: '#3085d6',
+            background: '#f8f9fa', // Warna latar belakang yang lebih lembut
+            color: '#333',
+            backdrop: 'rgba(0,0,0,0.5)', // Backdrop yang lebih gelap
+            customClass: {
+                popup: 'alert-popup', // Kelas CSS untuk popup
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '{{ route('login') }}'; // Ganti dengan URL login Anda
+            }
         });
     }
 </script>
 
+<style>
+    .alert-popup {
+        border-radius: 10px; /* Sudut yang lebih bulat */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Bayangan yang lebih halus */
+    }
+</style>
 
 
 </div>

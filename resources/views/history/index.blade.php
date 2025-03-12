@@ -423,8 +423,50 @@
 @endforelse
 
 
-          <div class="mt-4">
-        {{ $order->links() }}
-    </div>
+          <div class="mt-4 flex justify-end"">
+    @if ($order->hasPages())
+        <div class="flex justify-end">
+            <nav>
+                <ul class="flex space-x-2">
+                    {{-- Previous Page Link --}}
+                    @if ($order->onFirstPage())
+                        <li>
+                            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Prev</span>
+                        </li>
+                    @else
+                        <li>
+                            <a href="{{ $order->previousPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">« Prev</a>
+                        </li>
+                    @endif
+
+                    {{-- Pagination Elements --}}
+                    @foreach ($order->getUrlRange(1, $order->lastPage()) as $page => $url)
+                        @if ($page == $order->currentPage())
+                            <li>
+                                <span class="px-4 py-2 text-white bg-blue-600 rounded-md">{{ $page }}</span>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{ $url }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">{{ $page }}</a>
+                            </li>
+                        @endif
+                    @endforeach
+
+                    {{-- Next Page Link --}}
+                    @if ($order->hasMorePages())
+                        <li>
+                            <a href="{{ $order->nextPageUrl() }}" class="px-4 py-2 text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-blue-50">Next »</a>
+                        </li>
+                    @else
+                        <li>
+                            <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Next</span>
+                        </li>
+                    @endif
+                </ul>
+            </nav>
+        </div>
+    @endif
+</div>
+
     </div>
 </div>

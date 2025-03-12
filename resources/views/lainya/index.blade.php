@@ -239,10 +239,17 @@
     <!-- Simple and Stylish Pagination Links -->
 </div>
 <div>
-<div>
-    @if ($konsers->count() > 0) <!-- Check if there are any concerts -->
-        <div class="flex justify-center mt-6 text-center ">
-            <nav class="flex justify-center items-center space-x-2">
+    <div class=" pr-3">
+
+       <!-- Optional: Add any text or title here -->
+
+       @if ($konsers->count() > 0) <!-- Check if there are any concerts -->
+       <div class="flex justify-left mt-6 text-center ">
+         <div class="text-left">
+        <!-- Optional: Add any text or title here -->
+        <span class="text-gray-600 p-2">Pagination: </span>
+    </div>
+            <nav class="flex justify-end space-x-2">
                 @if ($konsers->onFirstPage())
                     <span class="px-4 py-2 text-gray-400 bg-gray-200 rounded-md cursor-not-allowed">Prev «</span>
                 @else
