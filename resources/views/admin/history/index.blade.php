@@ -83,14 +83,14 @@
     <tbody>
     @forelse ($order as $index => $orde)
         <tr class="text-gray-700">
-            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $index + 1 }}</td>
-            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->kode_tiket }}</td>
-            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->user->name }}</td>
-            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->konser->nama }}</td>
-            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->jumlah_tiket }}</td>
-            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->harga_total }}</td>
-            <td class="border-b border-gray-300 px-4 py-2 text-center">{{ $orde->tiket->jenis_tiket }}</td>
-            <td class="border-b border-gray-300 px-4 py-2 text-center">
+            <td class="border-b border-gray-300 px-3 py-2 text-center">{{ $index + 1 }}</td>
+            <td class="border-b border-gray-300 px-3 py-2 text-center">{{ $orde->kode_tiket }}</td>
+            <td class="border-b border-gray-300 px-3 py-2 text-center">{{ $orde->user->name }}</td>
+            <td class="border-b border-gray-300 px-3 py-2 text-center">{{ $orde->tiket->konser->nama }}</td>
+            <td class="border-b border-gray-300 px-3 py-2 text-center">{{ $orde->jumlah_tiket }}</td>
+            <td class="border-b border-gray-300 px-3 py-2 text-center">{{ $orde->harga_total }}</td>
+            <td class="border-b border-gray-300 px-3 py-2 text-center">{{ $orde->tiket->jenis_tiket }}</td>
+            <td class="border-b border-gray-300 px-3 py-2 text-center">
                 <form action="{{ route('admin.admin.adminhistory.updateStatus', $orde->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
@@ -123,7 +123,7 @@
     @empty
         <tr>
             <td colspan="9" class="py-8">
-                <div class="flex flex-col items-center justify-center py-8">        
+                <div class="flex flex-col items-center justify-center py-8">
                 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none" class="mb-5">
                     <rect x="40" y="60" width="120" height="80" rx="10" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="4"/>
                     <g transform="translate(75, 70)">
@@ -137,10 +137,10 @@
                     <line x1="140" y1="75" x2="60" y2="125" stroke="#9CA3AF" stroke-width="4" stroke-linecap="round"/>
                 </svg>
 
- 
+
                     <h3 class="text-xl font-semibold text-gray-700 mb-2">Data Pesanan Kosong</h3>
                     <p class="text-gray-500 text-center mb-6 max-w-md">Tidak ada data pesanan yang tersedia</p>
-                    
+
                     <a href="{{ route('admin.adminhistory.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md flex items-center transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />

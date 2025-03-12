@@ -1,18 +1,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script>
-        // Set waktu refresh dalam milidetik (misalnya, 5000 ms = 5 detik)
-        
 
-        // Fungsi untuk melakukan refresh
-        function autoRefresh() {
-            setTimeout(() => {
-                location.reload();
-            }, refreshTime);
-        }
 
-        // Panggil fungsi saat halaman dimuat
-        window.onload = autoRefresh;
-    </script>
+</script>
+
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -541,7 +532,7 @@
                                     <p class="text-xl font-bold text-orange-600">
                                         Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
                                     </p>
-                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200  items-center justify-center">
                                         Detail
                                     </a>
                                 </div>
@@ -603,7 +594,7 @@
                                     <p class="text-xl font-bold text-orange-600">
                                         Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
                                     </p>
-                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 items-center justify-center">
                                         Detail
                                     </a>
                                 </div>
@@ -665,7 +656,7 @@
                                     <p class="text-xl font-bold text-orange-600">
                                         Rp: {{ number_format($tiket->harga_tiket, 0, ',', '.') }}
                                     </p>
-                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 flex items-center justify-center">
+                                    <a href="{{ route('product.show', $pop->konser->id) }}" class="inline-block bg-blue-700 text-white text-center py-2 px-7 rounded-md text-sm hover:bg-blue-800 transition duration-200 items-center justify-center">
                                         Detail
                                     </a>
                                 </div>
