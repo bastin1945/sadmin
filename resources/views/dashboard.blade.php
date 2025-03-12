@@ -1,4 +1,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        // Set waktu refresh dalam milidetik (misalnya, 5000 ms = 5 detik)
+        
+
+        // Fungsi untuk melakukan refresh
+        function autoRefresh() {
+            setTimeout(() => {
+                location.reload();
+            }, refreshTime);
+        }
+
+        // Panggil fungsi saat halaman dimuat
+        window.onload = autoRefresh;
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -231,29 +245,29 @@
         const larisSection = document.getElementById('laris-section');
         const rekomendasiSection = document.getElementById('rekomendasi-section');
         const emptyStateSection = document.getElementById('empty-state');
-        
+
         const populerItems = populerSection ? populerSection.querySelectorAll('.item-card').length : 0;
         const larisItems = larisSection ? larisSection.querySelectorAll('.item-card').length : 0;
         const rekomendasiItems = rekomendasiSection ? rekomendasiSection.querySelectorAll('.item-card').length : 0;
-        
+
         // Sembunyikan kategori yang tidak memiliki hasil
         if (populerItems === 0) {
             if (populerSection) populerSection.style.display = 'none';
         }
-        
+
         if (larisItems === 0) {
             if (larisSection) larisSection.style.display = 'none';
         }
-        
+
         if (rekomendasiItems === 0) {
             if (rekomendasiSection) rekomendasiSection.style.display = 'none';
         }
-        
+
         // Jika semua kategori kosong, tampilkan visualisasi data kosong
-        const isSearching = window.location.search.includes('name_konser=') || 
-                          window.location.search.includes('location_id=') || 
+        const isSearching = window.location.search.includes('name_konser=') ||
+                          window.location.search.includes('location_id=') ||
                           window.location.search.includes('start=');
-                          
+
         if (isSearching && populerItems === 0 && larisItems === 0 && rekomendasiItems === 0) {
             if (emptyStateSection) emptyStateSection.style.display = 'block';
         } else {
@@ -441,9 +455,9 @@
                 <!-- Tambahkan ini sebelum menampilkan kategori-kategori -->
 @php
     // Cek apakah sedang melakukan pencarian
-    $isSearching = request()->has('name_konser') || request()->has('location_id') || 
+    $isSearching = request()->has('name_konser') || request()->has('location_id') ||
                   (request()->has('start') && request()->has('end'));
-    
+
     // Cek jika tidak ada hasil dari pencarian
     $noResults = ($populer->count() == 0 && $sales->count() == 0 && $rekomend->count() == 0);
 @endphp
@@ -459,17 +473,17 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                 </div>
-                
+
                 <!-- Pesan tidak ada hasil -->
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">
                     Tidak ada hasil ditemukan
                 </h3>
-                
+
                 <!-- Deskripsi -->
                 <p class="text-base text-gray-600 mb-8">
                     Silakan coba dengan kata kunci lain atau ubah filter pencarian Anda
                 </p>
-                
+
                 <!-- Tombol reset -->
                 <a href="{{ route('dashboard') }}" class="flex items-center justify-center bg-blue-700 text-white px-6 py-3 rounded-md hover:bg-blue-800 transition duration-200">
                     <i class="fas fa-sync-alt mr-2"></i>
@@ -664,7 +678,7 @@
     </div>
     @endif
 @endif
-           
+
 
 
 
