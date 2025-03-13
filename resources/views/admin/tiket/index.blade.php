@@ -35,7 +35,7 @@
             </span>
             <form action="" method="get">
             <input id="search-input" class="w-32 pl-10 pr-4 rounded-full form-input sm:w-64 focus:border-indigo-600"
-            type="text" placeholder="Search for something" name="search" value="{{ request()->get('search') }}">
+            type="text" placeholder="Cari konser..." name="search" value="{{ request()->get('search') }}">
 
             </form>
         </div>

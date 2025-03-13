@@ -138,7 +138,7 @@
             <div class="input-container">
                 <label for="lokasi_penukaran">Lokasi penukaran tiket</label>
                 <input type="text" id="Lokasi_Penukaran" name="lokasi_penukaran" class="mt-4"
-                       placeholder="Masukan Jumlah Tiket" value="{{ old('jumlah_tiket') }}">
+                       placeholder="Lokasi penukaran tiket" value="{{ old('jumlah_tiket') }}">
                 @error('jumlah_tiket')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
