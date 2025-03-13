@@ -2336,31 +2336,116 @@ font-size: var(--normal-font-size);
       <a href="#choose"><i class="ri-arrow-down-double-line"></i></a>
     </div>
 
-    <section class="offer__container" id="offer">
-      <div class="offer__grid__top">
-         @foreach ($populer as $knsr)
-            <a href="{{ route('product.show', $knsr->konser->id) }}">
-                <img src="{{ asset('storage/' . $knsr->konser->image) }}" alt="{{ $knsr->konser->nama }}">
-            </a>
-        @endforeach
-        <div class="offer__content">
-          <h2 class="section__headeri">Jelajahi Konser</h2>
-          <p class="section__subheader">
-            Eksplor tiket konsermu sekarang hanya di vibestix
-
-          </p>
-
+<!-- Jelajahi Konser Section with reduced vertical spacing -->
+<div class="container mx-auto px-4 pt-32 pb-16">
+    <!-- Top section with grid layout -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <!-- Left column with heading -->
+        <div class="md:col-span-1 text-left">
+            <h2 class="text-4xl font-bold text-gray-900 text-left">Jelajahi Konser</h2>
+            <div class="h-4"></div>
+            <p class="text-base text-gray-600 mb-8 text-left">
+                Eksplor tiket konsermu sekarang <br>
+                hanya di vibestix
+            </p>
+            
+            <div class="text-left">
+                <a href="{{ route('product.index') }}" class="inline-block text-white px-8 py-3 rounded-full text-base font-medium transition duration-300" style="background-color: #241CE6;">
+                    Jelajahi Sekarang
+                </a>
+            </div>
         </div>
-      </div>
-
-      <div class="offer__grid__bottom">
-   @foreach ($konserr as $knsr)
-            <a href="{{ route('product.show', $knsr->id) }}">
-                <img src="{{ asset('storage/' . $knsr->image) }}" alt="{{ $knsr->nama }}">
-            </a>
-        @endforeach
+        
+        <!-- Right column with scrolling cards -->
+        <div class="md:col-span-2 overflow-hidden">
+            <div class="scroller flex gap-4 pb-4">
+                <!-- Original cards -->
+                @foreach ($populer as $index => $knsr)
+                    <a href="{{ route('product.show', $knsr->konser->id) }}" class="flex-none concert-card">
+                        <div class="{{ $index === 0 ? 'w-48 h-48' : 'w-48 h-48' }} relative overflow-hidden rounded-lg shadow-md transition-all duration-300">
+                            <img src="{{ asset('storage/' . $knsr->konser->image) }}" 
+                                 alt="{{ $knsr->konser->nama }}" 
+                                 class="w-full h-full object-cover">
+                            
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                                <div class="z-10 text-center">
+                                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+                                        <h3 class="text-white text-center font-bold">{{ $knsr->konser->nama }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+                
+                <!-- Duplicate cards for continuous scrolling -->
+                @foreach ($populer as $index => $knsr)
+                    <a href="{{ route('product.show', $knsr->konser->id) }}" class="flex-none concert-card">
+                        <div class="{{ $index === 0 ? 'w-48 h-48' : 'w-48 h-48' }} relative overflow-hidden rounded-lg shadow-md transition-all duration-300">
+                            <img src="{{ asset('storage/' . $knsr->konser->image) }}" 
+                                 alt="{{ $knsr->konser->nama }}" 
+                                 class="w-full h-full object-cover">
+                            
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+                                <div class="z-10 text-center">
+                                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+                                        <h3 class="text-white text-center font-bold">{{ $knsr->konser->nama }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
         </div>
-    </section>
+    </div>
+    
+</div>
+
+<style>
+    /* Continuous horizontal scrolling animation */
+    .scroller {
+        animation: scrollHorizontal 30s linear infinite;
+        min-width: 100%; /* Ensure it covers the full width */
+    }
+    
+    @keyframes scrollHorizontal {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(-50%); /* Move exactly half the distance to loop seamlessly */
+        }
+    }
+    
+    /* Pause animation on hover */
+    .scroller:hover {
+        animation-play-state: paused;
+    }
+    
+    /* Smooth hover effect for cards */
+    .concert-card {
+        transition: transform 0.3s ease;
+    }
+    
+    .concert-card:hover {
+        transform: scale(1.05);
+        z-index: 10;
+    }
+    
+    /* Hide scrollbar but keep functionality */
+    .overflow-x-auto::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .overflow-x-auto {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+    
     <div class="background-container">
     <img src="assets/bgpoly.png" alt="" class="bg-image">
 
