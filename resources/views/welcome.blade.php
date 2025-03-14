@@ -2335,22 +2335,21 @@ font-size: var(--normal-font-size);
       </p>
       <a href="#choose"><i class="ri-arrow-down-double-line"></i></a>
     </div>
-
-<!-- Jelajahi Konser Section with reduced vertical spacing -->
-<div class="container mx-auto px-4 pt-32 pb-16">
+<!-- Jelajahi Konser Section with improved responsiveness -->
+<div class="container mx-auto px-4 pt-16 sm:pt-24 md:pt-32 pb-8 sm:pb-12 md:pb-16">
     <!-- Top section with grid layout -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-16">
         <!-- Left column with heading -->
-        <div class="md:col-span-1 text-left">
-            <h2 class="text-4xl font-bold text-gray-900 text-left">Jelajahi Konser</h2>
-            <div class="h-4"></div>
-            <p class="text-base text-gray-600 mb-8 text-left">
+        <div class="md:col-span-1 text-center md:text-left mb-8 md:mb-0">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Jelajahi Konser</h2>
+            <div class="h-3 sm:h-4"></div>
+            <p class="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
                 Eksplor tiket konsermu sekarang <br>
                 hanya di vibestix
             </p>
             
-            <div class="text-left">
-                <a href="{{ route('product.index') }}" class="inline-block text-white px-8 py-3 rounded-full text-base font-medium transition duration-300" style="background-color: #241CE6;">
+            <div class="text-center md:text-left">
+                <a href="{{ route('product.index') }}" class="inline-block text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base font-medium transition duration-300" style="background-color: #241CE6;">
                     Jelajahi Sekarang
                 </a>
             </div>
@@ -2358,11 +2357,11 @@ font-size: var(--normal-font-size);
         
         <!-- Right column with scrolling cards -->
         <div class="md:col-span-2 overflow-hidden">
-            <div class="scroller flex gap-4 pb-4">
+            <div class="scroller flex gap-3 sm:gap-4 pb-4 overflow-x-auto">
                 <!-- Original cards -->
                 @foreach ($populer as $index => $knsr)
                     <a href="{{ route('product.show', $knsr->konser->id) }}" class="flex-none concert-card">
-                        <div class="{{ $index === 0 ? 'w-48 h-48' : 'w-48 h-48' }} relative overflow-hidden rounded-lg shadow-md transition-all duration-300">
+                        <div class="w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 relative overflow-hidden rounded-lg shadow-md transition-all duration-300">
                             <img src="{{ asset('storage/' . $knsr->konser->image) }}" 
                                  alt="{{ $knsr->konser->nama }}" 
                                  class="w-full h-full object-cover">
@@ -2370,8 +2369,8 @@ font-size: var(--normal-font-size);
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                                 <div class="z-10 text-center">
-                                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
-                                        <h3 class="text-white text-center font-bold">{{ $knsr->konser->nama }}</h3>
+                                    <div class="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-gradient-to-t from-black/70 to-transparent">
+                                        <h3 class="text-white text-center text-xs sm:text-sm md:text-base font-bold truncate px-1">{{ $knsr->konser->nama }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -2382,7 +2381,7 @@ font-size: var(--normal-font-size);
                 <!-- Duplicate cards for continuous scrolling -->
                 @foreach ($populer as $index => $knsr)
                     <a href="{{ route('product.show', $knsr->konser->id) }}" class="flex-none concert-card">
-                        <div class="{{ $index === 0 ? 'w-48 h-48' : 'w-48 h-48' }} relative overflow-hidden rounded-lg shadow-md transition-all duration-300">
+                        <div class="w-36 h-36 sm:w-40 sm:h-40 md:w-48 md:h-48 relative overflow-hidden rounded-lg shadow-md transition-all duration-300">
                             <img src="{{ asset('storage/' . $knsr->konser->image) }}" 
                                  alt="{{ $knsr->konser->nama }}" 
                                  class="w-full h-full object-cover">
@@ -2390,8 +2389,8 @@ font-size: var(--normal-font-size);
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div class="absolute inset-0 bg-black bg-opacity-50"></div>
                                 <div class="z-10 text-center">
-                                    <div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
-                                        <h3 class="text-white text-center font-bold">{{ $knsr->konser->nama }}</h3>
+                                    <div class="absolute bottom-0 left-0 right-0 p-2 sm:p-3 bg-gradient-to-t from-black/70 to-transparent">
+                                        <h3 class="text-white text-center text-xs sm:text-sm md:text-base font-bold truncate px-1">{{ $knsr->konser->nama }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -2401,7 +2400,6 @@ font-size: var(--normal-font-size);
             </div>
         </div>
     </div>
-    
 </div>
 
 <style>
@@ -2409,6 +2407,7 @@ font-size: var(--normal-font-size);
     .scroller {
         animation: scrollHorizontal 30s linear infinite;
         min-width: 100%; /* Ensure it covers the full width */
+        width: max-content; /* Ensure it fits all content */
     }
     
     @keyframes scrollHorizontal {
@@ -2443,6 +2442,15 @@ font-size: var(--normal-font-size);
     .overflow-x-auto {
         -ms-overflow-style: none;
         scrollbar-width: none;
+    }
+    
+    /* Media query for touch devices to improve experience */
+    @media (hover: none) {
+        .scroller {
+            animation-play-state: paused;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
     }
 </style>
     
